@@ -1,0 +1,131 @@
+# 🎭 Stock Roundtable
+
+6 大投资流派圆桌辩论引擎 —— 自动抓行情+财报，输出杂志级 HTML 报告。
+
+> Multi-agent debate engine: 6 investment schools analyze the same stock with real-time data. Magazine-grade HTML reports.
+
+---
+
+## 🎯 Demo
+
+| 股票 | 看点 · Highlight |
+|------|-----------------|
+| [中际旭创 (300308)](demos/中际旭创_圆桌辩论报告.html) | AI 光模块龙头，6 框架分裂（费雪 82 力挺 vs 格雷厄姆 0 淘汰） |
+| [九丰能源 (605090)](demos/九丰能源_圆桌辩论报告.html) | LNG 贸易商，6 框架一致看空（均分 39，穿透回报率 0.71%） |
+
+> 💡 下载 HTML 后在浏览器打开。GitHub 不渲染自定义 HTML。
+> 💡 *Download the HTML and open in your browser. GitHub doesn't render custom HTML.*
+
+---
+
+## 🏛️ 六大流派
+
+| 流派 | 来源 | 核心理念 |
+|------|------|----------|
+| 📐 **格雷厄姆** | 《聪明的投资者》 | 7 条量化硬标准：PE≤15 + PE×PB≤22.5 |
+| 🏰 **巴菲特** | 《致股东的信》 | 护城河 × 伊索三问 × 安全边际 |
+| 🔬 **费雪** | 《怎样选择成长股》 | 管理层质量 > 一切，15 条 checklist |
+| ⚡ **笨韭** | B 站 24.9 万粉 UP 主 | 现象级事件 → 景气轮动 → 笨韭双击 |
+| 📊 **莫大** | 雪球 2173 篇帖子 | 六维加权：预期差 × 不可替代 × 股价位置 |
+| 🐢 **龟龟** | B 站 35 万粉 UP 主 | 穿透回报率 + 烟蒂股，先守后攻 |
+
+完整方法论见 [`references/methodologies/`](references/methodologies/)。
+
+---
+
+## 🚀 快速开始
+
+### 作为 Hermes Skill 使用
+
+```bash
+# 安装
+hermes skills install https://raw.githubusercontent.com/cocodeemo/stock-roundtable/main/SKILL.md --name stock-roundtable
+
+# 对话中使用
+"分析一下九丰能源 605090"
+```
+
+Agent 会自动加载 6 大方法论，拉取实时数据，进行内联辩论并输出 HTML 报告。
+
+### 作为 CLI 工具独立运行
+
+```bash
+# 依赖
+pip install akshare
+
+# 配置 API key（taotoken.net 或其他 OpenAI 兼容接口）
+# ~/.hermes/config.yaml 或环境变量 TAOTOKEN_API_KEY
+
+# 运行
+cd scripts/
+python3 stock_debate.py 605090          # 九丰能源
+python3 stock_debate.py 300308          # 中际旭创
+python3 stock_debate.py 300308 --rounds 3  # 3 轮辩论
+```
+
+报告自动保存到桌面 `~/Desktop/report_<股票名>_<代码>_<日期>.html`。
+
+---
+
+## 📂 项目结构
+
+```
+stock-roundtable/
+├── SKILL.md                         # Hermes Skill 主指南
+├── scripts/
+│   ├── stock_debate.py              # 一行命令全流程（行情+财报+辩论+HTML）
+│   ├── demo.py                      # LLM 辩论引擎入口
+│   ├── engine.py                    # 核心辩论编排（底座无关，可插拔 runner）
+│   ├── roles.py                     # 6 大流派角色定义 + 自动选择
+│   └── html_report.py              # WorkBuddy 杂志级 HTML 渲染
+├── references/
+│   ├── methodologies/               # 6 大投资方法论完整原文
+│   │   ├── graham-methodology.md
+│   │   ├── buffett-methodology.md
+│   │   ├── fisher-methodology.md
+│   │   ├── benjiu-methodology.md
+│   │   ├── luohuitou-methodology.md
+│   │   ├── shiji-methodology.md
+│   │   ├── stock-analysis.md        # 六框架联合分析
+│   │   ├── market-screener.md       # 量化选股器
+│   │   └── data-collection/         # 原始数据采集工具（雪球/B站）
+│   ├── stock-investment-roles.md    # LLM 角色 prompt 定义
+│   ├── stock-role-output-formats.md # 强制评分输出格式
+│   ├── data-verification-checklist.md
+│   └── ...
+└── demos/                           # HTML 报告示例
+    ├── 中际旭创_圆桌辩论报告.html
+    └── 九丰能源_圆桌辩论报告.html
+```
+
+---
+
+## 🔍 数据校验
+
+每次分析自动进行多源交叉验证：
+
+| 检查项 | 数据源 A | 数据源 B | 阈值 |
+|--------|---------|---------|------|
+| PE(TTM) | 腾讯行情 | 东方财富 | >5% 警告, >10% 报错 |
+| 总市值 | 腾讯行情 | 东方财富 | >5% 警告, >10% 报错 |
+| 52 周高低 | 前复权 K 线 | — | 避免除权失真 |
+| 送转股 | 除权记录 | — | EPS/BPS/OCF 自动除权修正 |
+
+---
+
+## ⚙️ 平台支持
+
+| 平台 | 状态 |
+|------|------|
+| Linux (WSL) | ✅ 原生开发环境 |
+| macOS | ✅ 已验证（退出码 0） |
+| Windows | ⚠️ 未测试 |
+
+---
+
+<p align="center">
+  <sub>
+    ⚠️ 报告由 AI 自动生成，仅供参考，不构成投资建议。<br>
+    ⚠️ <em>AI-generated reports for reference only. Not investment advice.</em>
+  </sub>
+</p>
