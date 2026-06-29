@@ -58,9 +58,10 @@ pip install akshare
 
 # 运行
 cd scripts/
-python3 stock_debate.py 605090          # 九丰能源
-python3 stock_debate.py 300308          # 中际旭创
-python3 stock_debate.py 300308 --rounds 3  # 3 轮辩论
+python3 stock_debate.py 605090              # 九丰能源
+python3 stock_debate.py 300308              # 中际旭创
+python3 stock_debate.py 300308 --rounds 3   # 3 轮辩论
+python3 stock_debate.py 300308 --model deepseek-v4-pro  # 指定模型
 ```
 
 报告自动保存到桌面 `~/Desktop/report_<股票名>_<代码>_<日期>.html`。
@@ -110,6 +111,20 @@ stock-roundtable/
 | 总市值 | 腾讯行情 | 东方财富 | >5% 警告, >10% 报错 |
 | 52 周高低 | 前复权 K 线 | — | 避免除权失真 |
 | 送转股 | 除权记录 | — | EPS/BPS/OCF 自动除权修正 |
+
+---
+
+## 🧠 智能角色过滤
+
+并非所有流派都适用于每支股票。系统会根据数据特征自动跳过不适用的角色：
+
+| 条件 | 跳过角色 | 原因 |
+|------|---------|------|
+| PE > 50 或 营收 < 50 亿 | 📐 格雷厄姆 | 7 条量化硬标准必挂 |
+| PE > 100 且 ROE < 5% | 🐢 龟龟 | 穿透回报率必为 0 |
+| 营收 YoY > 30% 且 毛利率 > 50% | 📐 + 🐢 | 高增长股不适合防御型策略 |
+
+跳过的角色以琥珀色标注在 HTML 报告结论卡中。
 
 ---
 
