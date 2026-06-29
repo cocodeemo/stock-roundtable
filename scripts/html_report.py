@@ -9,7 +9,7 @@
         f.write(html)
 """
 
-import json
+import json, html
 from datetime import datetime
 from engine import DebateResult, RoundMessage
 
@@ -518,34 +518,33 @@ def _visualize_scores(html: str) -> str:
 
     # 2. 评分表格 → 带进度条的 score-table
     # 找 <table> 中含 "分数" 或 "评分" 或 "分值" 列头的表格
+
+    def _add_bar_to_row(row_match):
+        """给评分表格行添加进度条"""
+        row = row_match.group(0)
+        score_match = re.search(r'<td[^>]*>(?:<strong>)?([\d.]+)(?:</strong>)?</td>', row)
+        if not score_match:
+            return row
+        score = float(score_match.group(1))
+        bar_class = 'high' if score >= 70 else ('mid' if score >= 40 else 'low')
+        bar_html = ('<div class="score-bar-wrap">'
+                   '<span class="score-value">{}</span>'
+                   '<div class="score-bar"><div class="score-bar-fill {}" style="width:{}%;"></div></div>'
+                   '</div>').format(score, bar_class, min(score, 100))
+        return re.sub(
+            r'<td[^>]*>(?:<strong>)?[\d.]+(?:</strong>)?</td>',
+            '<td>{}</td>'.format(bar_html),
+            row,
+            count=1
+        )
+
     def convert_score_table(match):
         table_html = match.group(0)
         # 检查是否含分数列
         if not re.search(r'<th[^>]*>.*?(?:分数|评分|分值|得分).*?</th>', table_html):
             return table_html
 
-        # 给每行添加进度条
-        def add_bar_to_row(row_match):
-            row = row_match.group(0)
-            # 提取分数单元格（可能包在 <strong> 里）
-            score_match = re.search(r'<td[^>]*>(?:<strong>)?([\d.]+)(?:</strong>)?</td>', row)
-            if not score_match:
-                return row
-            score = float(score_match.group(1))
-            bar_class = 'high' if score >= 70 else ('mid' if score >= 40 else 'low')
-            bar_html = ('<div class="score-bar-wrap">'
-                       '<span class="score-value">{}</span>'
-                       '<div class="score-bar"><div class="score-bar-fill {}" style="width:{}%;"></div></div>'
-                       '</div>').format(score, bar_class, min(score, 100))
-            # Replace the score td with bar
-            return re.sub(
-                r'<td[^>]*>(?:<strong>)?[\d.]+(?:</strong>)?</td>',
-                '<td>{}</td>'.format(bar_html),
-                row,
-                count=1
-            )
-
-        table_html = re.sub(r'<tr>(?!<th).*?</tr>', add_bar_to_row, table_html)
+        table_html = re.sub(r'<tr>(?!<th).*?</tr>', _add_bar_to_row, table_html)
         return table_html.replace('<table>', '<table class="score-table">')
 
     html = re.sub(r'<table>.*?</table>', convert_score_table, html, flags=re.DOTALL)
@@ -597,6 +596,7 @@ def _build_comparison_table(transcript: list) -> str:
         if not m:
             m = re.search(r'\*\*总分\*\*[：:]\s*\*?\*?([\d.]+)\*?\*?\s*/?\s*100', content)
         # 5. 表格最后一行最后一列是数字（兜底）
+        _table_score = None
         if not m:
             for line in content.split('\n'):
                 if re.match(r'^\|.*\|\s*$', line) and not re.match(r'^\|[\s\-:]+\|', line):
@@ -607,7 +607,7 @@ def _build_comparison_table(transcript: list) -> str:
                             last = cells[-1].replace('**', '').strip()
                             v = float(last)
                             if 0 < v <= 100:
-                                m = type('m', (), {'group': lambda self, x=0: str(v)})()
+                                _table_score = v
                                 break
                         except ValueError:
                             # 倒数第二格（有时结论在最后一格）
@@ -615,13 +615,18 @@ def _build_comparison_table(transcript: list) -> str:
                                 try:
                                     v = float(cells[-2].replace('**', '').strip())
                                     if 0 < v <= 100:
-                                        m = type('m', (), {'group': lambda self, x=0: str(v)})()
+                                        _table_score = v
                                         break
                                 except ValueError:
                                     pass
 
+        score = None
         if m:
             score = float(m.group(1))
+        elif _table_score is not None:
+            score = float(_table_score)
+
+        if score is not None:
             # 提取结论行 —— 优先找「结论：」或「结论」
             conclusion = ""
             for pattern in [r'结论[：:]\s*(.+?)(?:\n|$)', r'建议(.+?)(?:\n|$)']:
@@ -762,7 +767,7 @@ def render_html(result: DebateResult, stock_data: dict = None) -> str:
     stock_data = stock_data or {}
     date_str = stock_data.get("date", datetime.now().strftime("%Y-%m-%d"))
     title_prefix = stock_data.get("title_prefix", "")
-    display_title = stock_data.get("display_title", d["question"])  # 短标题，用于 Hero/导航
+    display_title = html.escape(stock_data.get("display_title", d["question"]))  # 短标题，用于 Hero/导航
     short_q = _shorten_question(display_title)
     validation_errors = stock_data.get("validation_errors", [])
     validation_warnings = stock_data.get("validation_warnings", [])
@@ -778,7 +783,7 @@ def render_html(result: DebateResult, stock_data: dict = None) -> str:
     compare_html = _build_comparison_table(d.get("transcript", []))
 
     # 共识 & 建议
-    recommendation = d.get("recommendation", "")
+    recommendation = html.escape(d.get("recommendation", ""))
     consensus = d.get("consensus", "")
     confidence = d.get("confidence", 0.5)
 
@@ -842,12 +847,14 @@ def render_html(result: DebateResult, stock_data: dict = None) -> str:
 </section>"""
 
     # 组装完整 HTML
-    html = f"""<!DOCTYPE html>
+    full_html = f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title_prefix}圆桌辩论报告 · Hermes Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>{CSS}</style>
 </head>
@@ -931,7 +938,7 @@ def render_html(result: DebateResult, stock_data: dict = None) -> str:
 </body>
 </html>"""
 
-    return html
+    return full_html
 
 
 if __name__ == "__main__":

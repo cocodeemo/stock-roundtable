@@ -9,7 +9,7 @@
     python3 stock_debate.py 688270 --rounds 3
 """
 
-import sys, os, re, json, urllib.request, subprocess, time
+import sys, os, re, json, urllib.request, subprocess, time, math
 from datetime import datetime
 
 # ── 1. 获取实时行情 ──
@@ -18,9 +18,9 @@ def fetch_stock_quote(code: str) -> dict:
     """从腾讯行情 API 拉取实时数据，支持 A 股和港股"""
     # 判断交易所
     is_hk = False
-    if code.startswith(('6', '9')):
+    if len(code) == 6 and code.startswith(('6', '9')):
         full_code = f"sh{code}"
-    elif len(code) == 5 and code.startswith(('0', '3')):
+    elif len(code) == 6 and code.startswith(('0', '3')):
         full_code = f"sz{code}"
     else:
         # 港股：需要 hk 前缀，补齐 5 位
@@ -167,7 +167,6 @@ def fetch_eastmoney_quote(code: str) -> dict:
         secid = f"0.{code}"
 
     url = f"https://push2.eastmoney.com/api/qt/stock/get?secid={secid}&fields=f57,f58,f43,f46,f44,f45,f47,f48,f50,f51,f52,f116,f117,f162,f167,f168,f169,f170,f171"
-    import json, urllib.request
     try:
         req = urllib.request.Request(url, headers={
             'User-Agent': 'Mozilla/5.0', 'Referer': 'https://quote.eastmoney.com/'
@@ -254,7 +253,6 @@ def fetch_industry_context(quote: dict, fin: dict, api_key: str, api_base: str =
 
 {fin_text}"""
 
-    import json, urllib.request
     try:
         payload = {
             "model": "deepseek-v4-pro",
@@ -299,6 +297,7 @@ def fetch_financial_data(code: str) -> dict:
 
         def _parse(v):
             if v is None: return 0
+            if isinstance(v, float) and math.isnan(v): return 0
             if isinstance(v, (int, float)): return v
             s = str(v).replace(',', '').replace('%', '')
             if '亿' in s: return float(s.replace('亿', '')) * 1e8
@@ -563,6 +562,7 @@ def main():
         sys.exit(1)
 
     # 获取 API key（用 yaml.safe_load 而非正则）
+    cfg = None
     try:
         import yaml
         with open(os.path.expanduser('~/.hermes/config.yaml')) as f:
