@@ -15,10 +15,11 @@ import urllib.request
 import urllib.error
 
 from engine import DebateEngine, DebateConfig
+from roles import ROLES
 
 # ── LLM Runner：封装对 taotoken.net 的调用 ──
 
-API_BASE = "https://taotoken.net/api/v1"
+API_BASE = os.environ.get("TAOTOKEN_API_BASE", "https://taotoken.net/api/v1")
 API_KEY = os.environ.get("TAOTOKEN_API_KEY", os.environ.get("OPENAI_API_KEY", ""))
 
 DEBATE_MODEL = "deepseek-v4-pro"   # 辩论用 pro 模型，保证深度
@@ -150,7 +151,6 @@ def main():
 
 
 if __name__ == "__main__":
-    # 临时导入 roles 模块（当前目录已在 stock_debate.py 中 cd 到 scripts/）
+    # 确保当前目录在 sys.path（当前目录已在 stock_debate.py 中 cd 到 scripts/）
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from roles import ROLES
     main()

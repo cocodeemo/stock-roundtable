@@ -706,15 +706,17 @@ def _build_consensus_html(consensus: str) -> str:
 </div>"""
 
 
-def _build_validation_html(errors: list, warnings: list) -> str:
-    """渲染数据校验警告"""
-    if not errors and not warnings:
+def _build_validation_html(errors: list, warnings: list, skipped_roles: list = None) -> str:
+    """渲染数据校验警告 & 自动跳过的角色"""
+    if not errors and not warnings and not skipped_roles:
         return ""
     items = ""
     for e in errors:
         items += f'<div class="cc-validation-item">❌ {e}</div>'
     for w in warnings:
         items += f'<div class="cc-validation-item">⚠️ {w}</div>'
+    if skipped_roles:
+        items += '<div class="cc-validation-item" style="color:#f59e0b;">🔍 自动跳过: ' + ', '.join(skipped_roles) + '</div>'
     return f"""<div class="cc-validation">
   <div class="cc-validation-label">🔍 数据校验警告</div>
   {items}
@@ -764,6 +766,7 @@ def render_html(result: DebateResult, stock_data: dict = None) -> str:
     short_q = _shorten_question(display_title)
     validation_errors = stock_data.get("validation_errors", [])
     validation_warnings = stock_data.get("validation_warnings", [])
+    skipped_roles = stock_data.get("skipped_roles", [])
 
     # 快照
     snapshot_html = _render_snapshot(stock_data.get("snapshot", {}))
@@ -879,7 +882,7 @@ def render_html(result: DebateResult, stock_data: dict = None) -> str:
 
       {snapshot_html}
 
-      {_build_validation_html(validation_errors, validation_warnings)}
+      {_build_validation_html(validation_errors, validation_warnings, skipped_roles)}
 
       <div class="cc-headline-label">圆桌综合视角</div>
       <div class="cc-headline">{recommendation}</div>

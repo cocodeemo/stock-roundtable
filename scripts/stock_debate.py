@@ -216,7 +216,7 @@ def cross_validate(quote: dict, fin: dict, em: dict) -> tuple:
             print(f"   ✅ 市值一致: 腾讯{mc_tencent:.0f}亿 vs 东财{mc_em:.0f}亿")
 
     # PE 极端值 / PS 极端值
-    use_pe = pe_tencent or pe_em or pe_calc
+    use_pe = pe_tencent or pe_em or 0
     if use_pe > 200:
         warnings.append(f'PE {use_pe:.0f}x 极端高估')
     if fin and fin.get('revenue', 0) > 0:
@@ -229,8 +229,10 @@ def cross_validate(quote: dict, fin: dict, em: dict) -> tuple:
 
 # ── 1.6 获取产业链格局（v4-pro 生成行业背景）──
 
-def fetch_industry_context(quote: dict, fin: dict, api_key: str) -> str:
+def fetch_industry_context(quote: dict, fin: dict, api_key: str, api_base: str = None) -> str:
     """用 v4-pro 生成该股票的产业链位置、供需格局、竞争态势、近期催化"""
+    if api_base is None:
+        api_base = "https://taotoken.net/api/v1"
     name = quote.get('name', '')
     code = quote.get('code', '')
 
@@ -264,7 +266,7 @@ def fetch_industry_context(quote: dict, fin: dict, api_key: str) -> str:
             "max_tokens": 500,
         }
         req = urllib.request.Request(
-            "https://taotoken.net/api/v1/chat/completions",
+            f"{api_base}/chat/completions",
             data=json.dumps(payload).encode("utf-8"),
             headers={
                 "Content-Type": "application/json",
@@ -494,8 +496,8 @@ def build_snapshot(quote: dict, fin: dict = None) -> dict:
 
 # ── 5. 角色过滤 ──
 
-def filter_roles(quote: dict, fin: dict = None) -> list[str]:
-    """根据股票特征过滤不合适的投资流派"""
+def filter_roles(quote: dict, fin: dict = None) -> tuple[list[str], list[str]]:
+    """根据股票特征过滤不合适的投资流派，返回 (roles, skipped)"""
     from roles import STOCK_INVESTMENT_ROLES
     roles = list(STOCK_INVESTMENT_ROLES)
     skipped = []
@@ -519,9 +521,18 @@ def filter_roles(quote: dict, fin: dict = None) -> list[str]:
             roles.remove('shiji')
             skipped.append('🐢龟龟(无分红+超高PE)')
 
+    # 高增长股天然不适合格雷厄姆和龟龟（防御型价值 / 高股息策略）
+    if is_growth:
+        if 'graham' in roles:
+            roles.remove('graham')
+            skipped.append('📐格雷厄姆(高增长股不适用)')
+        if 'shiji' in roles:
+            roles.remove('shiji')
+            skipped.append('🐢龟龟(高增长股不适用)')
+
     if skipped:
         print(f"   🔍 自动跳过: {', '.join(skipped)}")
-    return roles
+    return roles, skipped
 
 
 # ── 6. 主流程 ──
@@ -606,6 +617,29 @@ def main():
         print("❌ 未找到 API key")
         sys.exit(1)
 
+    # 提取 api_base（与 api_key 读取方式一致）
+    api_base = None
+    try:
+        if isinstance(cfg, dict):
+            for key in ['api_base', 'base_url']:
+                if key in cfg and cfg[key]:
+                    api_base = str(cfg[key])
+                    break
+            if not api_base and 'custom_providers' in cfg:
+                cp = cfg['custom_providers']
+                items = cp if isinstance(cp, list) else cp.values()
+                for p in items:
+                    if isinstance(p, dict) and p.get('base_url'):
+                        api_base = str(p['base_url'])
+                        break
+            if not api_base and 'providers' in cfg:
+                for p in cfg['providers'].values():
+                    if isinstance(p, dict) and p.get('base_url'):
+                        api_base = str(p['base_url'])
+                        break
+    except Exception:
+        pass
+
     # 拉行情
     print(f"📡 获取 {code} 实时行情...")
     quote = fetch_stock_quote(code)
@@ -660,12 +694,12 @@ def main():
         print(f"   ✅ 数据校验通过（三方一致）")
 
     # 过滤角色
-    roles = filter_roles(quote, fin)
+    roles, skipped_roles = filter_roles(quote, fin)
     roles_arg = ','.join(roles)
     print(f"   🎭 参与角色({len(roles)}): {roles_arg}")
 
     # 拉产业链格局
-    industry_context = fetch_industry_context(quote, fin, api_key)
+    industry_context = fetch_industry_context(quote, fin, api_key, api_base)
 
     # 构造问题
     question = build_question(quote, fin, company_profile, industry_context)
@@ -681,7 +715,8 @@ def main():
     result = subprocess.run(
         [sys.executable, 'demo.py', question, '--roles', roles_arg, '--rounds', str(custom_rounds)],
         capture_output=True, text=True, timeout=900,
-        env={**os.environ, 'TAOTOKEN_API_KEY': api_key, 'OPENAI_API_KEY': api_key},
+        env={**os.environ, 'TAOTOKEN_API_KEY': api_key, 'OPENAI_API_KEY': api_key,
+             'TAOTOKEN_API_BASE': api_base or 'https://taotoken.net/api/v1'},
     )
 
     elapsed = time.time() - t0
@@ -716,6 +751,7 @@ def main():
         'snapshot': snapshot,
         'validation_errors': validation_errors,
         'validation_warnings': validation_warnings,
+        'skipped_roles': skipped_roles,
     })
 
     date_tag = datetime.now().strftime('%Y%m%d')

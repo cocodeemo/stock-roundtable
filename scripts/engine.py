@@ -112,6 +112,7 @@ class DebateResult:
                 {
                     "role": m.role,
                     "role_name": m.role_name,
+                    "emoji": m.emoji,
                     "round": m.round_num,
                     "content": m.content,
                 }
