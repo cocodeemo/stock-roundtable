@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>九丰能源 · 圆桌辩论报告 · Hermes Agent</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #F7F5F3; --bg-secondary: #FFFFFF; --bg-card: #FFFFFF;
+  --bg-elevated: #FAFAF9; --bg-warm: #F5F2EE; --bg-dark: #2D2926;
+  --text-primary: #2D2926; --text-secondary: #5C5652;
+  --text-muted: #8A8480; --text-light: #A8A29E;
+  --accent: #D97706; --accent-light: #FEF3C7; --accent-hover: #B45309;
+  --border: #E5E2DE; --border-light: #F0EEEC;
+  --red: #DC2626; --green: #059669; --gold: #D97706; --blue: #2563EB;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', Georgia, serif;
+  background: var(--bg-primary); color: var(--text-primary);
+  line-height: 1.8; font-size: 16px; -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: inherit; font-weight: 600; letter-spacing: 0.02em; }
+
+.section-head {
+  max-width: 1100px; display: grid; grid-template-columns: 120px 1fr;
+  gap: 32px; align-items: baseline; margin: 0 auto 48px; padding: 0 48px;
+}
+.section-num {
+  font-size: 0.9rem; color: var(--accent); letter-spacing: 0.15em;
+  border-top: 1px solid var(--accent); padding-top: 8px;
+}
+.section-title { font-size: 2rem; }
+.section-lede { color: var(--text-muted); margin-top: 6px; font-size: 1rem; }
+section { padding: 72px 0; }
+
+/* Nav */
+nav {
+  position: sticky; top: 0; z-index: 100; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; background: rgba(247,245,243,0.85);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light);
+}
+.nav-logo { font-weight: 600; font-size: 1rem; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { color: var(--text-secondary); font-size: 0.95rem; text-decoration: none; }
+.nav-links a:hover { color: var(--accent); }
+
+/* Hero */
+.hero { max-width: 1100px; margin: 0 auto; padding: 96px 48px 48px; }
+.kicker { color: var(--accent); font-size: 0.9rem; letter-spacing: 0.15em; font-weight: 500; margin-bottom: 24px; }
+.hero h1 { font-size: 3rem; line-height: 1.25; margin-bottom: 24px; max-width: 900px; }
+.hero-dek { max-width: 760px; font-size: 1.15rem; color: var(--text-secondary); line-height: 1.9; margin-bottom: 40px; }
+
+/* Conclusion Card */
+.conclusion-wrap { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+.conclusion-card {
+  padding: 40px 48px; background: var(--bg-card); border: 1px solid var(--border);
+  border-left: 6px solid var(--accent); border-radius: 20px;
+  box-shadow: 0 4px 28px rgba(217, 119, 6, 0.06);
+}
+.cc-question {
+  font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.05em;
+  margin-bottom: 8px; text-transform: uppercase;
+}
+.cc-question-text {
+  font-size: 1.4rem; font-weight: 600; color: var(--text-primary);
+  margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px dashed var(--border);
+}
+.cc-question-text::before { content: "「"; color: var(--accent); }
+.cc-question-text::after { content: "」"; color: var(--accent); }
+
+.cc-snapshot { margin-bottom: 32px; }
+.cc-snapshot-label {
+  font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.18em;
+  font-weight: 600; margin-bottom: 14px; text-transform: uppercase;
+}
+.cc-snapshot-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--bg-elevated); border: 1px solid var(--border-light);
+  border-radius: 12px; overflow: hidden;
+}
+.cc-snap-cell {
+  padding: 16px 20px; border-right: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light); background: var(--bg-elevated);
+}
+.cc-snap-cell:nth-child(4n) { border-right: none; }
+.cc-snap-cell:nth-last-child(-n+4) { border-bottom: none; }
+.cc-snap-cell-label { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 6px; }
+.cc-snap-cell-value { font-size: 1.4rem; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.cc-snap-cell-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.cc-snap-up { color: var(--red); }
+.cc-snap-down { color: var(--green); }
+
+.cc-headline-label {
+  font-size: 0.8rem; color: var(--accent); letter-spacing: 0.2em;
+  font-weight: 600; margin-bottom: 14px; text-transform: uppercase;
+}
+.cc-headline {
+  font-size: 1.15rem; font-weight: 500; color: var(--text-primary);
+  letter-spacing: 0.01em; line-height: 1.75;
+  margin-bottom: 32px; padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.cc-headline strong { font-weight: 700; }
+.cc-headline em { font-style: normal; font-weight: 700; color: var(--red); }
+
+.cc-vote {
+  display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+  padding-top: 20px; border-top: 1px dashed var(--border);
+}
+.cc-vote-label { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.05em; }
+.cc-vote-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.85rem; color: var(--text-secondary);
+  padding: 4px 12px; background: var(--bg-elevated); border-radius: 999px;
+  border: 1px solid var(--border-light);
+}
+.cc-vote-tag .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* Six-framework comparison */
+.compare-table {
+  width: 100%; border-collapse: collapse; margin: 24px 0;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden; font-variant-numeric: tabular-nums;
+}
+.compare-table th {
+  background: var(--bg-warm); color: var(--text-muted);
+  font-size: 0.82rem; padding: 12px 14px; text-align: center;
+  letter-spacing: 0.04em; border-bottom: 2px solid var(--accent);
+}
+.compare-table td {
+  padding: 10px 14px; text-align: center; border-bottom: 1px solid var(--border-light);
+  font-size: 0.95rem;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-score { font-weight: 700; font-size: 1.1rem; }
+.compare-score.high { color: var(--green); }
+.compare-score.mid { color: var(--accent); }
+.compare-score.low { color: var(--red); }
+.compare-verdict {
+  padding: 2px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+}
+.compare-verdict.buy { background: #DCFCE7; color: #166534; }
+.compare-verdict.hold { background: #FEF3C7; color: #92400E; }
+.compare-verdict.sell { background: #FEE2E2; color: #991B1B; }
+
+/* Confidence bar */
+.cc-confidence { margin-bottom: 28px; }
+.cc-confidence-bar {
+  height: 8px; background: var(--border-light); border-radius: 4px;
+  margin-top: 8px; overflow: hidden;
+}
+.cc-confidence-fill {
+  height: 100%; background: linear-gradient(90deg, var(--accent), var(--green));
+  border-radius: 4px; transition: width 0.5s;
+}
+
+/* Voice Cards */
+.voice-stack {
+  max-width: 1100px; margin: 0 auto; padding: 0 48px;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.voice-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px 36px; min-width: 0;
+}
+.voice-head {
+  display: flex; align-items: center; gap: 12px;
+  padding-bottom: 16px; margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+.voice-emoji { width: 48px; height: 48px; border-radius: 50%;
+  background: var(--bg-warm); display: flex; align-items: center;
+  justify-content: center; font-size: 1.5rem; border: 2px solid var(--border);
+}
+.voice-name { font-weight: 600; font-size: 1.1rem; flex: 1; }
+.voice-round { font-size: 0.8rem; color: var(--text-muted); }
+.voice-card p { margin-bottom: 14px; line-height: 1.85; color: var(--text-secondary); }
+.voice-card strong { color: var(--text-primary); font-weight: 600; }
+.voice-card em { font-style: normal; font-weight: 600; color: var(--accent); }
+.voice-card .pull-quote {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 16px;
+  margin: 16px 0; color: var(--text-secondary); font-style: italic;
+}
+
+/* ===== Score Visualization ===== */
+.score-table {
+  width: 100%; border-collapse: collapse; margin: 16px 0;
+  background: var(--bg-elevated); border-radius: 12px;
+  overflow: hidden; border: 1px solid var(--border-light);
+}
+.score-table th {
+  background: var(--bg-warm); color: var(--text-muted);
+  font-size: 0.82rem; font-weight: 500; padding: 10px 14px;
+  text-align: left; letter-spacing: 0.04em;
+}
+.score-table td { padding: 10px 14px; border-bottom: 1px solid var(--border-light); vertical-align: middle; }
+.score-table tr:last-child td { border-bottom: none; }
+.score-bar-wrap { display: flex; align-items: center; gap: 8px; min-width: 120px; }
+.score-bar {
+  flex: 1; height: 6px; background: var(--border-light); border-radius: 3px; overflow: hidden;
+}
+.score-bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+.score-bar-fill.high { background: var(--green); }
+.score-bar-fill.mid { background: var(--accent); }
+.score-bar-fill.low { background: var(--red); }
+.score-value { font-weight: 600; font-size: 0.9rem; min-width: 36px; text-align: right; font-variant-numeric: tabular-nums; }
+.score-total {
+  display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+  background: var(--bg-warm); border-radius: 12px; margin: 12px 0;
+  border: 2px solid var(--accent);
+}
+.score-total-label { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.06em; }
+.score-total-value { font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.score-total-grade {
+  padding: 4px 14px; border-radius: 999px; font-size: 0.9rem; font-weight: 600;
+}
+.score-total-grade.top { background: #DCFCE7; color: #166534; }
+.score-total-grade.good { background: #E0F2FE; color: #075985; }
+.score-total-grade.ok { background: #FEF3C7; color: #92400E; }
+.score-total-grade.bad { background: #FEE2E2; color: #991B1B; }
+.score-total-grade.skip { background: #F3F4F6; color: #6B7280; }
+
+.checklist { margin: 12px 0; }
+.check-item {
+  display: flex; align-items: center; gap: 8px; padding: 6px 0;
+  font-size: 0.95rem;
+}
+.check-pass { color: var(--green); font-weight: 600; }
+.check-fail { color: var(--red); font-weight: 600; }
+.check-warn { color: var(--accent); font-weight: 600; }
+
+/* Risk Table */
+.risk-wrap { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+.risk-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; font-variant-numeric: tabular-nums;
+}
+.risk-table th, .risk-table td {
+  padding: 18px 22px; text-align: left;
+  border-bottom: 1px solid var(--border-light); vertical-align: top;
+}
+.risk-table tr:last-child td { border-bottom: none; }
+.risk-table th {
+  background: var(--bg-elevated); color: var(--text-muted);
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Disputes */
+.dispute-stack { max-width: 1100px; margin: 0 auto; padding: 0 48px; display: flex; flex-direction: column; gap: 16px; }
+.dispute-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px 28px;
+  display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: baseline;
+}
+.dispute-num { font-size: 1.6rem; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1; opacity: 0.6; }
+.dispute-body h4 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text-primary); }
+.dispute-body p { font-size: 0.98rem; line-height: 1.85; color: var(--text-secondary); margin: 0 0 8px; }
+
+/* Footer */
+footer { background: var(--bg-dark); color: var(--text-light); padding: 48px; text-align: center; margin-top: 72px; }
+footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
+.footer-sub { margin-top: 16px; font-size: 0.8rem; color: var(--text-light); opacity: 0.7; }
+
+@media (max-width: 900px) {
+  .voice-stack, .risk-wrap, .dispute-stack, .conclusion-wrap { padding-left: 24px; padding-right: 24px; }
+  .hero { padding-left: 24px; padding-right: 24px; }
+  .conclusion-card { padding: 28px 24px; }
+  .cc-headline { font-size: 1.05rem; line-height: 1.7; }
+  .cc-snapshot-grid { grid-template-columns: repeat(2, 1fr); }
+  .cc-snap-cell:nth-child(4n) { border-right: 1px solid var(--border-light); }
+  .cc-snap-cell:nth-child(2n) { border-right: none; }
+  .cc-snap-cell:nth-last-child(-n+4) { border-bottom: 1px solid var(--border-light); }
+  .cc-snap-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .hero h1 { font-size: 2.2rem; }
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .voice-card { padding: 24px; }
+  .dispute-card { padding: 20px; grid-template-columns: 1fr; gap: 8px; }
+  .risk-table th, .risk-table td { padding: 14px 14px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo">🎭 九丰能源 · 圆桌辩论</a>
+  <div class="nav-links">
+    <a href="#conclusion">结论</a>
+    <a href="#voices">视角</a>
+    <a href="#conflicts">分歧</a>
+    <a href="#risks">风险</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="kicker">ROUND TABLE · 2026-06-29 · Hermes 多 Agent 辩论引擎</div>
+  <h1>九丰能源(605090)是否值得持有？</h1>
+  <div class="hero-dek">6 位专家多轮交叉辩论——2 轮互相引用反驳，全方位审视，综合置信度 72%</div>
+</section>
+
+<section id="conclusion">
+  <div class="section-head">
+    <div class="section-num">01 · 结论</div>
+    <div><h2>圆桌怎么看</h2><p class="section-lede">多视角交叉验证后的综合判断</p></div>
+  </div>
+  <div class="conclusion-wrap">
+    <div class="conclusion-card">
+
+      <div class="cc-question">YOU ASKED</div>
+      <div class="cc-question-text">九丰能源(605090)是否值得持有？</div>
+
+      <div class="cc-snapshot">
+  <div class="cc-snapshot-label">当前关键数据</div>
+  <div class="cc-snapshot-grid"><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">九丰能源(605090)</div>
+  <div class="cc-snap-cell-value">35.04</div>
+  <div class="cc-snap-cell-sub cc-snap-up">+2.67%</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">PE(TTM)</div>
+  <div class="cc-snap-cell-value">17.57x</div>
+  <div class="cc-snap-cell-sub "></div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">总市值</div>
+  <div class="cc-snap-cell-value">247.35亿</div>
+  <div class="cc-snap-cell-sub "></div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">52周区间</div>
+  <div class="cc-snap-cell-value">55.08</div>
+  <div class="cc-snap-cell-sub ">最低24.73</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">2025全年营收</div>
+  <div class="cc-snap-cell-value">202.69亿</div>
+  <div class="cc-snap-cell-sub cc-snap-down">同比-8.06%</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">2025净利润</div>
+  <div class="cc-snap-cell-value">14.80亿</div>
+  <div class="cc-snap-cell-sub cc-snap-down">同比-12.11%</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">毛利率/ROE</div>
+  <div class="cc-snap-cell-value">10.35%</div>
+  <div class="cc-snap-cell-sub ">ROE 14.73%</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">经营现金流/股</div>
+  <div class="cc-snap-cell-value">2.32元</div>
+  <div class="cc-snap-cell-sub ">含金量极高✅</div>
+</div>
+  </div>
+</div>
+
+      <div class="cc-headline-label">圆桌综合视角</div>
+      <div class="cc-headline"><strong>六框架一致看空，均分仅39分，无一推荐持有。</strong><br><br>核心问题：①毛利率10%太低，缺乏护城河和定价权；②营收利润双降趋势未扭转；③当前价格无安全边际——PE 17.57x对低毛利贸易公司不便宜，穿透回报率0.71%不如银行存款。<br><br><em>唯一亮点</em>：财务质量极高——OCF>EPS、应收仅6.5天、负债率27%、流动比率2.48。如果未来分红率大幅提升或LNG景气反转，值得重新评估。</div>
+
+      <div class="cc-confidence">
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:var(--text-muted);">
+          <span>综合置信度</span><span>72%</span>
+        </div>
+        <div class="cc-confidence-bar"><div class="cc-confidence-fill" style="width:72%;"></div></div>
+      </div>
+
+      <div class="cc-vote">
+        <span class="cc-vote-label">参与方：</span>
+        <span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>📐格雷厄姆</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🏰巴菲特</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🔬费雪</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>⚡笨韭</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>📊莫大</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🐢龟龟</span>
+        <span class="cc-vote-tag"><span class="dot" style="background:var(--blue)"></span>2 轮辩论</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="voices">
+  <div class="section-head">
+    <div class="section-num">02 · 视角</div>
+    <div>
+      <div class="section-title">6 方怎么看</div>
+      <div class="section-lede">每位从自己的角色立场独立诊断——想看完整推理的人来这里</div>
+    </div>
+  </div>
+  <div class="voice-stack">
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:20px 28px;">
+  <h4 style="margin-bottom:12px;color:var(--text-primary);">📊 六框架评分对比</h4>
+  <table class="compare-table">
+    <thead><tr><th style="text-align:left;">流派</th><th>评分</th><th>立场</th><th style="text-align:left;">结论</th></tr></thead>
+    <tbody><tr>
+  <td style="text-align:left;font-weight:600;">📐 格雷厄姆派</td>
+  <td><span class="compare-score low">10</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">这不是深度价值标的。格雷厄姆绝不会碰。**</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">🏰 巴菲特派</td>
+  <td><span class="compare-score mid">48</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">毛利率10%的贸易公司配不上"伟大企业"四个字。不买。**</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">🔬 费雪派</td>
+  <td><span class="compare-score mid">41</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">正在萎缩的公司不是成长股。费雪的第一要求就是成长，九丰不满足。**</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">⚡ 笨韭派</td>
+  <td><span class="compare-score mid">46</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">既无产业拐点也无企业拐点。笨韭双击一个都不满足。不碰。**</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">📊 莫大派</td>
+  <td><span class="compare-score mid">42</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">莫大只看"绕不过去的物理瓶颈"——九丰的接收站不是唯一的，预期差不存在。**</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">🐢 龟龟派</td>
+  <td><span class="compare-score mid">48</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">龟龟要的是"公司给我发钱"。0.71%穿透回报率十年回不了本——不持有。**</td>
+</tr></tbody>
+  </table>
+</div>
+    <article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">📐</div>
+    <div class="voice-name">📐 格雷厄姆派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：被PE和PE×PB双杀，直接淘汰。</strong></p>
+
+<p>7条硬标准逐条检查：</p>
+
+<table><tr><th>准则</th><th>判定</th><th>当前值</th></tr><tr><td>营收 ≥ 50亿</td><td>✅</td><td>202.69亿</td></tr><tr><td>流动比率 ≥ 2</td><td>✅</td><td>2.48</td></tr><tr><td>10年未亏损</td><td>❓</td><td>2021年上市</td></tr><tr><td>连续20年分红</td><td>❌</td><td>仅4年</td></tr><tr><td>PE ≤ 15</td><td>❌</td><td>17.57x</td></tr><tr><td>PE×PB ≤ 22.5</td><td>❌</td><td>38.62</td></tr></table>
+
+<p>核心两条全挂。PE 17.57x 超出上限 17%，PE×PB 38.62 是上限 22.5 的 1.7 倍。</p>
+
+<p><strong>总分：<span style="font-weight:700;font-size:1.1em;">10</span>/100分</strong> → 🚫 淘汰</p>
+
+<p><strong>结论：这不是深度价值标的。格雷厄姆绝不会碰。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🏰</div>
+    <div class="voice-name">🏰 巴菲特派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：护城河太窄，不是"伟大企业"。</strong></p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>护城河 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>LNG接收站有审批壁垒，但非独家。低毛利(10%)大宗商品贸易无定价权</td></tr><tr><td>伊索三问 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">45.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:45.0%;"></div></div></div></td><td>天然气需求长期向上但增长确定性低——该公司营收利润正在下降</td></tr><tr><td>管理层 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>经营稳健、持续分红，无显著负面</td></tr><tr><td>安全边际 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>PE 17.57x对低毛利贸易公司不便宜，PB 2.2x无深度折扣</td></tr><tr><td>能力圈 (10%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>能源行业可理解</td></tr></table>
+
+<p><strong>总分：47.<span style="font-weight:700;font-size:1.1em;">5</span>/100分</strong></p>
+
+<p><strong>结论：毛利率10%的贸易公司配不上"伟大企业"四个字。不买。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🔬</div>
+    <div class="voice-name">🔬 费雪派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：营收利润双降，完全不符合成长股定义。</strong></p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>管理层 (35%)</td><td><div class="score-bar-wrap"><span class="score-value">55.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:55.0%;"></div></div></div></td><td>运营稳健但无费雪式创新和坦诚沟通的证据</td></tr><tr><td>成长空间 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">35.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:35.0%;"></div></div></div></td><td>2025营收-8%，2026 Q1营收-18%。在市场增长时却在萎缩</td></tr><tr><td>竞争优势 (20%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>接收站有壁垒但不强势，贸易业务随时可被替代</td></tr><tr><td>利润率 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">30.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:30.0%;"></div></div></div></td><td>毛利率10.35%极低，行业竞争激烈</td></tr></table>
+
+<p><strong>总分：41.<span style="font-weight:700;font-size:1.1em;">25</span>/100分</strong></p>
+
+<p><strong>结论：正在萎缩的公司不是成长股。费雪的第一要求就是成长，九丰不满足。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">⚡</div>
+    <div class="voice-name">⚡ 笨韭派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：无现象级事件，无景气拐点，无笨韭双击信号。</strong></p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>景气度 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>天然气行业平稳，没有爆发性增长。气价低位，贸易利润承压</td></tr><tr><td>业务纯度 (25%)</td><td><div class="score-bar-wrap"><span class="score-value">75.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:75.0%;"></div></div></div></td><td>LNG是核心业务，纯度高</td></tr><tr><td>估值水位 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">50.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:50.0%;"></div></div></div></td><td>距52周高-36%，距低+42%，中位区间</td></tr><tr><td>催化剂 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">25.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:25.0%;"></div></div></div></td><td>无现象级事件驱动——双碳政策2020年就说了，时效性已过</td></tr></table>
+
+<p><strong>总分：46.<span style="font-weight:700;font-size:1.1em;">25</span>/100分</strong></p>
+
+<p><strong>结论：既无产业拐点也无企业拐点。笨韭双击一个都不满足。不碰。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">📊</div>
+    <div class="voice-name">📊 莫大派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：不是资源瓶颈型标的，预期差不存在。</strong></p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>预期差 (18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">30.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:30.0%;"></div></div></div></td><td>市场对天然气贸易商定价合理，17.57x PE对应低增长合理</td></tr><tr><td>供给弹性 (12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">55.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:55.0%;"></div></div></div></td><td>LNG接收站审批+建设2-5年，有供给刚性</td></tr><tr><td>需求刚性 (12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">50.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:50.0%;"></div></div></div></td><td>过渡能源非不可替代（煤/油/电均可替代）</td></tr><tr><td>不可替代性 (18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>民营LNG牌照有价值但非独家——广汇、新奥都有</td></tr><tr><td>周期位置 (12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">35.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:35.0%;"></div></div></div></td><td>气价下行周期，利润承压，未见底</td></tr><tr><td>股价位置 (25%)</td><td><div class="score-bar-wrap"><span class="score-value">45.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:45.0%;"></div></div></div></td><td>距前高已跌36%，中位偏低。不算便宜也非大底</td></tr></table>
+
+<p><strong>总分：41.<span style="font-weight:700;font-size:1.1em;">88</span>/100分</strong></p>
+
+<p><strong>结论：莫大只看"绕不过去的物理瓶颈"——九丰的接收站不是唯一的，预期差不存在。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🐢</div>
+    <div class="voice-name">🐢 龟龟派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：穿透回报率仅0.71%，不如存银行。</strong></p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>商业模式 (35%)</td><td><div class="score-bar-wrap"><span class="score-value">42.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:42.0%;"></div></div></div></td><td>LNG贸易+接收站，有资产但毛利率10%极低，变量多(气价/汇率/政策)</td></tr><tr><td>穿透回报率 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">20.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:20.0%;"></div></div></div></td><td>最新10派2.5元÷35.04元=0.71%。即使按2025全年分红12.3元/10股也仅3.5%，取最低值惨不忍睹</td></tr><tr><td>可支配现金 (20%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>OCF(2.32)>EPS(2.27)，应收仅6.5天。利润含金量极高✅</td></tr><tr><td>分红记录 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">55.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:55.0%;"></div></div></div></td><td>上市以来持续分红但历史短(4年)，最新分红大幅削减</td></tr></table>
+
+<p><strong>总分：47.<span style="font-weight:700;font-size:1.1em;">95</span>/100分</strong></p>
+
+<p><strong>结论：龟龟要的是"公司给我发钱"。0.71%穿透回报率十年回不了本——不持有。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">📐</div>
+    <div class="voice-name">📐 格雷厄姆派</div>
+    <div class="voice-round">第 2 轮</div>
+  </div>
+  <div><p><strong>@🐢龟龟：你的穿透回报率算得对，但九丰OCF含金量极高(80分)。如果分红比例提升到50%，穿透回报率立刻跳到~3.2%。你不认这个弹性？</strong></p>
+
+<p>另外@🔬费雪：你说我太死板。PE 17.57本就超出15的上限，PE×PB 38.62是22.5的1.7倍。深度价值不讲"但"——规则就是规则，破了就该淘汰。</p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🐢</div>
+    <div class="voice-name">🐢 龟龟派</div>
+    <div class="voice-round">第 2 轮</div>
+  </div>
+  <div><p><strong>@📐格雷厄姆：分红比例提升不是我能控制的。</strong></p>
+
+<p>关键事实：管理层去年分了12.31元/10股（含中期），今年降到2.5元——他们在降分红，不是提。我必须按最低值算穿透回报率。</p>
+
+<p>管理层如果不愿意分钱，穿透回报率永远不会改善。这是致命的结构性问题，不是周期性波动。</p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🏰</div>
+    <div class="voice-name">🏰 巴菲特派</div>
+    <div class="voice-round">第 2 轮</div>
+  </div>
+  <div><p><strong>@⚡笨韭和@📊莫大：你们都在讨论短期景气。但我关心的是东莞接收站的隐含价值。</strong></p>
+
+<p>如果接收站账面值远低于重置成本（年周转150万吨，重置成本可能数十亿），那PB 2.2x可能有隐性安全边际。但缺乏公开数据支撑——这就是能力圈的边界。</p>
+
+<p>我不会在数据不足时下注。<strong>结论：等待更多信息披露，但现在不是买入时机。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">⚡</div>
+    <div class="voice-name">⚡ 笨韭派</div>
+    <div class="voice-round">第 2 轮</div>
+  </div>
+  <div><p><strong>@🏰巴菲特：双碳政策不是新东西，2020年就说过了——时效性已过。</strong></p>
+
+<p>第一次讲值钱，后面只是情绪扰动。天然气没有ChatGPT那种爆发力。真正的现象级事件是"所有人突然意识到某样东西不够用了"——天然气从来没有出现过这种时刻。</p></div>
+</article>
+  </div>
+</section>
+
+
+<section id="conflicts">
+  <div class="section-head">
+    <div class="section-num">03 · 分歧</div>
+    <div>
+      <div class="section-title">核心分歧</div>
+      <div class="section-lede">各方未能达成一致的焦点问题</div>
+    </div>
+  </div>
+  <div class="dispute-stack">
+    <article class="dispute-card">
+  <div class="dispute-num">01</div>
+  <div class="dispute-body">
+    <h4>PE 17.57x是否合理</h4>
+    <p><strong>📐格雷厄姆</strong>：超出15倍上限17%，规则就是规则，必须淘汰</p><p><strong>🏰巴菲特</strong>：对低毛利贸易公司偏贵，但如果有隐性资产（接收站），可能有折价</p><p><strong>🐢龟龟</strong>：PE不重要——穿透回报率才是核心。0.71%不能接受</p>
+  </div>
+</article><article class="dispute-card">
+  <div class="dispute-num">02</div>
+  <div class="dispute-body">
+    <h4>分红削减是周期性还是结构性</h4>
+    <p><strong>🐢龟龟</strong>：管理层从12.31元/10股降到2.5元，是结构性降分红——致命问题</p><p><strong>📐格雷厄姆</strong>：如果利润恢复，分红率可能回归。OCF含金量极高是安全垫</p><p><strong>⚡笨韭</strong>：没有产业拐点信号，利润和分红短期都不会改善</p>
+  </div>
+</article>
+  </div>
+</section>
+
+
+<section id="risks">
+  <div class="section-head">
+    <div class="section-num">04 · 风险</div>
+    <div>
+      <div class="section-title">关键风险清单</div>
+      <div class="section-lede">辩论中识别出的主要风险因素</div>
+    </div>
+  </div>
+  <div class="risk-wrap">
+    <table class="risk-table">
+      <thead><tr><th>#</th><th>风险描述</th></tr></thead>
+      <tbody><tr>
+  <td style="font-weight:600;width:60px;">01</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">LNG价格继续下行→九丰贸易利润进一步压缩，Q1已现-18%营收下滑</td>
+</tr><tr>
+  <td style="font-weight:600;width:60px;">02</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">分红持续低迷：管理层从2025年12.31元/10股降至2026年2.5元——穿透回报率结构性恶化</td>
+</tr><tr>
+  <td style="font-weight:600;width:60px;">03</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">竞争加剧：多家民营LNG接收站投产（广汇、新奥等），贸易利差可能持续收窄</td>
+</tr><tr>
+  <td style="font-weight:600;width:60px;">04</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">能源转型不确定性：虽然天然气是过渡能源，但可再生能源加速替代可能压缩需求增长空间</td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p>⚠️ 以上内容由 Hermes 多 Agent 辩论引擎自动生成，基于 AI 模型推理，仅供参考，不构成任何投资建议或专业决策依据。</p>
+  <p class="footer-sub">Hermes Agent · Debate Engine · Generated 2026-06-29</p>
+</footer>
+
+</body>
+</html>

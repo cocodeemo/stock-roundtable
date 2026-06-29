@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中际旭创 · 圆桌辩论报告 · Hermes Agent</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #F7F5F3; --bg-secondary: #FFFFFF; --bg-card: #FFFFFF;
+  --bg-elevated: #FAFAF9; --bg-warm: #F5F2EE; --bg-dark: #2D2926;
+  --text-primary: #2D2926; --text-secondary: #5C5652;
+  --text-muted: #8A8480; --text-light: #A8A29E;
+  --accent: #D97706; --accent-light: #FEF3C7; --accent-hover: #B45309;
+  --border: #E5E2DE; --border-light: #F0EEEC;
+  --red: #DC2626; --green: #059669; --gold: #D97706; --blue: #2563EB;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', Georgia, serif;
+  background: var(--bg-primary); color: var(--text-primary);
+  line-height: 1.8; font-size: 16px; -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: inherit; font-weight: 600; letter-spacing: 0.02em; }
+
+.section-head {
+  max-width: 1100px; display: grid; grid-template-columns: 120px 1fr;
+  gap: 32px; align-items: baseline; margin: 0 auto 48px; padding: 0 48px;
+}
+.section-num {
+  font-size: 0.9rem; color: var(--accent); letter-spacing: 0.15em;
+  border-top: 1px solid var(--accent); padding-top: 8px;
+}
+.section-title { font-size: 2rem; }
+.section-lede { color: var(--text-muted); margin-top: 6px; font-size: 1rem; }
+section { padding: 72px 0; }
+
+/* Nav */
+nav {
+  position: sticky; top: 0; z-index: 100; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; background: rgba(247,245,243,0.85);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light);
+}
+.nav-logo { font-weight: 600; font-size: 1rem; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { color: var(--text-secondary); font-size: 0.95rem; text-decoration: none; }
+.nav-links a:hover { color: var(--accent); }
+
+/* Hero */
+.hero { max-width: 1100px; margin: 0 auto; padding: 96px 48px 48px; }
+.kicker { color: var(--accent); font-size: 0.9rem; letter-spacing: 0.15em; font-weight: 500; margin-bottom: 24px; }
+.hero h1 { font-size: 3rem; line-height: 1.25; margin-bottom: 24px; max-width: 900px; }
+.hero-dek { max-width: 760px; font-size: 1.15rem; color: var(--text-secondary); line-height: 1.9; margin-bottom: 40px; }
+
+/* Conclusion Card */
+.conclusion-wrap { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+.conclusion-card {
+  padding: 40px 48px; background: var(--bg-card); border: 1px solid var(--border);
+  border-left: 6px solid var(--accent); border-radius: 20px;
+  box-shadow: 0 4px 28px rgba(217, 119, 6, 0.06);
+}
+.cc-question {
+  font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.05em;
+  margin-bottom: 8px; text-transform: uppercase;
+}
+.cc-question-text {
+  font-size: 1.4rem; font-weight: 600; color: var(--text-primary);
+  margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px dashed var(--border);
+}
+.cc-question-text::before { content: "「"; color: var(--accent); }
+.cc-question-text::after { content: "」"; color: var(--accent); }
+
+.cc-snapshot { margin-bottom: 32px; }
+.cc-snapshot-label {
+  font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.18em;
+  font-weight: 600; margin-bottom: 14px; text-transform: uppercase;
+}
+.cc-snapshot-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--bg-elevated); border: 1px solid var(--border-light);
+  border-radius: 12px; overflow: hidden;
+}
+.cc-snap-cell {
+  padding: 16px 20px; border-right: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light); background: var(--bg-elevated);
+}
+.cc-snap-cell:nth-child(4n) { border-right: none; }
+.cc-snap-cell:nth-last-child(-n+4) { border-bottom: none; }
+.cc-snap-cell-label { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 6px; }
+.cc-snap-cell-value { font-size: 1.4rem; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.cc-snap-cell-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.cc-snap-up { color: var(--red); }
+.cc-snap-down { color: var(--green); }
+
+.cc-headline-label {
+  font-size: 0.8rem; color: var(--accent); letter-spacing: 0.2em;
+  font-weight: 600; margin-bottom: 14px; text-transform: uppercase;
+}
+.cc-headline {
+  font-size: 1.15rem; font-weight: 500; color: var(--text-primary);
+  letter-spacing: 0.01em; line-height: 1.75;
+  margin-bottom: 32px; padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.cc-headline strong { font-weight: 700; }
+.cc-headline em { font-style: normal; font-weight: 700; color: var(--red); }
+
+.cc-vote {
+  display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+  padding-top: 20px; border-top: 1px dashed var(--border);
+}
+.cc-vote-label { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.05em; }
+.cc-vote-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.85rem; color: var(--text-secondary);
+  padding: 4px 12px; background: var(--bg-elevated); border-radius: 999px;
+  border: 1px solid var(--border-light);
+}
+.cc-vote-tag .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* Six-framework comparison */
+.compare-table {
+  width: 100%; border-collapse: collapse; margin: 24px 0;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden; font-variant-numeric: tabular-nums;
+}
+.compare-table th {
+  background: var(--bg-warm); color: var(--text-muted);
+  font-size: 0.82rem; padding: 12px 14px; text-align: center;
+  letter-spacing: 0.04em; border-bottom: 2px solid var(--accent);
+}
+.compare-table td {
+  padding: 10px 14px; text-align: center; border-bottom: 1px solid var(--border-light);
+  font-size: 0.95rem;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-score { font-weight: 700; font-size: 1.1rem; }
+.compare-score.high { color: var(--green); }
+.compare-score.mid { color: var(--accent); }
+.compare-score.low { color: var(--red); }
+.compare-verdict {
+  padding: 2px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+}
+.compare-verdict.buy { background: #DCFCE7; color: #166534; }
+.compare-verdict.hold { background: #FEF3C7; color: #92400E; }
+.compare-verdict.sell { background: #FEE2E2; color: #991B1B; }
+
+/* Confidence bar */
+.cc-confidence { margin-bottom: 28px; }
+.cc-confidence-bar {
+  height: 8px; background: var(--border-light); border-radius: 4px;
+  margin-top: 8px; overflow: hidden;
+}
+.cc-confidence-fill {
+  height: 100%; background: linear-gradient(90deg, var(--accent), var(--green));
+  border-radius: 4px; transition: width 0.5s;
+}
+
+/* Voice Cards */
+.voice-stack {
+  max-width: 1100px; margin: 0 auto; padding: 0 48px;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.voice-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px 36px; min-width: 0;
+}
+.voice-head {
+  display: flex; align-items: center; gap: 12px;
+  padding-bottom: 16px; margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+.voice-emoji { width: 48px; height: 48px; border-radius: 50%;
+  background: var(--bg-warm); display: flex; align-items: center;
+  justify-content: center; font-size: 1.5rem; border: 2px solid var(--border);
+}
+.voice-name { font-weight: 600; font-size: 1.1rem; flex: 1; }
+.voice-round { font-size: 0.8rem; color: var(--text-muted); }
+.voice-card p { margin-bottom: 14px; line-height: 1.85; color: var(--text-secondary); }
+.voice-card strong { color: var(--text-primary); font-weight: 600; }
+.voice-card em { font-style: normal; font-weight: 600; color: var(--accent); }
+.voice-card .pull-quote {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 16px;
+  margin: 16px 0; color: var(--text-secondary); font-style: italic;
+}
+
+/* ===== Score Visualization ===== */
+.score-table {
+  width: 100%; border-collapse: collapse; margin: 16px 0;
+  background: var(--bg-elevated); border-radius: 12px;
+  overflow: hidden; border: 1px solid var(--border-light);
+}
+.score-table th {
+  background: var(--bg-warm); color: var(--text-muted);
+  font-size: 0.82rem; font-weight: 500; padding: 10px 14px;
+  text-align: left; letter-spacing: 0.04em;
+}
+.score-table td { padding: 10px 14px; border-bottom: 1px solid var(--border-light); vertical-align: middle; }
+.score-table tr:last-child td { border-bottom: none; }
+.score-bar-wrap { display: flex; align-items: center; gap: 8px; min-width: 120px; }
+.score-bar {
+  flex: 1; height: 6px; background: var(--border-light); border-radius: 3px; overflow: hidden;
+}
+.score-bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+.score-bar-fill.high { background: var(--green); }
+.score-bar-fill.mid { background: var(--accent); }
+.score-bar-fill.low { background: var(--red); }
+.score-value { font-weight: 600; font-size: 0.9rem; min-width: 36px; text-align: right; font-variant-numeric: tabular-nums; }
+.score-total {
+  display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+  background: var(--bg-warm); border-radius: 12px; margin: 12px 0;
+  border: 2px solid var(--accent);
+}
+.score-total-label { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.06em; }
+.score-total-value { font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.score-total-grade {
+  padding: 4px 14px; border-radius: 999px; font-size: 0.9rem; font-weight: 600;
+}
+.score-total-grade.top { background: #DCFCE7; color: #166534; }
+.score-total-grade.good { background: #E0F2FE; color: #075985; }
+.score-total-grade.ok { background: #FEF3C7; color: #92400E; }
+.score-total-grade.bad { background: #FEE2E2; color: #991B1B; }
+.score-total-grade.skip { background: #F3F4F6; color: #6B7280; }
+
+.checklist { margin: 12px 0; }
+.check-item {
+  display: flex; align-items: center; gap: 8px; padding: 6px 0;
+  font-size: 0.95rem;
+}
+.check-pass { color: var(--green); font-weight: 600; }
+.check-fail { color: var(--red); font-weight: 600; }
+.check-warn { color: var(--accent); font-weight: 600; }
+
+/* Risk Table */
+.risk-wrap { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+.risk-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; font-variant-numeric: tabular-nums;
+}
+.risk-table th, .risk-table td {
+  padding: 18px 22px; text-align: left;
+  border-bottom: 1px solid var(--border-light); vertical-align: top;
+}
+.risk-table tr:last-child td { border-bottom: none; }
+.risk-table th {
+  background: var(--bg-elevated); color: var(--text-muted);
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Disputes */
+.dispute-stack { max-width: 1100px; margin: 0 auto; padding: 0 48px; display: flex; flex-direction: column; gap: 16px; }
+.dispute-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px 28px;
+  display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: baseline;
+}
+.dispute-num { font-size: 1.6rem; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1; opacity: 0.6; }
+.dispute-body h4 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text-primary); }
+.dispute-body p { font-size: 0.98rem; line-height: 1.85; color: var(--text-secondary); margin: 0 0 8px; }
+
+/* Footer */
+footer { background: var(--bg-dark); color: var(--text-light); padding: 48px; text-align: center; margin-top: 72px; }
+footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
+.footer-sub { margin-top: 16px; font-size: 0.8rem; color: var(--text-light); opacity: 0.7; }
+
+@media (max-width: 900px) {
+  .voice-stack, .risk-wrap, .dispute-stack, .conclusion-wrap { padding-left: 24px; padding-right: 24px; }
+  .hero { padding-left: 24px; padding-right: 24px; }
+  .conclusion-card { padding: 28px 24px; }
+  .cc-headline { font-size: 1.05rem; line-height: 1.7; }
+  .cc-snapshot-grid { grid-template-columns: repeat(2, 1fr); }
+  .cc-snap-cell:nth-child(4n) { border-right: 1px solid var(--border-light); }
+  .cc-snap-cell:nth-child(2n) { border-right: none; }
+  .cc-snap-cell:nth-last-child(-n+4) { border-bottom: 1px solid var(--border-light); }
+  .cc-snap-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .hero h1 { font-size: 2.2rem; }
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .voice-card { padding: 24px; }
+  .dispute-card { padding: 20px; grid-template-columns: 1fr; gap: 8px; }
+  .risk-table th, .risk-table td { padding: 14px 14px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo">🎭 中际旭创 · 圆桌辩论</a>
+  <div class="nav-links">
+    <a href="#conclusion">结论</a>
+    <a href="#voices">视角</a>
+    <a href="#conflicts">分歧</a>
+    <a href="#risks">风险</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="kicker">ROUND TABLE · 2026-06-29 · Hermes 多 Agent 辩论引擎</div>
+  <h1>中际旭创(300308)是否值得持有？</h1>
+  <div class="hero-dek">6 位专家多轮交叉辩论——2 轮互相引用反驳，全方位审视，综合置信度 65%</div>
+</section>
+
+<section id="conclusion">
+  <div class="section-head">
+    <div class="section-num">01 · 结论</div>
+    <div><h2>圆桌怎么看</h2><p class="section-lede">多视角交叉验证后的综合判断</p></div>
+  </div>
+  <div class="conclusion-wrap">
+    <div class="conclusion-card">
+
+      <div class="cc-question">YOU ASKED</div>
+      <div class="cc-question-text">中际旭创(300308)是否值得持有？</div>
+
+      <div class="cc-snapshot">
+  <div class="cc-snapshot-label">当前关键数据</div>
+  <div class="cc-snapshot-grid"><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">中际旭创(300308)</div>
+  <div class="cc-snap-cell-value">1253.89</div>
+  <div class="cc-snap-cell-sub cc-snap-down">-5.25%</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">PE(TTM)</div>
+  <div class="cc-snap-cell-value">93.54x</div>
+  <div class="cc-snap-cell-sub "></div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">总市值</div>
+  <div class="cc-snap-cell-value">1.40万亿</div>
+  <div class="cc-snap-cell-sub "></div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">52周区间</div>
+  <div class="cc-snap-cell-value">1416.88</div>
+  <div class="cc-snap-cell-sub ">最低114.20</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">2025全年营收</div>
+  <div class="cc-snap-cell-value">382.40亿</div>
+  <div class="cc-snap-cell-sub cc-snap-up">同比+60.25%</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">2026 Q1营收</div>
+  <div class="cc-snap-cell-value">194.96亿</div>
+  <div class="cc-snap-cell-sub cc-snap-up">同比+192.12%🔥</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">毛利率/ROE</div>
+  <div class="cc-snap-cell-value">46.06%</div>
+  <div class="cc-snap-cell-sub ">ROE 43.84%</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">经营现金流/股</div>
+  <div class="cc-snap-cell-value">9.81元</div>
+  <div class="cc-snap-cell-sub ">≈EPS，含金量极高✅</div>
+</div>
+  </div>
+</div>
+
+      <div class="cc-headline-label">圆桌综合视角</div>
+      <div class="cc-headline"><strong>深度分裂——费雪力挺(82分)，其余全部犹豫或否定，均分50.5。</strong><br><br>🔬费雪派：这是教科书级的成长股——管理层卓越、营收+192%、毛利率46%、ROE 44%。唯一的"缺点"是PE 93x，但伟大的成长企业永远看起来贵。<br><br>🛑 其余五方无一推荐买入：巴菲特说零安全边际(PE 93x)；莫大说股价悬顶(距52周高仅11%)；龟龟说穿透回报率0.08%要1250年回本；笨韭说景气虽好但估值不在低位；格雷厄姆直接淘汰。<br><br><em>核心矛盾</em>：AI景气度和公司竞争力无可争议，但当前价格已经把所有好消息都消化完了。买在114的人任何时候卖都是赚的，买在1254的人在赌还能创新高。</div>
+
+      <div class="cc-confidence">
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:var(--text-muted);">
+          <span>综合置信度</span><span>65%</span>
+        </div>
+        <div class="cc-confidence-bar"><div class="cc-confidence-fill" style="width:65%;"></div></div>
+      </div>
+
+      <div class="cc-vote">
+        <span class="cc-vote-label">参与方：</span>
+        <span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>📐格雷厄姆</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🏰巴菲特</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🔬费雪</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>⚡笨韭</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>📊莫大</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🐢龟龟</span>
+        <span class="cc-vote-tag"><span class="dot" style="background:var(--blue)"></span>2 轮辩论</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="voices">
+  <div class="section-head">
+    <div class="section-num">02 · 视角</div>
+    <div>
+      <div class="section-title">6 方怎么看</div>
+      <div class="section-lede">每位从自己的角色立场独立诊断——想看完整推理的人来这里</div>
+    </div>
+  </div>
+  <div class="voice-stack">
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:20px 28px;">
+  <h4 style="margin-bottom:12px;color:var(--text-primary);">📊 六框架评分对比</h4>
+  <table class="compare-table">
+    <thead><tr><th style="text-align:left;">流派</th><th>评分</th><th>立场</th><th style="text-align:left;">结论</th></tr></thead>
+    <tbody><tr>
+  <td style="text-align:left;font-weight:600;">📐 格雷厄姆派</td>
+  <td><span class="compare-score low">0</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">为成长支付 93 倍 PE 是投机，不是投资。**</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">🏰 巴菲特派</td>
+  <td><span class="compare-score high">60</span></td>
+  <td><span class="compare-verdict hold">观望</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">会等PE回到40以下再谈。不为没有安全边际的生意出价。**</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">🔬 费雪派</td>
+  <td><span class="compare-score high">82</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">伟大的成长企业永远看起来贵。不用等PE降下来——你等不到。**</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">⚡ 笨韭派</td>
+  <td><span class="compare-score high">66</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">景气无争议，但笨韭双击差一条——估值不在低位。需要等回调。**</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">📊 莫大派</td>
+  <td><span class="compare-score mid">48</span></td>
+  <td><span class="compare-verdict hold">观望</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">买在114的人什么时候卖都是赚的。买在1254的人在赌还能创新高。**</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">🐢 龟龟派</td>
+  <td><span class="compare-score mid">46</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">龟龟要的是公司给我发钱，不是让我等别人出更高价。不持有。**</td>
+</tr></tbody>
+  </table>
+</div>
+    <article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">📐</div>
+    <div class="voice-name">📐 格雷厄姆派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：PE 93.54x >> 15x，PE×PB = 4,378 >> 22.5，直接淘汰。</strong></p>
+
+<table><tr><th>准则</th><th>判定</th><th>当前值</th></tr><tr><td>营收 ≥ 50亿</td><td>✅</td><td>382.40亿</td></tr><tr><td>流动比率 ≥ 2</td><td>✅</td><td>2.69</td></tr><tr><td>PE ≤ 15</td><td>❌</td><td>93.54x</td></tr><tr><td>PE×PB ≤ 22.5</td><td>❌</td><td>93.54×46.8=4,378</td></tr></table>
+
+<p>这不是贵，这是另一个宇宙。格雷厄姆的框架甚至不需要看后面几条。</p>
+
+<p><strong>总分：<span style="font-weight:700;font-size:1.1em;">0</span>/100分</strong> → 🚫 淘汰</p>
+
+<p><strong>结论：为成长支付 93 倍 PE 是投机，不是投资。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🏰</div>
+    <div class="voice-name">🏰 巴菲特派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：好赛道、好公司、烂价格。</strong></p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>护城河 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>800G/1.6T光模块全球第一，技术壁垒深。但代际2-3年一轮，护城河需持续重挖</td></tr><tr><td>伊索三问 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">70.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:70.0%;"></div></div></div></td><td>AI需求确定性极高，Q1营收+192%。但2028年后不确定性大</td></tr><tr><td>管理层 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">75.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:75.0%;"></div></div></div></td><td>AI浪潮中完美执行</td></tr><tr><td>安全边际 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">15.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:15.0%;"></div></div></div></td><td>PE 93x、PB 47x——零安全边际</td></tr><tr><td>能力圈 (10%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>AI基础设施可理解</td></tr></table>
+
+<p><strong>总分：60.<span style="font-weight:700;font-size:1.1em;">5</span>/100分</strong></p>
+
+<p><strong>结论：会等PE回到40以下再谈。不为没有安全边际的生意出价。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🔬</div>
+    <div class="voice-name">🔬 费雪派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：这就是费雪要找的——卓越管理层+爆炸性成长+高利润率。</strong></p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>管理层 (35%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>AI浪潮中精准卡位，执行完美</td></tr><tr><td>成长空间 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">90.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:90.0%;"></div></div></div></td><td>Q1营收+192%！AI资本开支加速，1.6T升级周期刚开始</td></tr><tr><td>竞争优势 (20%)</td><td><div class="score-bar-wrap"><span class="score-value">75.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:75.0%;"></div></div></div></td><td>800G份额全球第一，技术迭代占先手</td></tr><tr><td>利润率 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>毛利率46%在硬件公司极其出色，且持续提升</td></tr></table>
+
+<p><strong>总分：<span style="font-weight:700;font-size:1.1em;">82</span>/100分</strong> 🔥</p>
+
+<p><strong>结论：伟大的成长企业永远看起来贵。不用等PE降下来——你等不到。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">⚡</div>
+    <div class="voice-name">⚡ 笨韭派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：AI是毫无疑问的现象级事件，但估值不在低位。</strong></p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>景气度 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">95.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:95.0%;"></div></div></div></td><td>AI是ChatGPT级别的现象级事件，确定无疑</td></tr><tr><td>业务纯度 (25%)</td><td><div class="score-bar-wrap"><span class="score-value">85.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:85.0%;"></div></div></div></td><td>光模块核心供应商，纯度高</td></tr><tr><td>估值水位 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">15.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:15.0%;"></div></div></div></td><td>PE 93x，距52周高仅11%——悬在顶部</td></tr><tr><td>催化剂 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>1.6T升级+NVIDIA Blackwell放量=持续催化</td></tr></table>
+
+<p><strong>总分：66.<span style="font-weight:700;font-size:1.1em;">25</span>/100分</strong></p>
+
+<p><strong>结论：景气无争议，但笨韭双击差一条——估值不在低位。需要等回调。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">📊</div>
+    <div class="voice-name">📊 莫大派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：不可替代性中上，但股价位置扣完所有分。</strong></p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>预期差 (18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>市场已充分定价AI增长。93x PE=没有预期差</td></tr><tr><td>供给弹性 (12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>EML/VCSEL激光器供给有瓶颈</td></tr><tr><td>需求刚性 (12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>AI数据中心必须用光互联——绕不过去</td></tr><tr><td>不可替代性 (18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>800G份额第一但不是垄断(Coherent/新易盛)</td></tr><tr><td>周期位置 (12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>AI基建早中期，还有空间</td></tr><tr><td>股价位置 (25%)</td><td><div class="score-bar-wrap"><span class="score-value">10.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:10.0%;"></div></div></div></td><td>52周114-1417，当前1254，距顶仅11%</td></tr></table>
+
+<p><strong>总分：47.<span style="font-weight:700;font-size:1.1em;">82</span>/100分</strong></p>
+
+<p><strong>结论：买在114的人什么时候卖都是赚的。买在1254的人在赌还能创新高。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🐢</div>
+    <div class="voice-name">🐢 龟龟派</div>
+    <div class="voice-round">第 1 轮</div>
+  </div>
+  <div><p><strong>核心观点：穿透回报率0.08%，要1250年回本——这不是投资，是收藏品。</strong></p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>商业模式 (35%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>全球光模块龙头，技术强。但硬件周期风险</td></tr><tr><td>穿透回报率 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">5.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:5.0%;"></div></div></div></td><td>10派10元÷1254元=0.08%。龟龟要1250年才能靠分红回本</td></tr><tr><td>可支配现金 (20%)</td><td><div class="score-bar-wrap"><span class="score-value">85.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:85.0%;"></div></div></div></td><td>OCF 9.81≈EPS 9.80，完美匹配</td></tr><tr><td>分红记录 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>持续但极小(相对股价)</td></tr></table>
+
+<p><strong>总分：45.<span style="font-weight:700;font-size:1.1em;">5</span>/100分</strong></p>
+
+<p><strong>结论：龟龟要的是公司给我发钱，不是让我等别人出更高价。不持有。</strong></p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🔬</div>
+    <div class="voice-name">🔬 费雪派</div>
+    <div class="voice-round">第 2 轮</div>
+  </div>
+  <div><p><strong>@🏰巴菲特：你说等PE降到40以下。但如果你2019年等着特斯拉PE降下来，你永远上不了车。</strong></p>
+
+<p>AI正在经历百年一遇的算力革命——中际是全球800G/1.6T光模块出货量第一。伟大企业从来不等你。93倍PE贵的不是价格，是你对成长确定性的低估。</p>
+
+<p>Q1营收+192%、净利+262%、毛利率从42%→46%——这不是炒作，是有利润支撑的爆炸式增长。</p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🏰</div>
+    <div class="voice-name">🏰 巴菲特派</div>
+    <div class="voice-round">第 2 轮</div>
+  </div>
+  <div><p><strong>@🔬费雪：你混淆了能力圈和贪婪。</strong></p>
+
+<p>我买苹果的时候PE才13倍。93倍PE意味着未来5年每年增长50%才能消化到合理估值——任何一个低于预期的季度都会腰斩。</p>
+
+<p>安全边际不是可选项，是生存法则。而且费雪你也知道——光模块技术代际只有2-3年。中际今天在800G领先，3年后1.6T/3.2T时代还能领先吗？没有长期护城河的企业，我不付93倍。</p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">⚡</div>
+    <div class="voice-name">⚡ 笨韭派</div>
+    <div class="voice-round">第 2 轮</div>
+  </div>
+  <div><p><strong>@🔬费雪：你引用的+192%是YoY，但去年Q1基数极低。</strong></p>
+
+<p>环比看：Q4 2025是132亿，Q1 2026是195亿——环比+48%，不是+192%。增速可能已经在减速。而且笨韭的估值维度（30%权重）明确说：股价在52周高位区间必须扣分。1254离1417仅11%，没有容错空间。</p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">📊</div>
+    <div class="voice-name">📊 莫大派</div>
+    <div class="voice-round">第 2 轮</div>
+  </div>
+  <div><p><strong>@全体：你们在讨论增速和估值，我在看一个更根本的问题——预期差不存在。</strong></p>
+
+<p>全世界都知道AI好、中际是龙头、业绩在爆发。所有这些信息都已经在1254元的价格里了。莫大要的是"市场没看到的东西"——价值发现，而不是价值共识。</p>
+
+<p>当出租车司机都在讨论这只股票的时候，预期差就是零。而且股价位置不撒谎——从114涨到1417再跌回1254，高位已经有人在卖了。</p></div>
+</article>
+  </div>
+</section>
+
+
+<section id="conflicts">
+  <div class="section-head">
+    <div class="section-num">03 · 分歧</div>
+    <div>
+      <div class="section-title">核心分歧</div>
+      <div class="section-lede">各方未能达成一致的焦点问题</div>
+    </div>
+  </div>
+  <div class="dispute-stack">
+    <article class="dispute-card">
+  <div class="dispute-num">01</div>
+  <div class="dispute-body">
+    <h4>PE 93x是高估还是成长股合理定价</h4>
+    <p><strong>🔬费雪</strong>：营收+192%、毛利率46%的增速能快速消化高PE。伟大成长股永远看起来贵</p><p><strong>🏰巴菲特</strong>：零安全边际=零容错空间。任何低于预期的季度都可能腰斩</p><p><strong>📐格雷厄姆</strong>：PE 93x不仅贵，是另一个宇宙。93倍和15倍的差距不是"贵一点"</p>
+  </div>
+</article><article class="dispute-card">
+  <div class="dispute-num">02</div>
+  <div class="dispute-body">
+    <h4>增速是否可持续</h4>
+    <p><strong>🔬费雪</strong>：1.6T升级周期刚开始，Blackwell订单尚未完全体现</p><p><strong>⚡笨韭</strong>：环比已从+150%降到+48%，增速在放缓。YoY +192%是低基数效应</p><p><strong>📊莫大</strong>：光模块代际2-3年，今天800G领先不等于3年后1.6T还能领先</p>
+  </div>
+</article>
+  </div>
+</section>
+
+
+<section id="risks">
+  <div class="section-head">
+    <div class="section-num">04 · 风险</div>
+    <div>
+      <div class="section-title">关键风险清单</div>
+      <div class="section-lede">辩论中识别出的主要风险因素</div>
+    </div>
+  </div>
+  <div class="risk-wrap">
+    <table class="risk-table">
+      <thead><tr><th>#</th><th>风险描述</th></tr></thead>
+      <tbody><tr>
+  <td style="font-weight:600;width:60px;">01</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">AI资本开支拐点：一旦云厂商缩减AI投入，光模块需求断崖式下跌——93x PE没有任何缓冲垫</td>
+</tr><tr>
+  <td style="font-weight:600;width:60px;">02</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">技术替代风险：CPO（共封装光学）可能颠覆传统可插拔光模块——中际的核心技术路径可能被绕过</td>
+</tr><tr>
+  <td style="font-weight:600;width:60px;">03</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">竞争加剧：新易盛、Coherent、Lumentum在1.6T加速追赶，先发优势可能在2-3年内缩小</td>
+</tr><tr>
+  <td style="font-weight:600;width:60px;">04</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">股价高处不胜寒：52周从114涨到1417，买在1254的人向上空间仅13%（到前高），向下空间理论无限</td>
+</tr></tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p>⚠️ 以上内容由 Hermes 多 Agent 辩论引擎自动生成，基于 AI 模型推理，仅供参考，不构成任何投资建议或专业决策依据。</p>
+  <p class="footer-sub">Hermes Agent · Debate Engine · Generated 2026-06-29</p>
+</footer>
+
+</body>
+</html>
