@@ -1,8 +1,8 @@
-# 🎭 Stock Roundtable
+# 🎭 Stock Roundtable · v1.9.8
 
-6 大投资流派圆桌辩论引擎 —— 自动抓行情+财报，输出杂志级 HTML 报告。
+6 大投资流派圆桌辩论 —— 实时行情+财报+产业链格局三重注入，杂志级 HTML 报告。
 
-> Multi-agent debate engine: 6 investment schools analyze the same stock with real-time data. Magazine-grade HTML reports.
+> Multi-agent debate: 6 investment schools with real-time data + industry context. Magazine-grade HTML output.
 
 ---
 
@@ -58,13 +58,25 @@ pip install akshare
 
 # 运行
 cd scripts/
-python3 stock_debate.py 605090              # 九丰能源
-python3 stock_debate.py 300308              # 中际旭创
-python3 stock_debate.py 300308 --rounds 3   # 3 轮辩论
-python3 stock_debate.py 300308 --model deepseek-v4-pro  # 指定模型
+python3 stock_debate.py 688268              # 华特气体
+python3 stock_debate.py 688106              # 金宏气体
+python3 stock_debate.py 688268 --rounds 3   # 3 轮辩论
+python3 stock_debate.py 688268 --model deepseek-v4-pro  # 指定模型
 ```
 
-报告自动保存到桌面 `~/Desktop/report_<股票名>_<代码>_<日期>.html`。
+报告保存到 `scripts/report_<股票名>_<代码>_<日期>.html`。
+
+### 数据链路
+
+```
+腾讯行情 API ──→ 价格 / PE / 市值 / 52周高低（前复权K线修正）
+EastMoney API ──→ PE / 市值（交叉验证）
+AKShare ────→ 财报 / 除权 / 主营业务
+v4-pro ────→ 产业链格局（供给瓶颈 / 需求爆发 / 低估点）
+                ↓
+         三方交叉验证（PE偏差>15%报警 / 市值偏差>10%报警）
+                ↓
+         构造三情境辩论问题 → 6角色×2轮辩论 → 裁判汇总 → HTML
 
 ---
 
@@ -103,14 +115,15 @@ stock-roundtable/
 
 ## 🔍 数据校验
 
-每次分析自动进行多源交叉验证：
+每次分析自动进行三方交叉验证：
 
-| 检查项 | 数据源 A | 数据源 B | 阈值 |
-|--------|---------|---------|------|
-| PE(TTM) | 腾讯行情 | 东方财富 | >5% 警告, >10% 报错 |
-| 总市值 | 腾讯行情 | 东方财富 | >5% 警告, >10% 报错 |
-| 52 周高低 | 前复权 K 线 | — | 避免除权失真 |
-| 送转股 | 除权记录 | — | EPS/BPS/OCF 自动除权修正 |
+| 检查项 | 数据源 | 阈值 |
+|--------|--------|------|
+| PE(TTM) | 腾讯 vs 东方财富 vs 计算值（price/EPS×4） | 三源偏差 >15% 报警 |
+| 总市值 | 腾讯 vs 东方财富 | 偏差 >10% 报警 |
+| 52 周高低 | 前复权 K 线修正 | 避免除权失真 |
+| 送转股 | AKShare 除权记录 | EPS/BPS/OCF 自动修正 |
+| 产业链格局 | v4-pro 自动生成 | 供给瓶颈/需求爆发/低估点 |
 
 ---
 
