@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.9.8 (2026-06-30) — 文档大修
+
+- SKILL.md 503行→155行：删除通用辩论框架、双模型、K8s demo、重复Pitfalls、Changelog残留
+- 新增 CHANGELOG.md，notes 精简到 1 行
+- README.md 更新为独立 repo 版本
+
+## v1.9.7 (2026-06-30) — 代码审查修复
+
+- ✅ 删除两处函数内重复 `import json, urllib.request`
+- ✅ 重构 `_build_comparison_table()` — 移除 `type()` hack 假 Match 对象
+- ✅ 提升 `_visualize_scores()` 闭包函数到平级
+- ✅ 修复 `html` 变量遮盖 import（预存 UnboundLocalError）
+
+## v1.9.6 (2026-06-30) — 代码审查
+
+- 5 层审查（py_compile → AST → 逻辑边界 → 安全 → 性能），全部通过
+- 发现 3 项非关键问题（重复import、假Match对象、闭包函数），v1.9.7 修复
+
 ## v1.9.5 (2026-06-30) — 代码审查修复（5项）
 
 - 🔴 交易所识别逻辑修复：`fetch_stock_quote()` 中 6-digit 深市代码正确识为 sz

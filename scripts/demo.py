@@ -3,9 +3,9 @@
 ——用 Hermes 当前配置的 LLM（taotoken.net）来跑完整辩论
 
 用法：
-    python3 /mnt/d/debate-engine/demo.py "问题描述"
-    python3 /mnt/d/debate-engine/demo.py "K8s 集群要不要从 1.34 升级到 1.35？"
-    python3 /mnt/d/debate-engine/demo.py "问题" --model deepseek-v4-pro --rounds 3
+    python3 stock_debate.py 或 demo.py "问题描述"
+    python3 stock_debate.py 或 demo.py "K8s 集群要不要从 1.34 升级到 1.35？"
+    python3 stock_debate.py 或 demo.py "问题" --model deepseek-v4-pro --rounds 3
 """
 
 import sys
