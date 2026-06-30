@@ -4,6 +4,7 @@ Agent 辩论引擎核心
 """
 
 import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Callable, Optional
 from dataclasses import dataclass, field
 
@@ -158,30 +159,65 @@ class DebateEngine:
         transcript = self.result.transcript
 
         for round_num in range(1, self.config.max_rounds + 1):
-            round_context = self._build_round_context(round_num, transcript)
-
-            for role_key in roles:
-                role_def = ROLES[role_key]
-
-                if round_num == 1:
-                    user_prompt = self._round1_prompt(role_key)
-                else:
-                    user_prompt = self._rebuttal_prompt(role_key, round_context)
-
-                response = self._runner(role_def["system_prompt"], user_prompt)
-
-                msg = RoundMessage(
-                    role=role_key,
-                    role_name=role_def["name"],
-                    emoji=role_def["emoji"],
-                    content=response,
-                    round_num=round_num,
-                )
-                transcript.append(msg)
+            if round_num == 1:
+                # Round 1: 各角色独立陈述，无彼此依赖 → 并行
+                self._run_round1_parallel(roles, transcript)
+            else:
+                # Round 2+: 反驳需要看到对手本轮发言 → 顺序执行
+                self._run_rebuttal_round(round_num, roles, transcript)
 
         # 最后一轮结束后，让裁判汇总
         self._synthesize(transcript)
         return self.result
+
+    def _run_round1_parallel(self, roles: list[str],
+                              transcript: list[RoundMessage]):
+        """Round 1 并行：6 个角色同时发言，耗时约等于最慢那个"""
+
+        def _speak(role_key: str) -> tuple[str, RoundMessage]:
+            role_def = ROLES[role_key]
+            user_prompt = self._round1_prompt(role_key)
+            response = self._runner(role_def["system_prompt"], user_prompt)
+            return role_key, RoundMessage(
+                role=role_key,
+                role_name=role_def["name"],
+                emoji=role_def["emoji"],
+                content=response,
+                round_num=1,
+            )
+
+        # 并发调用所有角色，按角色原始顺序追加结果
+        results: dict[str, RoundMessage] = {}
+        with ThreadPoolExecutor(max_workers=len(roles)) as executor:
+            futures = {executor.submit(_speak, r): r for r in roles}
+            for future in as_completed(futures):
+                key, msg = future.result()
+                results[key] = msg
+
+        for key in roles:
+            transcript.append(results[key])
+
+    def _run_rebuttal_round(self, round_num: int, roles: list[str],
+                             transcript: list[RoundMessage]):
+        """Round 2+: 顺序反驳——后来者能看到同轮先行者的论据"""
+        round_context = self._build_round_context(round_num, transcript)
+
+        for role_key in roles:
+            role_def = ROLES[role_key]
+            user_prompt = self._rebuttal_prompt(role_key, round_context)
+            response = self._runner(role_def["system_prompt"], user_prompt)
+            msg = RoundMessage(
+                role=role_key,
+                role_name=role_def["name"],
+                emoji=role_def["emoji"],
+                content=response,
+                round_num=round_num,
+            )
+            transcript.append(msg)
+            # 动态更新上下文——让下一个角色能看到刚才的发言
+            round_context += (
+                f"\n[{msg.emoji} {msg.role_name} 第{round_num}轮]:\n{msg.content}\n"
+            )
 
     def _round1_prompt(self, role_key: str) -> str:
         role = ROLES[role_key]
