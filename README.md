@@ -1,8 +1,8 @@
-# 🎭 Stock Roundtable · v1.9.8
+# 🎭 Stock Roundtable · v1.9.9
 
 6 大投资流派圆桌辩论 —— 实时行情+财报+产业链格局三重注入，杂志级 HTML 报告。
 
-> Multi-agent debate: 6 investment schools with real-time data + industry context. Magazine-grade HTML output.
+> Multi-agent debate: 6 investment schools with real-time data + industry context. Magazine-grade HTML output. Round 1 parallelized.
 
 ---
 
@@ -92,11 +92,16 @@ v4-pro ────→ 产业链格局（供给瓶颈 / 需求爆发 / 低估点
 stock-roundtable/
 ├── SKILL.md                         # Hermes Skill 主指南
 ├── scripts/
-│   ├── stock_debate.py              # 一行命令全流程（行情+财报+辩论+HTML）
-│   ├── demo.py                      # LLM 辩论引擎入口
-│   ├── engine.py                    # 核心辩论编排（底座无关，可插拔 runner）
-│   ├── roles.py                     # 6 大流派角色定义 + 自动选择
-│   └── html_report.py              # WorkBuddy 杂志级 HTML 渲染
+│   ├── stock_debate.py             # 主流程（一行命令全流程）
+│   ├── data_fetch.py               # 数据采集（行情/财报/产业链）
+│   ├── validation.py               # 交叉验证 + 角色过滤
+│   ├── common.py                   # 公共模块（日志/配置/LLM调用）
+│   ├── demo.py                     # LLM 辩论引擎入口
+│   ├── engine.py                   # 核心辩论编排
+│   ├── roles.py                    # 6 大流派角色定义
+│   ├── html_report.py              # HTML 报告渲染
+│   └── debug/                      # 调试脚本
+├── tests/                          # 单元测试
 ├── references/
 │   ├── methodologies/               # 6 大投资方法论完整原文
 │   │   ├── graham-methodology.md
@@ -129,7 +134,8 @@ stock-roundtable/
 
 | 检查项 | 数据源 | 阈值 |
 |--------|--------|------|
-| PE(TTM) | 腾讯 vs 东方财富（TTM 口径） | 偏差 >10% 报错，>5% 警告 |
+| PE(TTM) | 腾讯 vs 东方财富 f164（TTM 口径） | 偏差 >10% 报错，>5% 警告 |
+| PE(静态) | 东方财富 f163 | HTML 快照参考显示 |
 | 总市值 | 腾讯 vs 东方财富 | 偏差 >10% 报错，>5% 警告 |
 | 52 周高低 | 前复权 K 线修正 | 避免除权失真；K 线 API 不可用时 fallback 含除权风险 |
 | 送转股 | AKShare 除权记录 | EPS/BPS/OCF 自动修正 |
