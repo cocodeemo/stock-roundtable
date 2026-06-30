@@ -6,72 +6,7 @@ author: Agent + 大哥
 license: MIT
 platforms: [linux, macos]
 notes: |
-    v1.9.5 (2026-06-30) — 代码审查修复（5项）：
-    - 🔴 交易所识别逻辑修复：fetch_stock_quote() 中 len(code)==5→len(code)==6，使 6-digit 深市代码正确识为 sz 而非 hk
-    - 🔴 cfg 作用域修复：main() 中在 try 前初始化 cfg=None，防止 yaml.safe_load 失败时 api_base 段 NameError
-    - 🟠 _parse() NaN 处理：pandas NaN 是 float 类型，isinstance 会通过，新增 math.isnan() 检测返回 0
-    - 🟠 Google Fonts CDN 离线回退：添加 preconnect 提示 + CSS font-family fallback chain（Noto→Source Han→Songti→serif）
-    - 🟡 LLM 输出 HTML 转义：display_title 和 recommendation 使用 html.escape() 包裹，防止 XSS
-    - 验证方法：每项修复后独立执行 py_compile + AST 分析 + 用例测试，确认无回归后进入下一项
-    - 🔴 cross_validate() 残留 pe_calc 引用 → NameError 修复（v1.9.3 只删了逻辑未删引用）
-    - 🔴 engine.py to_dict() 丢失 emoji 字段 → voice card 全部显示 🎭（不是真实 icon）
-    - 🔴 filter_roles() 真正返回 (roles, skipped) 元组 → HTML 报告展示琥珀色跳过提示（v1.9.2 声称已做但实际只 print 到 stdout）
-    - 🟠 is_growth 死代码激活 → 高增长股(营收 YoY>30% & 毛利率>50%)自动跳过格雷厄姆+龟龟（v1.9.2 声称已做但实际赋值后从未使用）
-    - 🟠 fetch_industry_context() + demo.py base_url 真正从 config.yaml 读取 → env var → subprocess，fallback taotoken（v1.9.2 声称已做但实际仍硬编码）
-    - 🟡 demo.py ROLES 导入从 __main__ 移至模块顶层（避免 import demo; demo.main() 时 NameError）
-    - 验证方法：每项修复后独立执行 AST 语法检查 + 数据流分析 + py_compile 编译，确认无遗留引用
-    v1.9.3 (2026-06-29) — macOS 兼容 + 数据校验收紧 + 仓库合并：
-    - WSL 路径硬编码移除：demo.py/html_report.py 改用 os.path.dirname(os.path.abspath(__file__))，macOS/Linux/WSL 全兼容
-    - HTML 报告输出到 ~/Desktop/ → Finder 可见，不再藏于 ~/.hermes/ 隐藏目录
-    - PE 交叉验证收紧：移除 Q1×4 计算值（与 TTM 口径不一致），仅对比腾讯 vs 东财 TTM PE
-    - 阈值收紧：PE/市值偏差 >5% 警告，>10% 报错（原 >15%/10%）
-    - 合并 cocodeemo/stock-analysis-skills → references/methodologies/（6 方法论文件 + market-screener + data-collection）
-    - .gitignore 排除运行时产物：last_debate_report.md, last_debate_result.json, report_*.html
-    - .pyc 缓存陷阱：更新脚本后必须 find __pycache__ -name '*.pyc' -delete
-    - 平台标识纠正：platforms 用 macos 非 mac（bilibili-video-summary 同步修复）
-    v1.9.2 (2026-06-29) — 代码审查修复 + HTML 报告增强（共 9 项）：
-    - filter_roles() 死代码修复：is_growth 检测后实际跳过格雷厄姆+龟龟（之前只赋值不使用）
-    - fetch_industry_context() 不再硬编码 taotoken.net URL → 从 config.yaml 读取 base_url，fallback taotoken
-    - stock_debate.py 新增 --model 参数支持，透传到 demo.py
-    - select_roles() max_roles 默认值 5→6（对齐 STOCK_INVESTMENT_ROLES）
-    - fetch_eastmoney_quote 去除重复 import
-    - rounds 越界修正时打印 ⚠️ 提示；用法说明新增 --model
-    - SKILL.md frontmatter version 1.7.1→1.9.2，清理 notes 内重复 author/license/platforms 字段
-    - skill_view name 引用 multi-agent-debate→stock-roundtable 修正
-    - HTML 报告新增「自动跳过的角色」区块：filter_roles() 返回 (roles, skipped) 元组，结论卡数据校验下方显示琥珀色跳过提示（含原因）
-    v1.9.1 (2026-06-29) — 数据三方交叉验证：
-    - 新增 EastMoney API 作为第三数据源（PE、市值）
-    - cross_validate() 函数：腾讯PE vs 东财PE vs 计算PE，三源偏差>15%报警
-    - 市值腾讯 vs 东财，偏差>10%报警
-    - 财报数据不交叉验证（年报 vs 季报口径不同）
-    v1.9.0 (2026-06-29) — 莫大角色重写(v3.2):
-    - 新增「核心信念」段落：买供给约束非业绩增长，产业链逻辑>财务数据，确定时集中持仓，美国锑复刻思维
-    - 预期差从"市场分歧程度"→"市场错判公司本质的程度"（如把资源独占当普通制造）
-    - 供给弹性新增"认证型壁垒"档（70-89，ASML认证级别，一旦通过即唯一）
-    - 股价位置拆为空仓情境（严格）和已持有情境（侧重风险收益比），同时给出两种建议
-    - 周期位置拆为产业链供给周期+企业盈利周期，权重各6.25%，供给周期优先级高于盈利周期
-    - 打分铁律从"无数据不评分"→"可从公开事实推断"
-    v1.8.0 (2026-06-29):
-    - 新增产业链格局注入：build_question() 前用 v4-pro 生成行业背景（产业链位置/供需/竞争/催化）
-    - 解决「财务数据单维度绑架评分」的问题——角色现在能基于产业链逻辑而非纯数字给分
-    v1.7.1 (2026-06-29):
-    - 辩论问题从「是否值得持有」改为通用三情境「当前投资价值如何评估」
-    - 三个情境：尚未持有→是否买入 / 已持有→继续/加仓/减仓 / 风险收益比
-    - build_question() 尾部去除硬编码ST问题，改为根据数据动态生成关注点
-    - CSS tuple bug 修复（暗色模式 patch 留下的逗号）
-    - custom_providers list 格式 API key 读取支持
-    v1.7.0 (2026-06-29):
-    - 模型全部升级为 deepseek-v4-pro（辩论+裁判）
-    - max_tokens 从 2000 提升到 6000，解决评分表截断问题
-    - 支持 --model / --rounds 参数，裁判可用独立模型
-    - stock_debate.py 移除硬编码"军工电子"背景，改用 AKShare 动态获取公司主营业务
-    - 支持港股（自动识别 hk 前缀）
-    - API key 读取改为 yaml.safe_load（更鲁棒）
-    - K 线端点增加 fallback 机制
-    - HTML 报告新增共识结论展示、暗色模式、数据校验警告区块
-    - 对比表分数提取增加 5 段兜底正则
-    - subprocess timeout 提升到 900 秒
-    - fonts.googleapis.com → 本地备用（离线也能渲染）
+    v1.9.5 (2026-06-30) — 5项代码审查修复：交易所识别、cfg 作用域、NaN 处理、Google Fonts 回退、HTML 转义。详见 CHANGELOG.md。
 metadata:
   hermes:
     tags: [multi-agent, debate, decision-making, ai-orchestration]
