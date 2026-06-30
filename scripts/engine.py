@@ -278,7 +278,12 @@ class DebateEngine:
             self.result.recommendation = data.get("recommendation", "")
             self.result.risk_items = data.get("risk_items", [])
             self.result.conflicts = data.get("conflicts", [])
-        except (json.JSONDecodeError, KeyError):
-            # 解析失败时保留原始文本
+        except (json.JSONDecodeError, KeyError) as e:
+            # 解析失败：警告 + 保留原始文本（避免静默吞错）
+            import logging
+            logging.getLogger("stock_roundtable").warning(
+                "⚠️ 裁判 JSON 解析失败 (%s)，回退到原始输出。前100字: %s",
+                type(e).__name__, response[:100]
+            )
             self.result.recommendation = response
             self.result.confidence = 0.5
