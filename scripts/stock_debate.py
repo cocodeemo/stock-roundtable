@@ -103,7 +103,7 @@ def build_question(quote: dict, fin: dict = None, company_profile: str = "", ind
 
 # ── 构造 HTML 快照 ──
 
-def build_snapshot(quote: dict, fin: dict = None) -> dict:
+def build_snapshot(quote: dict, fin: dict = None, em: dict = None) -> dict:
     def fmt(v, unit=''):
         if isinstance(v, float):
             return f"{v:.2f}{unit}" if v else '-'
@@ -119,7 +119,7 @@ def build_snapshot(quote: dict, fin: dict = None) -> dict:
         },
         'PE(TTM)': {
             'value': f'{quote.get("pe_ttm", 0):.0f}x',
-            'sub': '',
+            'sub': f'静态{em.get("pe_static", 0):.0f}x' if em and em.get('pe_static', 0) > 0 else '',
             'sub_class': '',
         },
         '总市值': {
@@ -321,7 +321,7 @@ def main():
 
     # 清理角色名中的 emoji 前缀
     name = quote['name'].replace('*', '').replace('ST', '').strip()
-    snapshot = build_snapshot(quote, fin)
+    snapshot = build_snapshot(quote, fin, em_quote)
     date_str = quote.get('date', datetime.now().strftime('%Y-%m-%d'))
     display_title = f"{quote['name']}({code})投资价值评估"
 
