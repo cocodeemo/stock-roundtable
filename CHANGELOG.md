@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.9.9 (2026-06-30) — 模块化重构 + P0 安全修复
+
+- 🔴 subprocess 改用 tempfile 传递问题文本，避免 Windows 8191 字符 CLI 限制
+- 模块化拆分：`stock_debate.py` 769→200行，data_fetch / validation / common 独立模块
+- 集中日志、常量、配置管理到 `common.py`
+- 移除 `os.chdir()` 全局副作用，改用 `subprocess.run(cwd=...)`
+- 新增项目文件：`.gitignore`、`LICENSE`、`requirements.txt`
+- 新增测试框架 `tests/`
+
 ## v1.9.8 (2026-06-30) — 文档大修
 
 - SKILL.md 503行→155行：删除通用辩论框架、双模型、K8s demo、重复Pitfalls、Changelog残留
