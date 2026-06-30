@@ -64,7 +64,6 @@ python3 stock_debate.py 688268 --rounds 3   # 3 轮辩论
 python3 stock_debate.py 688268 --model deepseek-v4-pro  # 指定模型
 ```
 
-报告保存到 `scripts/report_<股票名>_<代码>_<日期>.html`。
 
 ### 数据链路
 
@@ -77,6 +76,13 @@ v4-pro ────→ 产业链格局（供给瓶颈 / 需求爆发 / 低估点
          三方交叉验证（PE偏差>15%报警 / 市值偏差>10%报警）
                 ↓
          构造三情境辩论问题 → 6角色×2轮辩论 → 裁判汇总 → HTML
+```
+
+---
+
+### 报告输出
+
+报告保存到 `scripts/report_<股票名>_<代码>_<日期>.html`，含六框架评分对比表、彩色进度条、数据校验警告、跳过角色提示。
 
 ---
 
@@ -105,7 +111,11 @@ stock-roundtable/
 │   ├── stock-investment-roles.md    # LLM 角色 prompt 定义
 │   ├── stock-role-output-formats.md # 强制评分输出格式
 │   ├── data-verification-checklist.md
-│   └── ...
+│   ├── moda-helium-thesis.md        # 莫大真实氦气仓位框架
+│   ├── v1.9.2-code-review.md        # 代码审查记录
+│   ├── v1.9.2-audit.md
+│   ├── v1.9.3-audit.md
+│   └── xueqiu-scraping.md
 └── demos/                           # HTML 报告示例
     ├── 中际旭创_圆桌辩论报告.html
     └── 九丰能源_圆桌辩论报告.html
@@ -135,7 +145,6 @@ stock-roundtable/
 |------|---------|------|
 | PE > 50 或 营收 < 50 亿 | 📐 格雷厄姆 | 7 条量化硬标准必挂 |
 | PE > 100 且 ROE < 5% | 🐢 龟龟 | 穿透回报率必为 0 |
-| 营收 YoY > 30% 且 毛利率 > 50% | 📐 + 🐢 | 高增长股不适合防御型策略 |
 
 跳过的角色以琥珀色标注在 HTML 报告结论卡中。
 
