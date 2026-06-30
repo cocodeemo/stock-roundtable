@@ -515,10 +515,10 @@ def filter_roles(quote: dict, fin: dict = None) -> tuple[list[str], list[str]]:
             roles.remove('graham')
             skipped.append('📐格雷厄姆(PE/营收不达标)')
 
-    if pe > 100 and (not fin or fin.get('roe', 0) < 5):
+    if pe > 50:
         if 'shiji' in roles:
             roles.remove('shiji')
-            skipped.append('🐢龟龟(无分红+超高PE)')
+            skipped.append('🐢龟龟(PE>50，穿透回报率无意义)')
 
     # 高增长股天然不适合格雷厄姆和龟龟（防御型价值 / 高股息策略）
     if is_growth:
