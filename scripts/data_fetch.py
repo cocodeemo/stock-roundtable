@@ -184,7 +184,7 @@ def fetch_eastmoney_quote(code: str) -> dict:
     else:
         secid = f"0.{code}"
 
-    url = f"https://push2.eastmoney.com/api/qt/stock/get?secid={secid}&fields=f57,f58,f43,f46,f44,f45,f47,f48,f50,f51,f52,f116,f117,f162,f167,f168,f169,f170,f171"
+    url = f"https://push2.eastmoney.com/api/qt/stock/get?secid={secid}&fields=f57,f58,f43,f46,f116,f117,f162,f163,f164,f165,f167"
 
     def _do_fetch():
         req = urllib.request.Request(url, headers={
@@ -198,7 +198,9 @@ def fetch_eastmoney_quote(code: str) -> dict:
             return {
                 'name': d.get('f58', ''),
                 'price': d.get('f43', 0) / 100 if d.get('f43') else 0,
-                'pe_ttm': d.get('f162', 0) / 100 if d.get('f162') else 0,
+                'pe_ttm': d.get('f164', 0) / 100 if d.get('f164') else 0,  # f164=TTM PE, f162=动态PE(不对齐)
+                'pe_static': d.get('f163', 0) / 100 if d.get('f163') else 0,  # 静态PE(参考)
+                'pe_dynamic': d.get('f162', 0) / 100 if d.get('f162') else 0,  # 动态PE(参考)
                 'market_cap': d.get('f116', 0) / 1e8 if d.get('f116') else 0,
             }
 
