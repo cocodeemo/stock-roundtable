@@ -1,19 +1,21 @@
-# 🎭 Stock Roundtable · v2.0.0
+# 🎭 Stock Roundtable · v2.0.1
 
-6 大投资流派圆桌辩论 —— 实时行情+财报+产业链格局三重注入，杂志级 HTML 报告。
+6 大投资流派圆桌辩论 —— 实时行情+财报+产业链格局，LLM 角色互相引用反驳，输出杂志级 HTML 报告。
 
-> Multi-agent debate: 6 investment schools with real-time data + industry context. Magazine-grade HTML output. Round 1 parallelized.
+> Multi-agent debate: 6 investment schools debate a stock with real-time data injection. Round 1 runs in parallel. Magazine-grade HTML output.
 
 ---
 
 ## 🎯 Demo
 
+`demos/` 目录包含两个真实 HTML 报告示例（下载后浏览器打开即可查看）。均由 Hermes Agent 基于真实行情（腾讯 API）+ 财务数据（AKShare）进行两轮辩论后自动生成。
+
 | 股票 | 看点 · Highlight |
 |------|-----------------|
-| [中际旭创 (300308)](demos/中际旭创_圆桌辩论报告.html) | AI 光模块龙头，6 框架分裂（费雪 82 力挺 vs 格雷厄姆 0 淘汰） |
-| [九丰能源 (605090)](demos/九丰能源_圆桌辩论报告.html) | LNG 贸易商，6 框架一致看空（均分 39，穿透回报率 0.71%） |
+| [中际旭创 (300308)](demos/中际旭创_圆桌辩论报告.html) | AI 光模块龙头，多框架深度分裂 |
+| [九丰能源 (605090)](demos/九丰能源_圆桌辩论报告.html) | LNG 贸易商，多框架一致看空 |
 
-> 💡 下载 HTML 后在浏览器打开。GitHub 不渲染自定义 HTML。
+> 💡 GitHub 不渲染自定义 HTML，请下载后浏览器打开。<br>
 > 💡 *Download the HTML and open in your browser. GitHub doesn't render custom HTML.*
 
 ---
@@ -73,7 +75,7 @@ EastMoney API ──→ PE / 市值（交叉验证）
 AKShare ────→ 财报 / 除权 / 主营业务
 v4-pro ────→ 产业链格局（供给瓶颈 / 需求爆发 / 低估点）
                 ↓
-         两源交叉验证（PE偏差>10%报错 / 市值偏差>10%报错）
+         三方交叉验证（PE偏差>5%警告/>10%报错 / 市值偏差>10%报错）
                 ↓
          构造三情境辩论问题 → 6角色×2轮辩论 → 裁判汇总 → HTML
 ```
@@ -100,7 +102,7 @@ stock-roundtable/
 │   ├── engine.py                   # 核心辩论编排
 │   ├── roles.py                    # 6 大流派角色定义
 │   ├── html_report.py              # HTML 报告渲染
-├── tests/                          # 单元测试
+├── tests/                          # 单元测试（本地保留，不推送）
 ├── references/
 │   ├── methodologies/               # 6 大投资方法论完整原文
 │   │   ├── graham-methodology.md
@@ -149,8 +151,8 @@ stock-roundtable/
 
 | 平台 | 状态 |
 |------|------|
-| Linux (WSL) | ✅ 原生开发环境 |
-| macOS | ✅ 已验证（退出码 0） |
+| macOS | ✅ 主力开发环境 |
+| Linux | ✅ 已验证 |
 | Windows | ⚠️ 未测试 |
 
 ---
