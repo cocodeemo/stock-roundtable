@@ -29,6 +29,7 @@ scripts/last_debate_report.md
 scripts/last_debate_result.json
 scripts/report_*.html
 scripts/debug/
+tests/
 
 # Desktop outputs
 ~/Desktop/report_*.html
