@@ -27,7 +27,7 @@ metadata:
 | 📊 **莫大** | 雪球 2173 篇帖子 | 六维加权：供给约束 > 业绩增长 |
 | 🐢 **龟龟** | B 站 35 万粉 UP 主 | 穿透回报率 + 烟蒂股，先守后攻 |
 
-完整方法论见 [`references/methodologies/`](references/methodologies/)。莫大真实氦气仓位框架见 [`references/moda-helium-thesis.md`](references/moda-helium-thesis.md)。
+完整方法论见 [`references/methodologies/`](references/methodologies/)。莫大真实仓位框架见 luohuitou-methodology.md 附录。
 
 ## 🚀 快速开始
 
@@ -129,8 +129,6 @@ stock-roundtable/
 │   └── html_report.py             # HTML 报告渲染
 ├── references/
 │   ├── methodologies/              # 6 大投资方法论原文
-│   ├── moda-helium-thesis.md       # 莫大真实氦气仓位框架
-│   └── html-report-format-pitfalls.md
 └── demos/                          # HTML 报告示例
 ```
 
@@ -145,7 +143,7 @@ stock-roundtable/
 - **已修复的常见 bug**：CSS 字符串尾部逗号→tuple（`"""` 后无逗号）；`html` 变量名遮盖 import；`cfg` 作用域 NameError（`try` 前初始化 `cfg=None`）；`_parse()` NaN 传播（`math.isnan()` 检测）。
 - **LLM 训练数据过时**：deepseek-v4-pro 训练截止 2023，不知道当前股价/PE/财报。必须提前抓实时数据注入问题，否则角色会编造假数字互相打架。
 - **报告交付必须附带文件路径**：给用户时直接在回复中写出绝对路径（如 `~/Desktop/report_华特气体_688268_20260629.html`），不要只给 Markdown 链接。
-- **Round 2 HTML 格式兼容性**：LLM 在第二轮常产出非标准表格（`旧分/新分/调整` 列头、数字后带尾随文本如 `**30** (下调10分)`、`综合评分：XX/100` 等格式）。`html_report.py` 已做 4 项修复来兜底这些情况，详见 [`references/html-report-format-pitfalls.md`](references/html-report-format-pitfalls.md)。
+- **Round 2 HTML 格式兼容性**：LLM 在第二轮常产出非标准格式——列头用 `旧分/新分/调整` 而非 `分数/评分`（→ 表格丢失 `score-table` 样式）、数字后带尾随文本如 `**30** (下调10分)`（→ 进度条无法渲染）、总分写成 `综合评分：30/100` 或 `总分 **40/100**`（→ 对比表提取失败）。`html_report.py` 已做 4 项兜底：扩展列头匹配、进度条容忍尾随文本、表格兜底仅取标准 3 列表、新增评分正则。
 
 ---
 

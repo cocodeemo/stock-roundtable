@@ -109,7 +109,6 @@ stock-roundtable/
 │   │   ├── benjiu-methodology.md
 │   │   ├── luohuitou-methodology.md
 │   │   ├── shiji-methodology.md
-│   ├── moda-helium-thesis.md        # 莫大真实氦气仓位框架
 └── demos/                           # HTML 报告示例
     ├── 中际旭创_圆桌辩论报告.html
     └── 九丰能源_圆桌辩论报告.html
