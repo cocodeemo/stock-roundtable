@@ -100,7 +100,6 @@ stock-roundtable/
 │   ├── engine.py                   # 核心辩论编排
 │   ├── roles.py                    # 6 大流派角色定义
 │   ├── html_report.py              # HTML 报告渲染
-│   └── debug/                      # 调试脚本
 ├── tests/                          # 单元测试
 ├── references/
 │   ├── methodologies/               # 6 大投资方法论完整原文
@@ -113,13 +112,8 @@ stock-roundtable/
 │   │   ├── stock-analysis.md        # 六框架联合分析
 │   │   ├── market-screener.md       # 量化选股器
 │   │   └── data-collection/         # 原始数据采集工具（雪球/B站）
-│   ├── stock-investment-roles.md    # LLM 角色 prompt 定义
-│   ├── stock-role-output-formats.md # 强制评分输出格式
 │   ├── data-verification-checklist.md
 │   ├── moda-helium-thesis.md        # 莫大真实氦气仓位框架
-│   ├── v1.9.2-code-review.md        # 代码审查记录
-│   ├── v1.9.2-audit.md
-│   ├── v1.9.3-audit.md
 │   └── xueqiu-scraping.md
 └── demos/                           # HTML 报告示例
     ├── 中际旭创_圆桌辩论报告.html
