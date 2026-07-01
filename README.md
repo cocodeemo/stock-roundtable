@@ -75,16 +75,16 @@ EastMoney API ──→ PE / 市值（交叉验证）
 AKShare ────→ 财报 / 除权 / 主营业务
 v4-pro ────→ 产业链格局（供给瓶颈 / 需求爆发 / 低估点）
                 ↓
-         三方交叉验证（PE偏差>5%警告/>10%报错 / 市值偏差>10%报错）
+         三方交叉验证（PE偏差>5%警告/>10%报错 / 市值偏差>5%警告/>10%报错）
                 ↓
-         构造三情境辩论问题 → 6角色×2轮辩论 → 裁判汇总 → HTML
+         构造三情境辩论问题 → 多角色×2轮辩论 → 裁判汇总 → HTML
 ```
 
 ---
 
 ### 报告输出
 
-报告保存到 `~/Desktop/report_<股票名>_<代码>_<日期>.html`，含六框架评分对比表、彩色进度条、数据校验警告、跳过角色提示。
+报告保存到 `~/Desktop/report_<股票名>_<代码>_<日期>.html`，含评分对比表、彩色进度条、数据校验警告、跳过角色提示。
 
 ---
 
@@ -93,6 +93,11 @@ v4-pro ────→ 产业链格局（供给瓶颈 / 需求爆发 / 低估点
 ```
 stock-roundtable/
 ├── SKILL.md                         # Hermes Skill 主指南
+├── README.md                        # 项目主页（本文件）
+├── CHANGELOG.md                     # 版本变更记录
+├── LICENSE                          # MIT
+├── requirements.txt                 # Python 依赖
+├── .gitignore
 ├── scripts/
 │   ├── stock_debate.py             # 主流程（一行命令全流程）
 │   ├── data_fetch.py               # 数据采集（行情/财报/产业链）
@@ -101,16 +106,15 @@ stock-roundtable/
 │   ├── demo.py                     # LLM 辩论引擎入口
 │   ├── engine.py                   # 核心辩论编排
 │   ├── roles.py                    # 6 大流派角色定义
-│   ├── html_report.py              # HTML 报告渲染
-├── tests/                          # 单元测试（本地保留，不推送）
+│   └── html_report.py              # HTML 报告渲染
 ├── references/
-│   ├── methodologies/               # 6 大投资方法论完整原文
-│   │   ├── graham-methodology.md
-│   │   ├── buffett-methodology.md
-│   │   ├── fisher-methodology.md
-│   │   ├── benjiu-methodology.md
-│   │   ├── luohuitou-methodology.md
-│   │   ├── shiji-methodology.md
+│   └── methodologies/               # 6 大投资方法论完整原文
+│       ├── graham-methodology.md
+│       ├── buffett-methodology.md
+│       ├── fisher-methodology.md
+│       ├── benjiu-methodology.md
+│       ├── luohuitou-methodology.md
+│       └── shiji-methodology.md
 └── demos/                           # HTML 报告示例
     ├── 中际旭创_圆桌辩论报告.html
     └── 九丰能源_圆桌辩论报告.html
