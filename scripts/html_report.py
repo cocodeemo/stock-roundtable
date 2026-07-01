@@ -209,7 +209,13 @@ nav {
   justify-content: center; font-size: 1.5rem; border: 2px solid var(--border);
 }
 .voice-name { font-weight: 600; font-size: 1.1rem; flex: 1; }
-.voice-round { font-size: 0.8rem; color: var(--text-muted); }
+.voice-round {
+  font-size: 0.72rem; font-weight: 600; padding: 3px 12px;
+  border-radius: 999px; letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.voice-round.r1 { background: #E0F2FE; color: #075985; }
+.voice-round.r2 { background: var(--accent-light); color: #92400E; }
 .voice-card p { margin-bottom: 14px; line-height: 1.85; color: var(--text-secondary); }
 .voice-card strong { color: var(--text-primary); font-weight: 600; }
 .voice-card em { font-style: normal; font-weight: 600; color: var(--accent); }
@@ -332,6 +338,8 @@ footer a:hover { color: var(--accent); }
   }
   .cc-validation { background: #2D1F1F; border-color: #5C2020; }
   .cc-consensus { background: #1F2A35; border-left-color: #60A5FA; }
+  .voice-round.r1 { background: #1E3A5F; color: #93C5FD; }
+  .voice-round.r2 { background: #78350F; color: #FDE68A; }
   .score-total { background: #2D2A28; }
   .score-total-grade.top { background: #14532D; color: #86EFAC; }
   .score-total-grade.good { background: #1E3A5F; color: #93C5FD; }
@@ -370,7 +378,7 @@ def _parse_transcript_to_voice_cards(transcript: list) -> str:
   <div class="voice-head">
     <div class="voice-emoji">{msg.get("emoji", "🎭")}</div>
     <div class="voice-name">{msg.get("role_name", "发言人")}</div>
-    <div class="voice-round">第 {msg.get("round", 1)} 轮</div>
+    <div class="voice-round r{msg.get("round", 1)}">第 {msg.get("round", 1)} 轮</div>
   </div>
   <div>{content_html}</div>
 </article>""")
