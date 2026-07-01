@@ -530,28 +530,24 @@ def _visualize_scores(html: str) -> str:
     # 找 <table> 中含 "分数" 或 "评分" 或 "分值" 列头的表格
 
     def _add_bar_to_row(row_match):
-        """给评分表格行添加进度条"""
+        """给评分表格行添加进度条，支持数字后带尾随文本（如 '30 (下调10分)'）"""
         row = row_match.group(0)
-        score_match = re.search(r'<td[^>]*>(?:<strong>)?([\d.]+)(?:</strong>)?</td>', row)
-        if not score_match:
+        m = re.search(r'<td[^>]*>(?:<strong>)?([\d.]+)(?:</strong>)?(.*?)</td>', row)
+        if not m:
             return row
-        score = float(score_match.group(1))
+        score = float(m.group(1))
+        trailing = m.group(2)
         bar_class = 'high' if score >= 70 else ('mid' if score >= 40 else 'low')
         bar_html = ('<div class="score-bar-wrap">'
                    '<span class="score-value">{}</span>'
                    '<div class="score-bar"><div class="score-bar-fill {}" style="width:{}%;"></div></div>'
                    '</div>').format(score, bar_class, min(score, 100))
-        return re.sub(
-            r'<td[^>]*>(?:<strong>)?[\d.]+(?:</strong>)?</td>',
-            '<td>{}</td>'.format(bar_html),
-            row,
-            count=1
-        )
+        return row[:m.start()] + '<td>' + bar_html + trailing + '</td>' + row[m.end():]
 
     def convert_score_table(match):
         table_html = match.group(0)
         # 检查是否含分数列
-        if not re.search(r'<th[^>]*>.*?(?:分数|评分|分值|得分).*?</th>', table_html):
+        if not re.search(r'<th[^>]*>.*?(?:分数|评分|分值|得分|旧分|新分|调整).*?</th>', table_html):
             return table_html
 
         table_html = re.sub(r'<tr>(?!<th).*?</tr>', _add_bar_to_row, table_html)
@@ -596,9 +592,15 @@ def _build_comparison_table(transcript: list) -> str:
         m = None
         # 1. 标准的 "总分：XX/100" 格式
         m = re.search(r'总分[：:].*?([\d.]+)\s*/\s*100', content)
-        # 2. "XX/100" 格式（独立一行）
+        # 1b. "总分 **40/100**" (Markdown bold, 空格非冒号)
         if not m:
-            m = re.search(r'(?<!\d)([\d.]+)\s*/\s*100\s*(?:分|→)', content)
+            m = re.search(r'总分\s+\*?\*?([\d.]+)\*?\*?\s*/\s*100', content)
+        # 1c. "综合评分：30/100" / "总评：XX/100"
+        if not m:
+            m = re.search(r'(?:综合评分|总评|综合得分)[：:]\s*\*?\*?([\d.]+)\*?\*?\s*/\s*100', content)
+        # 2. "XX/100" 格式（独立一行，允许任意尾随）
+        if not m:
+            m = re.search(r'(?<!\d)([\d.]+)\s*/\s*100', content)
         # 3. "总分约XX分" "总分降至XX分" "总分仅仅XX"
         if not m:
             m = re.search(r'(?:总分|综合|加权).*?[\s：:]*(?:约|仅|降至|不及)?\s*([\d.]+)\s*分', content)
@@ -611,27 +613,21 @@ def _build_comparison_table(transcript: list) -> str:
         # 4c. 笨韭公式格式 "总分：90×0.30+... = 60.5 → 标配"
         if not m:
             m = re.search(r'总分[：:]\s*[\d.×+= −]+\s*=\s*([\d.]+)\s*分?\s*→', content)
-        # 5. 表格最后一行最后一列是数字（兜底，取最后匹配的行而非第一行）
+        # 5. 表格兜底——仅处理标准 3 列表格（维度|分数|理由），跳过非标准格式
         _table_score = None
         if not m:
             for line in content.split('\n'):
                 if re.match(r'^\|.*\|\s*$', line) and not re.match(r'^\|[\s\-:]+\|', line):
                     cells = [c.strip() for c in line.split('|')[1:-1]]
-                    if len(cells) >= 2:
+                    # 只看标准 3 列表格，避免误取"旧分/新分"等 4 列表的维度分
+                    if len(cells) == 3:
                         try:
-                            last = cells[-1].replace('**', '').strip()
-                            v = float(last)
+                            v = float(cells[1].replace('**', '').strip())
                             if 0 < v <= 100:
                                 _table_score = v
                         except ValueError:
-                            if len(cells) > 2:
-                                try:
-                                    v = float(cells[-2].replace('**', '').strip())
-                                    if 0 < v <= 100:
-                                        _table_score = v
-                                except ValueError:
-                                    pass
-
+                            pass
+    
         score = None
         if m:
             score = float(m.group(1))
