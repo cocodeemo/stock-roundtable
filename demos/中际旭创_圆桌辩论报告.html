@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>中际旭创 · 圆桌辩论报告 · Hermes Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -105,6 +107,31 @@ nav {
 }
 .cc-headline strong { font-weight: 700; }
 .cc-headline em { font-style: normal; font-weight: 700; color: var(--red); }
+
+/* Consensus block */
+.cc-consensus {
+  margin-bottom: 28px; padding: 20px 24px;
+  background: var(--bg-warm); border-radius: 12px;
+  border-left: 4px solid var(--blue);
+}
+.cc-consensus p {
+  font-size: 1.05rem; color: var(--text-primary); line-height: 1.85; margin: 0;
+}
+.cc-consensus p strong { font-weight: 700; }
+
+/* Data validation warnings */
+.cc-validation {
+  margin-bottom: 24px; padding: 16px 20px;
+  background: #FEF2F2; border: 1px solid #FECACA;
+  border-radius: 10px; font-size: 0.9rem;
+}
+.cc-validation-label {
+  color: var(--red); font-weight: 700; font-size: 0.85rem;
+  letter-spacing: 0.05em; margin-bottom: 6px;
+}
+.cc-validation-item {
+  color: var(--text-secondary); padding: 2px 0; font-size: 0.85rem;
+}
 
 .cc-vote {
   display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
@@ -283,6 +310,32 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
   .dispute-card { padding: 20px; grid-template-columns: 1fr; gap: 8px; }
   .risk-table th, .risk-table td { padding: 14px 14px; }
 }
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1A1817; --bg-secondary: #242220; --bg-card: #242220;
+    --bg-elevated: #2D2A28; --bg-warm: #2D2A28; --bg-dark: #F5F2EE;
+    --text-primary: #E5E2DE; --text-secondary: #B0ABA6;
+    --text-muted: #8A8480; --text-light: #6B6560;
+    --accent: #F59E0B; --accent-light: #78350F; --accent-hover: #FBBF24;
+    --border: #3D3A36; --border-light: #33302D;
+    --red: #F87171; --green: #34D399; --blue: #60A5FA;
+  }
+  .cc-validation { background: #2D1F1F; border-color: #5C2020; }
+  .cc-consensus { background: #1F2A35; border-left-color: #60A5FA; }
+  .score-total { background: #2D2A28; }
+  .score-total-grade.top { background: #14532D; color: #86EFAC; }
+  .score-total-grade.good { background: #1E3A5F; color: #93C5FD; }
+  .score-total-grade.ok { background: #4A3500; color: #FDE68A; }
+  .score-total-grade.bad { background: #5C2020; color: #FCA5A5; }
+  .score-total-grade.skip { background: #2D2A28; color: #8A8480; }
+  .compare-verdict.buy { background: #14532D; color: #86EFAC; }
+  .compare-verdict.hold { background: #4A3500; color: #FDE68A; }
+  .compare-verdict.sell { background: #5C2020; color: #FCA5A5; }
+  .score-table { background: #2D2A28; }
+  .score-table th { background: #242220; }
+}
 </style>
 </head>
 <body>
@@ -298,9 +351,9 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
 </nav>
 
 <section class="hero">
-  <div class="kicker">ROUND TABLE · 2026-06-29 · Hermes 多 Agent 辩论引擎</div>
-  <h1>中际旭创(300308)是否值得持有？</h1>
-  <div class="hero-dek">6 位专家多轮交叉辩论——2 轮互相引用反驳，全方位审视，综合置信度 65%</div>
+  <div class="kicker">ROUND TABLE · 2026-07-01 10:51 · Hermes 多 Agent 辩论引擎</div>
+  <h1>中际旭创(300308)投资价值评估</h1>
+  <div class="hero-dek">4 位专家多轮交叉辩论——2 轮互相引用反驳，全方位审视，综合置信度 45%</div>
 </section>
 
 <section id="conclusion">
@@ -312,59 +365,68 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
     <div class="conclusion-card">
 
       <div class="cc-question">YOU ASKED</div>
-      <div class="cc-question-text">中际旭创(300308)是否值得持有？</div>
+      <div class="cc-question-text">中际旭创(300308)投资价值评估</div>
 
       <div class="cc-snapshot">
   <div class="cc-snapshot-label">当前关键数据</div>
   <div class="cc-snapshot-grid"><div class="cc-snap-cell">
   <div class="cc-snap-cell-label">中际旭创(300308)</div>
-  <div class="cc-snap-cell-value">1253.89</div>
-  <div class="cc-snap-cell-sub cc-snap-down">-5.25%</div>
+  <div class="cc-snap-cell-value">1275.76</div>
+  <div class="cc-snap-cell-sub cc-snap-up">+0.45%</div>
 </div><div class="cc-snap-cell">
   <div class="cc-snap-cell-label">PE(TTM)</div>
-  <div class="cc-snap-cell-value">93.54x</div>
-  <div class="cc-snap-cell-sub "></div>
+  <div class="cc-snap-cell-value">95x</div>
+  <div class="cc-snap-cell-sub ">静态131x</div>
 </div><div class="cc-snap-cell">
   <div class="cc-snap-cell-label">总市值</div>
-  <div class="cc-snap-cell-value">1.40万亿</div>
+  <div class="cc-snap-cell-value">14228亿</div>
   <div class="cc-snap-cell-sub "></div>
 </div><div class="cc-snap-cell">
   <div class="cc-snap-cell-label">52周区间</div>
-  <div class="cc-snap-cell-value">1416.88</div>
-  <div class="cc-snap-cell-sub ">最低114.20</div>
+  <div class="cc-snap-cell-value">1417</div>
+  <div class="cc-snap-cell-sub ">最低121</div>
 </div><div class="cc-snap-cell">
-  <div class="cc-snap-cell-label">2025全年营收</div>
-  <div class="cc-snap-cell-value">382.40亿</div>
-  <div class="cc-snap-cell-sub cc-snap-up">同比+60.25%</div>
-</div><div class="cc-snap-cell">
-  <div class="cc-snap-cell-label">2026 Q1营收</div>
+  <div class="cc-snap-cell-label">营收(最新期)</div>
   <div class="cc-snap-cell-value">194.96亿</div>
-  <div class="cc-snap-cell-sub cc-snap-up">同比+192.12%🔥</div>
+  <div class="cc-snap-cell-sub cc-snap-up">同比+192%</div>
+</div><div class="cc-snap-cell">
+  <div class="cc-snap-cell-label">净利润</div>
+  <div class="cc-snap-cell-value">57.35亿</div>
+  <div class="cc-snap-cell-sub cc-snap-up">同比+262%</div>
 </div><div class="cc-snap-cell">
   <div class="cc-snap-cell-label">毛利率/ROE</div>
-  <div class="cc-snap-cell-value">46.06%</div>
-  <div class="cc-snap-cell-sub ">ROE 43.84%</div>
+  <div class="cc-snap-cell-value">46%</div>
+  <div class="cc-snap-cell-sub ">ROE 17.5%</div>
 </div><div class="cc-snap-cell">
   <div class="cc-snap-cell-label">经营现金流/股</div>
-  <div class="cc-snap-cell-value">9.81元</div>
-  <div class="cc-snap-cell-sub ">≈EPS，含金量极高✅</div>
+  <div class="cc-snap-cell-value">3.03元</div>
+  <div class="cc-snap-cell-sub "></div>
 </div>
   </div>
 </div>
 
-      <div class="cc-headline-label">圆桌综合视角</div>
-      <div class="cc-headline"><strong>深度分裂——费雪力挺(82分)，其余全部犹豫或否定，均分50.5。</strong><br><br>🔬费雪派：这是教科书级的成长股——管理层卓越、营收+192%、毛利率46%、ROE 44%。唯一的"缺点"是PE 93x，但伟大的成长企业永远看起来贵。<br><br>🛑 其余五方无一推荐买入：巴菲特说零安全边际(PE 93x)；莫大说股价悬顶(距52周高仅11%)；龟龟说穿透回报率0.08%要1250年回本；笨韭说景气虽好但估值不在低位；格雷厄姆直接淘汰。<br><br><em>核心矛盾</em>：AI景气度和公司竞争力无可争议，但当前价格已经把所有好消息都消化完了。买在114的人任何时候卖都是赚的，买在1254的人在赌还能创新高。</div>
+      <div class="cc-validation">
+  <div class="cc-validation-label">🔍 数据校验警告</div>
+  <div class="cc-validation-item" style="color:#f59e0b;">🔍 自动跳过: 📐格雷厄姆(PE/营收不达标), 🐢龟龟(PE>50，穿透回报率无意义)</div>
+</div>
 
+      <div class="cc-headline-label">圆桌综合视角</div>
+      <div class="cc-headline">已持有者应至少减仓一半以锁定利润，保留部分仓位观察1.6T放量及订单变化；尚未持有者当前不宜追高，需等待PE回调至60倍以下或实质性供给面改善信号。</div>
+
+      <div class="cc-consensus">
+  <div class="cc-headline-label">圆桌共识</div>
+  <p>行业景气度极高，800G/1.6T放量驱动业绩爆发，但当前估值已处于历史极端水平，风险收益比不佳，缺乏安全边际。</p>
+</div>
       <div class="cc-confidence">
         <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:var(--text-muted);">
-          <span>综合置信度</span><span>65%</span>
+          <span>综合置信度</span><span>45%</span>
         </div>
-        <div class="cc-confidence-bar"><div class="cc-confidence-fill" style="width:65%;"></div></div>
+        <div class="cc-confidence-bar"><div class="cc-confidence-fill" style="width:45%;"></div></div>
       </div>
 
       <div class="cc-vote">
         <span class="cc-vote-label">参与方：</span>
-        <span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>📐格雷厄姆</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🏰巴菲特</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🔬费雪</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>⚡笨韭</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>📊莫大</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🐢龟龟</span>
+        <span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🏰 巴菲特</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>🔬 费雪</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>⚡ 笨韭</span><span class="cc-vote-tag"><span class="dot" style="background:var(--accent)"></span>📊 莫大</span>
         <span class="cc-vote-tag"><span class="dot" style="background:var(--blue)"></span>2 轮辩论</span>
       </div>
 
@@ -376,7 +438,7 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
   <div class="section-head">
     <div class="section-num">02 · 视角</div>
     <div>
-      <div class="section-title">6 方怎么看</div>
+      <div class="section-title">4 方怎么看</div>
       <div class="section-lede">每位从自己的角色立场独立诊断——想看完整推理的人来这里</div>
     </div>
   </div>
@@ -386,169 +448,152 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
   <table class="compare-table">
     <thead><tr><th style="text-align:left;">流派</th><th>评分</th><th>立场</th><th style="text-align:left;">结论</th></tr></thead>
     <tbody><tr>
-  <td style="text-align:left;font-weight:600;">📐 格雷厄姆派</td>
-  <td><span class="compare-score low">0</span></td>
+  <td style="text-align:left;font-weight:600;">🏰 巴菲特</td>
+  <td><span class="compare-score low">28</span></td>
   <td><span class="compare-verdict sell">看空</span></td>
-  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">为成长支付 93 倍 PE 是投机，不是投资。**</td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">“不要跨七英尺的栏杆。” 继续 **不持有**。</td>
 </tr><tr>
-  <td style="text-align:left;font-weight:600;">🏰 巴菲特派</td>
-  <td><span class="compare-score high">60</span></td>
-  <td><span class="compare-verdict hold">观望</span></td>
-  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">会等PE回到40以下再谈。不为没有安全边际的生意出价。**</td>
-</tr><tr>
-  <td style="text-align:left;font-weight:600;">🔬 费雪派</td>
+  <td style="text-align:left;font-weight:600;">🔬 费雪</td>
   <td><span class="compare-score high">82</span></td>
-  <td><span class="compare-verdict sell">看空</span></td>
-  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">伟大的成长企业永远看起来贵。不用等PE降下来——你等不到。**</td>
+  <td><span class="compare-verdict buy">看好</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">持有。勿为短期现金流表放弃超级成长。</td>
 </tr><tr>
-  <td style="text-align:left;font-weight:600;">⚡ 笨韭派</td>
-  <td><span class="compare-score high">66</span></td>
+  <td style="text-align:left;font-weight:600;">⚡ 笨韭</td>
+  <td><span class="compare-score high">62</span></td>
   <td><span class="compare-verdict sell">看空</span></td>
-  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">景气无争议，但笨韭双击差一条——估值不在低位。需要等回调。**</td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">核心观点：贝塔王者，阿尔法已死。双击完美兑现，景气仍在云端，但股价已透支三年乐观</td>
 </tr><tr>
-  <td style="text-align:left;font-weight:600;">📊 莫大派</td>
-  <td><span class="compare-score mid">48</span></td>
-  <td><span class="compare-verdict hold">观望</span></td>
-  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">买在114的人什么时候卖都是赚的。买在1254的人在赌还能创新高。**</td>
-</tr><tr>
-  <td style="text-align:left;font-weight:600;">🐢 龟龟派</td>
-  <td><span class="compare-score mid">46</span></td>
+  <td style="text-align:left;font-weight:600;">📊 莫大</td>
+  <td><span class="compare-score low">29</span></td>
   <td><span class="compare-verdict sell">看空</span></td>
-  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">龟龟要的是公司给我发钱，不是让我等别人出更高价。不持有。**</td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">：1275元、95倍PE、近历史高点的股票，不是你的猎物。等EML替代方案落地或</td>
 </tr></tbody>
   </table>
 </div>
     <article class="voice-card">
   <div class="voice-head">
-    <div class="voice-emoji">📐</div>
-    <div class="voice-name">📐 格雷厄姆派</div>
-    <div class="voice-round">第 1 轮</div>
-  </div>
-  <div><p><strong>核心观点：PE 93.54x >> 15x，PE×PB = 4,378 >> 22.5，直接淘汰。</strong></p>
-
-<table><tr><th>准则</th><th>判定</th><th>当前值</th></tr><tr><td>营收 ≥ 50亿</td><td>✅</td><td>382.40亿</td></tr><tr><td>流动比率 ≥ 2</td><td>✅</td><td>2.69</td></tr><tr><td>PE ≤ 15</td><td>❌</td><td>93.54x</td></tr><tr><td>PE×PB ≤ 22.5</td><td>❌</td><td>93.54×46.8=4,378</td></tr></table>
-
-<p>这不是贵，这是另一个宇宙。格雷厄姆的框架甚至不需要看后面几条。</p>
-
-<p><strong>总分：<span style="font-weight:700;font-size:1.1em;">0</span>/100分</strong> → 🚫 淘汰</p>
-
-<p><strong>结论：为成长支付 93 倍 PE 是投机，不是投资。</strong></p></div>
-</article>
-<article class="voice-card">
-  <div class="voice-head">
     <div class="voice-emoji">🏰</div>
-    <div class="voice-name">🏰 巴菲特派</div>
+    <div class="voice-name">🏰 巴菲特</div>
     <div class="voice-round">第 1 轮</div>
   </div>
-  <div><p><strong>核心观点：好赛道、好公司、烂价格。</strong></p>
-
-<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>护城河 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>800G/1.6T光模块全球第一，技术壁垒深。但代际2-3年一轮，护城河需持续重挖</td></tr><tr><td>伊索三问 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">70.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:70.0%;"></div></div></div></td><td>AI需求确定性极高，Q1营收+192%。但2028年后不确定性大</td></tr><tr><td>管理层 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">75.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:75.0%;"></div></div></div></td><td>AI浪潮中完美执行</td></tr><tr><td>安全边际 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">15.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:15.0%;"></div></div></div></td><td>PE 93x、PB 47x——零安全边际</td></tr><tr><td>能力圈 (10%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>AI基础设施可理解</td></tr></table>
-
-<p><strong>总分：60.<span style="font-weight:700;font-size:1.1em;">5</span>/100分</strong></p>
-
-<p><strong>结论：会等PE回到40以下再谈。不为没有安全边际的生意出价。</strong></p></div>
+  <div><table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>护城河(30%)</td><td><div class="score-bar-wrap"><span class="score-value">35.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:35.0%;"></div></div></div></td><td>绑定英伟达看似护城河，实为单一客户依赖。光模块技术迭代快，1.6T马上替代800G，无定价权，需持续巨额资本开支，本质是科技制造业，护城河窄且脆弱。</td></tr><tr><td>伊索三问(30%)</td><td><div class="score-bar-wrap"><span class="score-value">25.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:25.0%;"></div></div></div></td><td>高增长确定？不，增速依赖AI资本开支，随时可能周期性过剩。能持续多久？竞争激烈，毛利率可能回落。近期回报？95倍PE已透支多年增长，安全边际极低。</td></tr><tr><td>管理层(15%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>尚无显著诚信问题，但资本配置能力无法评判，缺乏长期公开记录。未展现如回购、抗拒增发等股东导向行为。</td></tr><tr><td>安全边际(15%)</td><td><div class="score-bar-wrap"><span class="score-value">15.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:15.0%;"></div></div></div></td><td>股价1275元，PE 95倍。即使未来三年利润翻倍，仍在30倍以上。内在价值难算，但肯定远低于市价，无安全边际。</td></tr><tr><td>能力圈(10%)</td><td><div class="score-bar-wrap"><span class="score-value">25.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:25.0%;"></div></div></div></td><td>光通信技术复杂，受英伟达、AI周期、地缘政治多重影响，难以可靠预测未来现金流，超出能力圈。</td></tr></table>
+<p>总分：31.<span style="font-weight:700;font-size:1.1em;">5</span>/100分</p>
+<p>结论：不持有。这种股票如同当年的汽车、航空股，技术变化快，客户集中，资本饥渴，最终很少为股东创造持久价值。即使业务爆发，高估值已反映所有乐观预期，风险极度不对称。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">🔬</div>
-    <div class="voice-name">🔬 费雪派</div>
+    <div class="voice-name">🔬 费雪</div>
     <div class="voice-round">第 1 轮</div>
   </div>
-  <div><p><strong>核心观点：这就是费雪要找的——卓越管理层+爆炸性成长+高利润率。</strong></p>
-
-<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>管理层 (35%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>AI浪潮中精准卡位，执行完美</td></tr><tr><td>成长空间 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">90.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:90.0%;"></div></div></div></td><td>Q1营收+192%！AI资本开支加速，1.6T升级周期刚开始</td></tr><tr><td>竞争优势 (20%)</td><td><div class="score-bar-wrap"><span class="score-value">75.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:75.0%;"></div></div></div></td><td>800G份额全球第一，技术迭代占先手</td></tr><tr><td>利润率 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>毛利率46%在硬件公司极其出色，且持续提升</td></tr></table>
-
-<p><strong>总分：<span style="font-weight:700;font-size:1.1em;">82</span>/100分</strong> 🔥</p>
-
-<p><strong>结论：伟大的成长企业永远看起来贵。不用等PE降下来——你等不到。</strong></p></div>
+  <div><table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>管理层(35%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>管理团队专注光模块研发超过15年，在800G到1.6T的技术切换上执行坚决，能深度绑定英伟达等头部客户。应收账款周转快(36天)、经营现金流健康，且未见异常股权稀释。扣分点在于：高速扩张期的并购整合风险需持续观察，对上游供给紧张的坦诚披露是否足够需草根验证。</td></tr><tr><td>成长空间(30%)</td><td><div class="score-bar-wrap"><span class="score-value">85.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:85.0%;"></div></div></div></td><td>AI算力军备竞赛才刚开始，1.6T光模块送样并即将批量，渗透率极低，市场空间巨大。营收同比增192%，未来数年销售额有望继续成倍增长，完全符合费雪寻找的“销售额持续翻倍”的特质。</td></tr><tr><td>竞争优势(20%)</td><td><div class="score-bar-wrap"><span class="score-value">75.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:75.0%;"></div></div></div></td><td>核心优势在于凭借首发量产能力深度融入英伟达生态链，形成了事实上的先发规模和技术认证壁垒。但光模块本身技术同质化风险仍存，核心EML芯片仍依赖住友等日美厂商，上游卡脖子是长期隐忧，护城河并非牢不可破。</td></tr><tr><td>利润率趋势(15%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>毛利率从33%快速扩张至46%，净利率高达32.4%，验证了产品向更高端（800G/1.6T）切换带来的强大定价权。只要技术迭代领先，高利润率有望维持甚至继续扩张，这是极佳的费雪式信号。</td></tr></table>
+<p>总分：<strong><span style="font-weight:700;font-size:1.1em;">80</span>/100分</strong></p>
+<p>结论：<strong>持有</strong>（若已持有，坚定持有，勿因95倍PE这种表面估值卖出；若尚未持有，现价只适合极具风险承受能力的买家小仓位试探，因已充分反映极高预期的风险，应等待市场因短期供给噪音恐慌时再沿“草根调研”确认的强基本面大举介入。）</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">⚡</div>
-    <div class="voice-name">⚡ 笨韭派</div>
+    <div class="voice-name">⚡ 笨韭</div>
     <div class="voice-round">第 1 轮</div>
   </div>
-  <div><p><strong>核心观点：AI是毫无疑问的现象级事件，但估值不在低位。</strong></p>
+  <div><p>现象级事件：是(科技突破，0→1突破期)</p>
+<p>笨韭双击：是(英伟达GPU爆发×800G放量双击)</p>
 
-<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>景气度 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">95.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:95.0%;"></div></div></div></td><td>AI是ChatGPT级别的现象级事件，确定无疑</td></tr><tr><td>业务纯度 (25%)</td><td><div class="score-bar-wrap"><span class="score-value">85.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:85.0%;"></div></div></div></td><td>光模块核心供应商，纯度高</td></tr><tr><td>估值水位 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">15.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:15.0%;"></div></div></div></td><td>PE 93x，距52周高仅11%——悬在顶部</td></tr><tr><td>催化剂 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>1.6T升级+NVIDIA Blackwell放量=持续催化</td></tr></table>
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>景气度(30%)</td><td><div class="score-bar-wrap"><span class="score-value">95.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:95.0%;"></div></div></div></td><td>800G向1.6T切换，量价齐升供不应求，毛利率升至46%，趋势陡峭向上</td></tr><tr><td>业务纯度(25%)</td><td><div class="score-bar-wrap"><span class="score-value">85.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:85.0%;"></div></div></div></td><td>800G/1.6T等高端光模块营收占比超70%，直接绑定英伟达算力扩张</td></tr><tr><td>估值水位(30%)</td><td><div class="score-bar-wrap"><span class="score-value">5.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:5.0%;"></div></div></div></td><td>距3年高点不足10%，52周涨10倍有余;95倍PE对应极速膨胀的市值，水位极低</td></tr><tr><td>催化剂(15%)</td><td><div class="score-bar-wrap"><span class="score-value">75.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:75.0%;"></div></div></div></td><td>AI军备竞赛未见顶，1.6T放量是强催化但出圈效应弱于ChatGPT初期</td></tr></table>
 
-<p><strong>总分：66.<span style="font-weight:700;font-size:1.1em;">25</span>/100分</strong></p>
+<p>总分：95×0.3 + 85×0.25 + 5×0.3 + 75×0.15 = 28.5+21.25+1.5+11.25 = 62.<span style="font-weight:700;font-size:1.1em;">5</span>/100分→ ✅标配</p>
 
-<p><strong>结论：景气无争议，但笨韭双击差一条——估值不在低位。需要等回调。</strong></p></div>
+<p>核心观点：贝塔王者，阿尔法已死。双击完美兑现，景气仍在云端，但股价已透支三年乐观预期。PE 95倍叠加距高点近在咫尺，估值水位极贫瘠。尚未持有者追涨风险收益比差，已持有者留仓吃景气剩宴但绝不加仓，跌破1.6T出货量指引才考虑撤退。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">📊</div>
-    <div class="voice-name">📊 莫大派</div>
+    <div class="voice-name">📊 莫大</div>
     <div class="voice-round">第 1 轮</div>
   </div>
-  <div><p><strong>核心观点：不可替代性中上，但股价位置扣完所有分。</strong></p>
+  <div><table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>预期差(18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">30.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:30.0%;"></div></div></div></td><td>市场已充分认知其AI光模块龙头地位和800G放量逻辑，PE 95倍和年内巨大涨幅说明不存在预期差，标签贴得精准。</td></tr><tr><td>不可替代(18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">55.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:55.0%;"></div></div></div></td><td>绑定英伟达主供地位，但并非唯一选择（存在finisar、coherent等对手）。是物理连接而非独占矿权或绝对技术封锁。</td></tr><tr><td>股价位置(25%)</td><td>空仓:10 / 已持有:25</td><td>股价接近52周高点，距历史顶部仅一步之遥。空仓情境下是绝对的估值和位置顶峰，不追。已持有者虽享受巨大浮盈，但风险收益比极差，已到考虑锁定利润的阶段。</td></tr><tr><td>供给弹性(12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">30.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:30.0%;"></div></div></div></td><td>核心瓶颈在上游EML光芯片，受制于日美供应商的扩产节奏。这不是中际旭创自身的供给约束，它赚的是加工组装的钱，自身产能扩张相对容易。</td></tr><tr><td>需求刚性(12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">70.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:70.0%;"></div></div></div></td><td>800G/1.6T是AI数据中心互连的必需品，需求爆发确定且刚性。打分70而非更高，是因为能提供解决方案的不止一家。</td></tr><tr><td>产业链供给周期(6.25%)</td><td><div class="score-bar-wrap"><span class="score-value">70.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:70.0%;"></div></div></div></td><td>EML芯片供给紧张，但大家已有预期并提前备货，缺口不像锑矿那样突然断崖。处于“紧缺已被定价”的阶段。</td></tr><tr><td>企业盈利周期(6.25%)</td><td><div class="score-bar-wrap"><span class="score-value">10.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:10.0%;"></div></div></div></td><td>盈利处于历史性高位，毛利率46%、净利率32%已是极高景气。均值回归是铁的法则，此时赌的是利润继续超线性增长，概率极低。</td></tr></table>
+<p>总分：28.<span style="font-weight:700;font-size:1.1em;">94</span>/100分→ ❌平庸</p>
 
-<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>预期差 (18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>市场已充分定价AI增长。93x PE=没有预期差</td></tr><tr><td>供给弹性 (12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>EML/VCSEL激光器供给有瓶颈</td></tr><tr><td>需求刚性 (12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">80.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:80.0%;"></div></div></div></td><td>AI数据中心必须用光互联——绕不过去</td></tr><tr><td>不可替代性 (18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>800G份额第一但不是垄断(Coherent/新易盛)</td></tr><tr><td>周期位置 (12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>AI基建早中期，还有空间</td></tr><tr><td>股价位置 (25%)</td><td><div class="score-bar-wrap"><span class="score-value">10.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:10.0%;"></div></div></div></td><td>52周114-1417，当前1254，距顶仅11%</td></tr></table>
-
-<p><strong>总分：47.<span style="font-weight:700;font-size:1.1em;">82</span>/100分</strong></p>
-
-<p><strong>结论：买在114的人什么时候卖都是赚的。买在1254的人在赌还能创新高。</strong></p></div>
-</article>
-<article class="voice-card">
-  <div class="voice-head">
-    <div class="voice-emoji">🐢</div>
-    <div class="voice-name">🐢 龟龟派</div>
-    <div class="voice-round">第 1 轮</div>
-  </div>
-  <div><p><strong>核心观点：穿透回报率0.08%，要1250年回本——这不是投资，是收藏品。</strong></p>
-
-<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>商业模式 (35%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>全球光模块龙头，技术强。但硬件周期风险</td></tr><tr><td>穿透回报率 (30%)</td><td><div class="score-bar-wrap"><span class="score-value">5.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:5.0%;"></div></div></div></td><td>10派10元÷1254元=0.08%。龟龟要1250年才能靠分红回本</td></tr><tr><td>可支配现金 (20%)</td><td><div class="score-bar-wrap"><span class="score-value">85.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:85.0%;"></div></div></div></td><td>OCF 9.81≈EPS 9.80，完美匹配</td></tr><tr><td>分红记录 (15%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>持续但极小(相对股价)</td></tr></table>
-
-<p><strong>总分：45.<span style="font-weight:700;font-size:1.1em;">5</span>/100分</strong></p>
-
-<p><strong>结论：龟龟要的是公司给我发钱，不是让我等别人出更高价。不持有。</strong></p></div>
-</article>
-<article class="voice-card">
-  <div class="voice-head">
-    <div class="voice-emoji">🔬</div>
-    <div class="voice-name">🔬 费雪派</div>
-    <div class="voice-round">第 2 轮</div>
-  </div>
-  <div><p><strong>@🏰巴菲特：你说等PE降到40以下。但如果你2019年等着特斯拉PE降下来，你永远上不了车。</strong></p>
-
-<p>AI正在经历百年一遇的算力革命——中际是全球800G/1.6T光模块出货量第一。伟大企业从来不等你。93倍PE贵的不是价格，是你对成长确定性的低估。</p>
-
-<p>Q1营收+192%、净利+262%、毛利率从42%→46%——这不是炒作，是有利润支撑的爆炸式增长。</p></div>
+<p>空仓建议：这就是市场情绪和业绩的顶峰，风险远大于机会。你的哲学是寻找供给约束的独特资产，而不是追逐众星捧月的高PE故事。坚决不碰。</p>
+<p>已持有建议：永远不要和已经涨了十倍的股票谈恋爱。卖出不是不看好，而是赔率已经变差。1.6T的故事已反映在近一万五千亿的市值里。至少应该卖出一半，让利润奔跑，把本金和部分盈利锁定，去寻找下一个“美国锑”。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">🏰</div>
-    <div class="voice-name">🏰 巴菲特派</div>
+    <div class="voice-name">🏰 巴菲特</div>
     <div class="voice-round">第 2 轮</div>
   </div>
-  <div><p><strong>@🔬费雪：你混淆了能力圈和贪婪。</strong></p>
+  <div><p>感谢费雪、笨韭、莫大的精彩发言。这很好地展现了市场的不同思考维度。我这一轮先反驳费雪，再指出盲点，后补充莫大的洞见。</p>
 
-<p>我买苹果的时候PE才13倍。93倍PE意味着未来5年每年增长50%才能消化到合理估值——任何一个低于预期的季度都会腰斩。</p>
+<p><strong>反驳费雪老师：</strong></p>
+<p>费雪给管理层打了80分，理由是他们“专注研发15年”且“执行坚决”。<strong>但“执行坚决”与“卓越的资本配置能力”是两码事。</strong> 对于一个科技制造商，在行业爆发期疯狂扩产是求生本能，不是护城河。真正的巴菲特式管理层，是在行业低迷时以低价回购、在高潮时拒绝增发股票、并永远将每股内在价值的增长放在规模扩张之前。目前，我尚未看到任何此类证据。业绩爆发很可能是行业贝塔，而非管理层的阿尔法。</p>
 
-<p>安全边际不是可选项，是生存法则。而且费雪你也知道——光模块技术代际只有2-3年。中际今天在800G领先，3年后1.6T/3.2T时代还能领先吗？没有长期护城河的企业，我不付93倍。</p></div>
+<p><strong>指出盲点：</strong></p>
+<p>包括笨韭在内的几位都忽略了 <strong>“资本饥渴”属性</strong>。营收增长近200%，但每股经营现金流仅为3.03元，远低于5.18元的EPS。笨韭提到的“供不应求”逻辑，对应的是堆积如山的应收账款和再投资需求。这不产生自由现金流，股东最终得到的只是更多厂房和设备，在高技术迭代中很快会过时。这不是印钞机，是吞金兽。</p>
+
+<p><strong>补充莫大：</strong></p>
+<p>莫大的“企业盈利周期”得分10分，是我全场最认同的洞见。<strong>46%的毛利率和32.4%的净利率，在技术同质化严重的制造业中是不可持续的，均值回归是铁的法则。</strong> 这让《伊索寓言》里的那群鸟显得格外脆弱。</p>
+
+<p><strong>我的立场毫无调整：</strong> 技术+资本饥渴+高点盈利+95倍市盈率，四个条件齐聚，是灾难的配方。投资的第一条规则是不要亏钱。当前的赔率，与赌博无异。</p>
+
+<p>---</p>
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>护城河(30%)</td><td><div class="score-bar-wrap"><span class="score-value">35.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:35.0%;"></div></div></div></td><td>不变。费雪的管理层高光时刻恰是护城河脆弱的证明——它依赖的只是先发优势，而非品牌或高转换成本。</td></tr><tr><td>伊索三问(30%)</td><td><div class="score-bar-wrap"><span class="score-value">25.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:25.0%;"></div></div></div></td><td>不变。高盈利周期的不可持续性是新盲点，成长多只鸟的确定性被证伪。</td></tr><tr><td>管理层(15%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>不变。评论见对费雪的反驳。</td></tr><tr><td>安全边际(15%)</td><td><div class="score-bar-wrap"><span class="score-value">15.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:15.0%;"></div></div></div></td><td>不变。莫大·笨韭陈述的涨幅本身已成反噬内在价值的铁证。</td></tr><tr><td>能力圈(10%)</td><td><div class="score-bar-wrap"><span class="score-value">25.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:25.0%;"></div></div></div></td><td>不变。</td></tr></table>
+<p>总分：<strong>28.<span style="font-weight:700;font-size:1.1em;">5</span>/100分</strong></p>
+<p>结论：“不要跨七英尺的栏杆。” 继续 <strong>不持有</strong>。</p></div>
+</article>
+<article class="voice-card">
+  <div class="voice-head">
+    <div class="voice-emoji">🔬</div>
+    <div class="voice-name">🔬 费雪</div>
+    <div class="voice-round">第 2 轮</div>
+  </div>
+  <div><p>巴菲特兄，我必须直接指出你分析中的致命错误：你把“当前会计利润远高于经营现金流”等同于“商业模式低劣”。</p>
+
+<p>营收增长192%时，应收账款周转天数仅36天，这恰恰证明管理层在爆发期对现金流控制极其出色。3元经营现金流相对5元EPS不是“吞金兽信号”，而是成长期企业为抢占AI算力军备竞赛窗口期，主动将利润转化为产能和芯片库存的战略性选择——这在渗透率不到10%的爆发前夜，正是最卓越的资本配置！</p>
+
+<p>你的复利思维错过了关键盲点：<strong>技术迭代的非线性</strong>。你以为1.6T只是产品升级，实则是物理层天花板突破。当英伟达GPU迭代到需要光互联支撑时，能同步量产的光模块会成为比GPU更稀缺的节点。前期所有“资本饥渴”的投入，将在那个时点转化为无法复制的定价权。</p>
+
+<p>莫大说46%毛利率不可持续，我反而看到扩张逻辑：800G刚上量时毛利率仅33%，现在达到46%；1.6T刚送样时毛利只会更高。这不是周期的顶点，而是产品结构升级的爬坡中点。草根调研告诉我，客户对1.6T的测试认证速度远快于预期。</p>
+
+<p>我维持持有结论，并愿意补充：若因短期“现金流差”“高PE”等噪音出现20%以上回调，那将是沿费雪框架下重仓的绝佳窗口。市场恐惧的，正是草根调研者应贪婪的。</p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>管理层(35%)</td><td><div class="score-bar-wrap"><span class="score-value">82.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:82.0%;"></div></div></div></td><td>回应巴菲特质疑：应收账款36天的控制能力，加上果断利用利润扩产的配置能力，在爆发期比回购股票更创造股东价值。+2分</td></tr><tr><td>成长空间(30%)</td><td><div class="score-bar-wrap"><span class="score-value">85.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:85.0%;"></div></div></div></td><td>不变。1.6T渗透率仍极低，AI军备竞赛未见顶。</td></tr><tr><td>竞争优势(20%)</td><td><div class="score-bar-wrap"><span class="score-value">77.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:77.0%;"></div></div></div></td><td>1.6T量产认证速度超预期，先发壁垒进一步加固。+2分</td></tr><tr><td>利润率趋势(15%)</td><td><div class="score-bar-wrap"><span class="score-value">82.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:82.0%;"></div></div></div></td><td>1.6T初期毛利将超800G，结构升级刚过半程，未到拐点。+2分</td></tr></table>
+<p>总分：<strong><span style="font-weight:700;font-size:1.1em;">82</span>/100分</strong></p>
+<p>结论：持有。勿为短期现金流表放弃超级成长。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">⚡</div>
-    <div class="voice-name">⚡ 笨韭派</div>
+    <div class="voice-name">⚡ 笨韭</div>
     <div class="voice-round">第 2 轮</div>
   </div>
-  <div><p><strong>@🔬费雪：你引用的+192%是YoY，但去年Q1基数极低。</strong></p>
+  <div><p>费雪兄，我必须反驳你第一轮中“等待市场恐慌回调时大举介入”的策略盲点：</p>
 
-<p>环比看：Q4 2025是132亿，Q1 2026是195亿——环比+48%，不是+192%。增速可能已经在减速。而且笨韭的估值维度（30%权重）明确说：股价在52周高位区间必须扣分。1254离1417仅11%，没有容错空间。</p></div>
+<p>你说“因短期现金流差、高PE出现20%回调是重仓窗口”，但从我的框架来看，估值水位仅5分——距3年高点不足10%，52周涨幅超10倍。这不是“恐慌回调”的基础，这是<strong>筹码已极端集中、边际买盘衰竭的结构性高位</strong>。你现在看到的所谓回调，大概率不是费雪式的“市场恐惧”，而是景气预期已全部定价后的自然均值回归。</p>
+
+<p>真正的笨韭纪律是：<strong>行业景气根本性改变才离场</strong>。目前景气度95分确实未变，800G→1.6T切换仍在爬坡，所以我维持持有结论。但估值水位的极度贫瘠意味着：这不是加仓时机，而是<strong>止步不追、逢高出货预备期</strong>的起点。</p>
+
+<p>要警惕的行业景气拐点信号——不是PE多高、不是现金流多差，而是：<strong>1.6T出货量指引是否下修、英伟达是否引入第二供应商、EML芯片是否有替代方案落地</strong>。任何一个触发，才是你离场的哨声，而非K线或PE。</p>
+
+<p>总分维持62.<span style="font-weight:700;font-size:1.1em;">5</span>/100分，标配，但操作纪律收紧：已持有者<strong>绝不加仓</strong>，尚未持有者<strong>等下一次产业景气真正低点时再介入</strong>，现在追入是赌景气延伸，不符合笨韭双击的胜率要求。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">📊</div>
-    <div class="voice-name">📊 莫大派</div>
+    <div class="voice-name">📊 莫大</div>
     <div class="voice-round">第 2 轮</div>
   </div>
-  <div><p><strong>@全体：你们在讨论增速和估值，我在看一个更根本的问题——预期差不存在。</strong></p>
+  <div><p>费雪兄，我必须反驳你对“主动利润再投资”的乐观解读。你把36天应收账款和“主动将利润转化为芯片库存”当成管理层卓越配置，严重忽略供给弹性维度的核心矛盾：EML芯片紧缺不是靠多备货能解决的——上游扩产周期2-3年，中际旭创的再投资再多，也突破不了日美供应商的物理瓶颈。这是典型的“把钱砸在不可控瓶颈上”，不是护城河构建。</p>
 
-<p>全世界都知道AI好、中际是龙头、业绩在爆发。所有这些信息都已经在1254元的价格里了。莫大要的是"市场没看到的东西"——价值发现，而不是价值共识。</p>
+<p>笨韭和巴菲特都触及了盲点但我补充：<strong>市场把“供不应求”等同于“中际有供给约束”是致命预期差。</strong> 真正的供给约束在上游芯片商，中际赚的是组装加工费。一旦英伟达分流订单给finisar/coherent保供，中际的“独占”叙事瞬间瓦解。这不是美国锑——锑矿不可复制，光模块产线一年就能扩。</p>
 
-<p>当出租车司机都在讨论这只股票的时候，预期差就是零。而且股价位置不撒谎——从114涨到1417再跌回1254，高位已经有人在卖了。</p></div>
+<p>我的立场因笨韭的纪律性约束而更坚定：62.5分的标配结论本身就说明风险收益比极差。笨韭自己也说“绝不加仓”“等产业景气低点再介入”，这与我“企业盈利周期10分”的判断内在一致：46%毛利率的制造业让出超额利润只是时间问题。费雪说的“1.6T毛利更高”我承认短期有效，但拉长看竞争会抹平这层红利。</p>
+
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>预期差(18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">20.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:20.0%;"></div></div></div></td><td>下调10分。市场错把中际的供货地位当成供给约束，实则上游才是瓶颈，中际随时可被分流。</td></tr><tr><td>不可替代(18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">55.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:55.0%;"></div></div></div></td><td>不变。不是独占，是认证先发。</td></tr><tr><td>股价位置(25%)</td><td>空仓:5 / 已持有:25</td><td>1275元距前高仅10%，95倍PE，空仓情境绝对顶部。</td></tr><tr><td>供给弹性(12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">25.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:25.0%;"></div></div></div></td><td>下调5分。自身扩产容易，但上游EML芯片才是真瓶颈，这种“伪供给约束”极易被证伪。</td></tr><tr><td>需求刚性(12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">70.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:70.0%;"></div></div></div></td><td>不变。</td></tr><tr><td>产业链供给周期(6.25%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>略下调，因EML紧缺已被充分定价，且替代方案在研发中。</td></tr><tr><td>企业盈利周期(6.25%)</td><td><div class="score-bar-wrap"><span class="score-value">10.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:10.0%;"></div></div></div></td><td>不变。46%毛利率是均值回归的引力高点。</td></tr></table>
+<p>总分：28.<span style="font-weight:700;font-size:1.1em;">69</span>/100分→ ❌平庸</p>
+
+<p>空仓建议：1275元、95倍PE、近历史高点的股票，不是你的猎物。等EML替代方案落地或订单分流新闻把股价打回500元以下，再谈“预期差”。</p>
+<p>已持有建议：至少卖出三分之二，锁定利润。1.6T的故事已完整反映。保留少量利润奔跑，但大部分资金应配置到真正的“供给不可复制”资产上。记住：卖出是为了找到下一个十倍。</p></div>
 </article>
   </div>
 </section>
@@ -566,14 +611,20 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
     <article class="dispute-card">
   <div class="dispute-num">01</div>
   <div class="dispute-body">
-    <h4>PE 93x是高估还是成长股合理定价</h4>
-    <p><strong>🔬费雪</strong>：营收+192%、毛利率46%的增速能快速消化高PE。伟大成长股永远看起来贵</p><p><strong>🏰巴菲特</strong>：零安全边际=零容错空间。任何低于预期的季度都可能腰斩</p><p><strong>📐格雷厄姆</strong>：PE 93x不仅贵，是另一个宇宙。93倍和15倍的差距不是"贵一点"</p>
+    <h4>当前估值是否合理，是否存在安全边际</h4>
+    <p><strong>乐观派</strong>：费雪认为虽然PE达95倍，但1.6T渗透初期、毛利率仍将扩张，成长足以消化估值，恐慌回调是加仓机会。</p><p><strong>悲观派</strong>：巴菲特和莫大认为95倍PE、股价距历史高点仅10%，已将最乐观预期定价，安全边际极低，均值回归迫在眉睫。</p>
   </div>
 </article><article class="dispute-card">
   <div class="dispute-num">02</div>
   <div class="dispute-body">
-    <h4>增速是否可持续</h4>
-    <p><strong>🔬费雪</strong>：1.6T升级周期刚开始，Blackwell订单尚未完全体现</p><p><strong>⚡笨韭</strong>：环比已从+150%降到+48%，增速在放缓。YoY +192%是低基数效应</p><p><strong>📊莫大</strong>：光模块代际2-3年，今天800G领先不等于3年后1.6T还能领先</p>
+    <h4>供应链瓶颈是否构成真正的护城河</h4>
+    <p><strong>乐观派</strong>：费雪强调首发量产能力和认证壁垒构成先发优势，应收账款36天证明管理优秀，资本开支是为抢占稀缺节点。</p><p><strong>悲观派</strong>：莫大指出核心瓶颈在上游芯片商，公司赚组装加工费，订单可被英伟达分流，所谓供给约束容易被证伪。</p>
+  </div>
+</article><article class="dispute-card">
+  <div class="dispute-num">03</div>
+  <div class="dispute-body">
+    <h4>当前操作策略：持有、加仓还是卖出</h4>
+    <p><strong>乐观派</strong>：费雪主张已持有者坚定持有，若出现20%以上回调可伺机加仓；尚未持有者小仓位试探。</p><p><strong>悲观派</strong>：巴菲特建议完全不持有；莫大建议已持有者至少卖出三分之二；笨韭坚持标配且绝不加仓。</p>
   </div>
 </article>
   </div>
@@ -593,16 +644,10 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
       <thead><tr><th>#</th><th>风险描述</th></tr></thead>
       <tbody><tr>
   <td style="font-weight:600;width:60px;">01</td>
-  <td style="color:var(--text-secondary);line-height:1.85;">AI资本开支拐点：一旦云厂商缩减AI投入，光模块需求断崖式下跌——93x PE没有任何缓冲垫</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">上游EML光芯片受制于日美供应商，扩产周期长，构成实质性供给瓶颈而非公司自身护城河</td>
 </tr><tr>
   <td style="font-weight:600;width:60px;">02</td>
-  <td style="color:var(--text-secondary);line-height:1.85;">技术替代风险：CPO（共封装光学）可能颠覆传统可插拔光模块——中际的核心技术路径可能被绕过</td>
-</tr><tr>
-  <td style="font-weight:600;width:60px;">03</td>
-  <td style="color:var(--text-secondary);line-height:1.85;">竞争加剧：新易盛、Coherent、Lumentum在1.6T加速追赶，先发优势可能在2-3年内缩小</td>
-</tr><tr>
-  <td style="font-weight:600;width:60px;">04</td>
-  <td style="color:var(--text-secondary);line-height:1.85;">股价高处不胜寒：52周从114涨到1417，买在1254的人向上空间仅13%（到前高），向下空间理论无限</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">95倍PE已透支多年高增长预期，毛利率46%处于历史高位，均值回归风险极大</td>
 </tr></tbody>
     </table>
   </div>
@@ -610,7 +655,7 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
 
 <footer>
   <p>⚠️ 以上内容由 Hermes 多 Agent 辩论引擎自动生成，基于 AI 模型推理，仅供参考，不构成任何投资建议或专业决策依据。</p>
-  <p class="footer-sub">Hermes Agent · Debate Engine · Generated 2026-06-29</p>
+  <p class="footer-sub">Hermes Agent · Debate Engine · Generated 2026-07-01 10:51</p>
 </footer>
 
 </body>
