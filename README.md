@@ -109,12 +109,7 @@ stock-roundtable/
 │   │   ├── benjiu-methodology.md
 │   │   ├── luohuitou-methodology.md
 │   │   ├── shiji-methodology.md
-│   │   ├── stock-analysis.md        # 六框架联合分析
-│   │   ├── market-screener.md       # 量化选股器
-│   │   └── data-collection/         # 原始数据采集工具（雪球/B站）
-│   ├── data-verification-checklist.md
 │   ├── moda-helium-thesis.md        # 莫大真实氦气仓位框架
-│   └── xueqiu-scraping.md
 └── demos/                           # HTML 报告示例
     ├── 中际旭创_圆桌辩论报告.html
     └── 九丰能源_圆桌辩论报告.html

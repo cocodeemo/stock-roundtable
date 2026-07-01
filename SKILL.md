@@ -130,8 +130,7 @@ stock-roundtable/
 ├── references/
 │   ├── methodologies/              # 6 大投资方法论原文
 │   ├── moda-helium-thesis.md       # 莫大真实氦气仓位框架
-│   ├── data-verification-checklist.md
-│   └── ...
+│   └── html-report-format-pitfalls.md
 └── demos/                          # HTML 报告示例
 ```
 
@@ -146,7 +145,7 @@ stock-roundtable/
 - **已修复的常见 bug**：CSS 字符串尾部逗号→tuple（`"""` 后无逗号）；`html` 变量名遮盖 import；`cfg` 作用域 NameError（`try` 前初始化 `cfg=None`）；`_parse()` NaN 传播（`math.isnan()` 检测）。
 - **LLM 训练数据过时**：deepseek-v4-pro 训练截止 2023，不知道当前股价/PE/财报。必须提前抓实时数据注入问题，否则角色会编造假数字互相打架。
 - **报告交付必须附带文件路径**：给用户时直接在回复中写出绝对路径（如 `~/Desktop/report_华特气体_688268_20260629.html`），不要只给 Markdown 链接。
-- **优化须逐个验证**：v1.7.0 一次 14 个改动引入 3 个新 bug，教训：每次只改一个文件，改完立即验证。
+- **Round 2 HTML 格式兼容性**：LLM 在第二轮常产出非标准表格（`旧分/新分/调整` 列头、数字后带尾随文本如 `**30** (下调10分)`、`综合评分：XX/100` 等格式）。`html_report.py` 已做 4 项修复来兜底这些情况，详见 [`references/html-report-format-pitfalls.md`](references/html-report-format-pitfalls.md)。
 
 ---
 

@@ -1,8 +1,0 @@
-__pycache__/
-
-# 辩论引擎生成的临时文件
-last_debate_report.md
-last_debate_result.json
-
-# 股票分析生成的 HTML 报告
-report_*.html
