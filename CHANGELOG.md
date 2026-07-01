@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.0.0 (2026-07-01) — 方法论驱动重构
+
+- 🔄 **roles.py 重构**：system_prompt 从 `references/methodologies/` 动态加载，不再硬编码。方法论文件成为唯一数据源
+- 🗑️ 删除通用辩论角色（optimist/pessimist/technologist/business/skeptic），`select_roles()` 始终返回 6 大流派
+- 📐 人格前缀压缩为 1 句，方法论详细内容全部由 methodology 文件提供
+- 🐛 **龟龟 methodology 修复**：维度详解权重 25/35/25 → 35/30/20，与评分表格对齐
+- ⚡ **笨韭 methodology 增强**：景气度评分新增「下降趋势封顶 50」规则
+- 📊 **莫大 methodology 对齐**：六维→七维（周期位置拆为产业链供给周期+企业盈利周期）；股价位置分空仓/已持有双情境；预期差定义改为「市场贴的标签 vs 真正是什么」；补充「美国锑复刻」「卖出≠不看好」至 §1
+- ✂️ **methodology 精简**：删除 Graham/Buffett/Fisher 文件中的跨角色对比表；Shiji §5 ASCII 流程图压缩为一行
+- 方法论文件总量 41K→39K（-5.5%），system_prompt 平均缩减 15-24%
+
 ## v1.9.9 (2026-06-30) — 模块化重构 + P0 安全修复
 
 - 🔴 subprocess 改用 tempfile 传递问题文本，避免 Windows 8191 字符 CLI 限制

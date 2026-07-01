@@ -1,12 +1,12 @@
 ---
 name: stock-roundtable
 description: "股票圆桌辩论——6 大投资流派（格雷厄姆/巴菲特/费雪/笨韭/莫大/龟龟）同时分析一支股票，自动抓行情+财报+除权调整，输出 WorkBuddy 同款 HTML 报告。"
-version: 1.9.8
+version: 2.0.0
 author: Agent + 大哥
 license: MIT
 platforms: [linux, macos]
 notes: |
-    v1.9.5 (2026-06-30) — 5项代码审查修复：交易所识别、cfg 作用域、NaN 处理、Google Fonts 回退、HTML 转义。详见 CHANGELOG.md。
+    v2.0.0 (2026-07-01) — 方法论驱动重构：roles.py 从 methodology 文件动态加载，删通用辩论角色，methodology 文件修复+精简。详见 CHANGELOG.md。
 metadata:
   hermes:
     tags: [multi-agent, debate, decision-making, ai-orchestration]

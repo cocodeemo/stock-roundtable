@@ -1,4 +1,4 @@
-# 🎭 Stock Roundtable · v1.9.9
+# 🎭 Stock Roundtable · v2.0.0
 
 6 大投资流派圆桌辩论 —— 实时行情+财报+产业链格局三重注入，杂志级 HTML 报告。
 
