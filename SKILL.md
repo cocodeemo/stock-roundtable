@@ -27,7 +27,7 @@ metadata:
 | 📊 **莫大** | 雪球 2173 篇帖子 | 六维加权：供给约束 > 业绩增长 |
 | 🐢 **龟龟** | B 站 35 万粉 UP 主 | 穿透回报率 + 烟蒂股，先守后攻 |
 
-完整方法论见 [`references/methodologies/`](references/methodologies/)。莫大真实仓位框架见 luohuitou-methodology.md 附录。
+完整方法论见 [`references/methodologies/`](references/methodologies/)。
 
 ## 🚀 快速开始
 
@@ -144,6 +144,8 @@ stock-roundtable/
 - **LLM 训练数据过时**：deepseek-v4-pro 训练截止 2023，不知道当前股价/PE/财报。必须提前抓实时数据注入问题，否则角色会编造假数字互相打架。
 - **报告交付必须附带文件路径**：给用户时直接在回复中写出绝对路径（如 `~/Desktop/report_华特气体_688268_20260629.html`），不要只给 Markdown 链接。
 - **Round 2 HTML 格式兼容性**：LLM 在第二轮常产出非标准格式——列头用 `旧分/新分/调整` 而非 `分数/评分`（→ 表格丢失 `score-table` 样式）、数字后带尾随文本如 `**30** (下调10分)`（→ 进度条无法渲染）、总分写成 `综合评分：30/100` 或 `总分 **40/100**`（→ 对比表提取失败）。`html_report.py` 已做 4 项兜底：扩展列头匹配、进度条容忍尾随文本、表格兜底仅取标准 3 列表、新增评分正则。
+- **终端运行必须前台模式**：`stock_debate.py` 在 Hermes terminal background 模式下 Python logging 输出完全不可见（StreamHandler 缓冲），导致长时间空白等待。正确做法：`terminal(command="python3 -u stock_debate.py 300308", timeout=600)` — 前台 + `-u` 去缓冲。
+- **patch 工具遇到 CRLF 换行会静默失败**：git clone 下来的文件可能带 Windows 风格 `\r\n` 换行，`patch(old_string=...)` 中写的 `\n` 无法匹配。表现：`Could not find a match for old_string`。绕过方案：用 `terminal(command="python3 << 'PYEOF' ... PYEOF")` 做字符串替换。
 
 ---
 
