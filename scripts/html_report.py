@@ -297,6 +297,8 @@ nav {
 /* Footer */
 footer { background: var(--bg-dark); color: var(--text-light); padding: 48px; text-align: center; margin-top: 72px; }
 footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
+footer a { color: var(--text-light); text-decoration: underline; text-underline-offset: 3px; }
+footer a:hover { color: var(--accent); }
 .footer-sub { margin-top: 16px; font-size: 0.8rem; color: var(--text-light); opacity: 0.7; }
 
 @media (max-width: 900px) {
@@ -934,7 +936,7 @@ def render_html(result: DebateResult, stock_data: dict = None) -> str:
 
 <footer>
   <p>⚠️ 以上内容由 Hermes 多 Agent 辩论引擎自动生成，基于 AI 模型推理，仅供参考，不构成任何投资建议或专业决策依据。</p>
-  <p class="footer-sub">Hermes Agent · Debate Engine · Generated {date_str}</p>
+  <p class="footer-sub">Hermes Agent · Debate Engine · Generated {date_str} · Powered by <a href="https://github.com/cocodeemo/stock-roundtable" target="_blank" rel="noopener">cocodeemo/stock-roundtable</a></p>
 </footer>
 
 </body>
