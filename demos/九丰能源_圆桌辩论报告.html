@@ -203,7 +203,13 @@ nav {
   justify-content: center; font-size: 1.5rem; border: 2px solid var(--border);
 }
 .voice-name { font-weight: 600; font-size: 1.1rem; flex: 1; }
-.voice-round { font-size: 0.8rem; color: var(--text-muted); }
+.voice-round {
+  font-size: 0.72rem; font-weight: 600; padding: 3px 12px;
+  border-radius: 999px; letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.voice-round.r1 { background: #E0F2FE; color: #075985; }
+.voice-round.r2 { background: var(--accent-light); color: #92400E; }
 .voice-card p { margin-bottom: 14px; line-height: 1.85; color: var(--text-secondary); }
 .voice-card strong { color: var(--text-primary); font-weight: 600; }
 .voice-card em { font-style: normal; font-weight: 600; color: var(--accent); }
@@ -291,6 +297,8 @@ nav {
 /* Footer */
 footer { background: var(--bg-dark); color: var(--text-light); padding: 48px; text-align: center; margin-top: 72px; }
 footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
+footer a { color: var(--text-light); text-decoration: underline; text-underline-offset: 3px; }
+footer a:hover { color: var(--accent); }
 .footer-sub { margin-top: 16px; font-size: 0.8rem; color: var(--text-light); opacity: 0.7; }
 
 @media (max-width: 900px) {
@@ -324,6 +332,8 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
   }
   .cc-validation { background: #2D1F1F; border-color: #5C2020; }
   .cc-consensus { background: #1F2A35; border-left-color: #60A5FA; }
+  .voice-round.r1 { background: #1E3A5F; color: #93C5FD; }
+  .voice-round.r2 { background: #78350F; color: #FDE68A; }
   .score-total { background: #2D2A28; }
   .score-total-grade.top { background: #14532D; color: #86EFAC; }
   .score-total-grade.good { background: #1E3A5F; color: #93C5FD; }
@@ -351,7 +361,7 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
 </nav>
 
 <section class="hero">
-  <div class="kicker">ROUND TABLE · 2026-07-01 11:30 · Hermes 多 Agent 辩论引擎</div>
+  <div class="kicker">ROUND TABLE · 2026-07-01 14:34 · Hermes 多 Agent 辩论引擎</div>
   <h1>九丰能源(605090)投资价值评估</h1>
   <div class="hero-dek">5 位专家多轮交叉辩论——2 轮互相引用反驳，全方位审视，综合置信度 65%</div>
 </section>
@@ -371,15 +381,15 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
   <div class="cc-snapshot-label">当前关键数据</div>
   <div class="cc-snapshot-grid"><div class="cc-snap-cell">
   <div class="cc-snap-cell-label">九丰能源(605090)</div>
-  <div class="cc-snap-cell-value">38.34</div>
-  <div class="cc-snap-cell-sub cc-snap-up">+3.15%</div>
+  <div class="cc-snap-cell-value">37.45</div>
+  <div class="cc-snap-cell-sub cc-snap-up">+0.75%</div>
 </div><div class="cc-snap-cell">
   <div class="cc-snap-cell-label">PE(TTM)</div>
   <div class="cc-snap-cell-value">19x</div>
   <div class="cc-snap-cell-sub "></div>
 </div><div class="cc-snap-cell">
   <div class="cc-snap-cell-label">总市值</div>
-  <div class="cc-snap-cell-value">271亿</div>
+  <div class="cc-snap-cell-value">264亿</div>
   <div class="cc-snap-cell-sub "></div>
 </div><div class="cc-snap-cell">
   <div class="cc-snap-cell-label">52周区间</div>
@@ -411,7 +421,7 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
 </div>
 
       <div class="cc-headline-label">圆桌综合视角</div>
-      <div class="cc-headline">多数角色认为当前风险收益比不理想：资产稀缺但盈利恶化、现金流极弱，依赖外生气价修复。建议等待经营现金流转正或股价深跌至穿透回报率显著高于无风险利率时再考虑。已持有者可暂持，未持有者暂不介入。</div>
+      <div class="cc-headline">当前估值（19倍PE）未充分反映业绩下滑与现金流风险，能源服务转型尚需数据验证。已持有者可减仓观察，未持有者不宜买入。</div>
 
       
       <div class="cc-confidence">
@@ -446,24 +456,29 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
     <thead><tr><th style="text-align:left;">流派</th><th>评分</th><th>立场</th><th style="text-align:left;">结论</th></tr></thead>
     <tbody><tr>
   <td style="text-align:left;font-weight:600;">🏰 巴菲特</td>
-  <td><span class="compare-score high">62</span></td>
+  <td><span class="compare-score mid">30</span></td>
   <td><span class="compare-verdict sell">看空</span></td>
-  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">不持有</td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">**坚决不持有，并为所有幻想其成长的人敲响警钟。** 忘记那些“供应链重构”的美</td>
 </tr><tr>
   <td style="text-align:left;font-weight:600;">🔬 费雪</td>
-  <td><span class="compare-score mid">54</span></td>
+  <td><span class="compare-score high">83</span></td>
+  <td><span class="compare-verdict buy">看好</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">**坚定持有/加仓**。市场用看待旧业务的眼光给出了19倍PE，却未给即将到来的</td>
+</tr><tr>
+  <td style="text-align:left;font-weight:600;">⚡ 笨韭</td>
+  <td><span class="compare-score mid">37</span></td>
   <td><span class="compare-verdict sell">看空</span></td>
-  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">不持有</td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">**盲点补充**：无人提及Q1经营现金流每股仅0.08元——利润没变成真金白银。</td>
 </tr><tr>
   <td style="text-align:left;font-weight:600;">📊 莫大</td>
-  <td><span class="compare-score high">69</span></td>
-  <td><span class="compare-verdict sell">看空</span></td>
-  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">：** 38元附近可建底仓。逻辑不在短期利润（利润差是假死），在接收站资源稀缺性</td>
+  <td><span class="compare-score high">61</span></td>
+  <td><span class="compare-verdict hold">观望</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">：临界质量，59→61的差距在于服务业务是否真兑现毛利率飞跃。用观察仓等待下一期</td>
 </tr><tr>
   <td style="text-align:left;font-weight:600;">🐢 龟龟</td>
-  <td><span class="compare-score mid">50</span></td>
-  <td><span class="compare-verdict hold">观望</span></td>
-  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">总分：47→50/100。**结论不变：不买。** 这笔钱的等待成本，不该由我来</td>
+  <td><span class="compare-score mid">59</span></td>
+  <td><span class="compare-verdict sell">看空</span></td>
+  <td style="text-align:left;font-size:0.85rem;color:var(--text-muted);">不买。未持有绝不买入，已持有坚决清仓。</td>
 </tr></tbody>
   </table>
 </div>
@@ -471,166 +486,151 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
   <div class="voice-head">
     <div class="voice-emoji">🏰</div>
     <div class="voice-name">🏰 巴菲特</div>
-    <div class="voice-round">第 1 轮</div>
+    <div class="voice-round r1">第 1 轮</div>
   </div>
-  <div><table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>护城河(30%)</td><td><div class="score-bar-wrap"><span class="score-value">75.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:75.0%;"></div></div></div></td><td>东莞接收站稀缺牌照构成物理供给瓶颈，类似“收费站”属性，但护城河宽度取决于国际气价差，非完全自主定价，逊于顶级消费品牌。</td></tr><tr><td>伊索三问(30%)</td><td><div class="score-bar-wrap"><span class="score-value">45.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:45.0%;"></div></div></div></td><td>“树林”有（清洁能源需求），“鸟”何时出现高度不确定。营收与利润双降，ROE仅3.8%，表明当下盈利极不稳定，现金流出严重。</td></tr><tr><td>管理层(15%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>财报干净、负债率健康，但资本回报率极低（3.8%），暂未看到卓越的股东价值创造。</td></tr><tr><td>安全边际(15%)</td><td><div class="score-bar-wrap"><span class="score-value">55.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:55.0%;"></div></div></div></td><td>19倍PE表面合理，但基于下滑的盈利（-14%），若无增长反转，该估值承压。以当前数据，未见明显折扣。</td></tr><tr><td>能力圈(10%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>理解接收站资产稀缺性，但对国际气价（HH/JKM）倒挂的持续时间与幅度，已超出我的精确预测能力。</td></tr></table>
-<p>总分：62.<span style="font-weight:700;font-size:1.1em;">5</span>/100分</p>
-<p>结论：不持有</p>
-
-<p>核心观点：<strong>这是一家资产有壁垒，但盈利无护城河的公司。</strong> 我们只愿以40美分买1美元纸币，但这家公司的“1美元”正在缩水。其资源独占性是被动的，若海气长期丧失经济性，资产将贬值。我们要求利润稳定、高ROE，而它正经历营收与利润双降、经营现金流极微的困境。在盈利趋势反转确立前，我不会用今天确定的价值去交换明天不确定的复苏。</p></div>
+  <div><table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>护城河(30%)</td><td><div class="score-bar-wrap"><span class="score-value">30.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:30.0%;"></div></div></div></td><td>拥有接收站属稀缺资产，但LNG本质仍是商品，下游客户粘性弱，定价权受国际油价和供需周期影响。这更像是“重要的出租汽车”而非“唯一的收费站”，护城河持续时间与宽度远不及消费品牌。</td></tr><tr><td>伊索三问(30%)</td><td><div class="score-bar-wrap"><span class="score-value">20.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:20.0%;"></div></div></div></td><td>营收和净利润双双下滑，显示周期下行压力。能源价格波动剧烈，“树丛中只有一只鸟”，且我看不清它明年是否还在。作为商品企业，我对其中长期自由现金流的确定性缺乏信心。</td></tr><tr><td>管理层(15%)</td><td><div class="score-bar-wrap"><span class="score-value">50.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:50.0%;"></div></div></div></td><td>财务杠杆较低，但信息有限。缺乏长期公开的资本配置卓越纪录，未见显著高于同行的股东回报行动，需观察其在周期底部是明智扩张还是冲动收购。</td></tr><tr><td>安全边际(15%)</td><td><div class="score-bar-wrap"><span class="score-value">15.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:15.0%;"></div></div></div></td><td>19倍PE，相对于不确定的商品利润和下滑的业绩，毫无吸引力。净资产不足以提供支撑。离我理解的折价买入优质企业相去甚远，完全看不到安全边际。</td></tr><tr><td>能力圈(10%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>能理解其业务模式，但无法预测未来十年全球天然气流向、价格及政策变化。其利润极度依赖我无法掌控的外部变量，这超出了我的深度理解范畴。</td></tr></table>
+<p>总分：<span style="font-weight:700;font-size:1.1em;">33</span>/100分</p>
+<p>结论：坚决不持有。这本质上是一个拥有昂贵资产的商品企业，股东回报最终取决于变幻莫测的天然气价格。我不愿用264亿去赌一个我看不懂的未来。无论是否持有，都应立刻卖出。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">🔬</div>
     <div class="voice-name">🔬 费雪</div>
-    <div class="voice-round">第 1 轮</div>
+    <div class="voice-round r1">第 1 轮</div>
   </div>
-  <div><table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>管理层(35%)</td><td><div class="score-bar-wrap"><span class="score-value">50.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:50.0%;"></div></div></div></td><td>现有信息中，管理层既无显著负面（如频繁减持、画饼），也未见主动坦诚沟通的佐证。一季报营收与利润双位数下滑，未见管理层就此发出深度、坦诚的战略反思与应对，信息透明度存疑，属于“平庸且沉默”的类型。</td></tr><tr><td>成长空间(30%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>天然气调峰需求逻辑成立，但当前营收同比下滑18%，远非“渗透率低、有望数年翻数倍”的爆发态势。行业需求与公司实际增长之间存在巨大鸿沟，成长路径不清晰。</td></tr><tr><td>竞争优势(20%)</td><td><div class="score-bar-wrap"><span class="score-value">85.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:85.0%;"></div></div></div></td><td>护城河坚实。LNG接收站是强管制的物理资产，其窗口期构成排他性壁垒，完全符合“独特优势，对手难复制”的标准。这是公司最核心的资产。</td></tr><tr><td>利润率趋势(15%)</td><td><div class="score-bar-wrap"><span class="score-value">25.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:25.0%;"></div></div></div></td><td>严重扣分项。毛利率仅14.4%，营收和净利润双位数下滑，表明公司不仅毫无定价权，且在成本控制或高毛利产品切换上出现严重问题，利润趋势完全背离成长股要求。</td></tr></table>
-<p>总分：<span style="font-weight:700;font-size:1.1em;">54</span>/100分</p>
-<p>结论：不持有</p>
+  <div><table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>管理层(35%)</td><td><div class="score-bar-wrap"><span class="score-value">78.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:78.0%;"></div></div></div></td><td>战略布局极具远见，构建了“海气+陆气+服务”的闭环壁垒。但当前财务数据营收、净利润双降，需观察其在行业逆风期能否保持战略定力与坦诚沟通。</td></tr><tr><td>成长空间(30%)</td><td><div class="score-bar-wrap"><span class="score-value">92.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:92.0%;"></div></div></div></td><td>天然气是能源转型的关键桥梁，国内“增储上产”战略下的井口气回收服务需求刚性爆发，市场空间巨大且渗透率极低，具备数年翻倍潜力。</td></tr><tr><td>竞争优势(20%)</td><td><div class="score-bar-wrap"><span class="score-value">90.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:90.0%;"></div></div></div></td><td>拥有自主接收站(ZCC)和自有船队，构成极强排他性。能够直接完成从境外资源池到国内终端客户的闭环交付，这是绝大多数竞争对手无法复制的。</td></tr><tr><td>利润率趋势(15%)</td><td><div class="score-bar-wrap"><span class="score-value">68.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:68.0%;"></div></div></div></td><td>当前毛利率14.4%受上游气价波动影响。但随着高毛利的能源服务业务占比提升，整体利润率有结构性向上改善的趋势，目前正处于拐点酝酿期。</td></tr></table>
 
-<p>评估：公司最宝贵的资产是接收站壁垒，但这属于“资产价值”，而非我框架中“优秀的公司组织”。当前财务表现为营收、利润双双下滑，利润率微薄且承压，这与我所要求的“销售额数年翻数倍、利润率持续扩张”的成长股特质背道而驰。这是一家拥有稀缺资产但经营平庸的公司。无论是否已持有，从其组织运营质量看，不值得作为成长股长期配置。风险收益比差，真正的买点应等待管理层展现出卓越的运营能力，并将资产优势转化为持续增长的财务数据之后。</p></div>
+<p>总分：<span style="font-weight:700;font-size:1.1em;">83</span>/100分</p>
+<p>结论：<strong>持有/买入</strong></p>
+
+<p>核心观点：<strong>这是典型的费雪式成长股——短期财务数据不佳，但长期成长逻辑坚实。</strong></p>
+<p>九丰能源具备我极为看重的两点：一是通过草根调研才能发现的真实竞争优势——不是写在年报里的概念，而是自主接收站和自有船队这类无法复制的物理壁垒。二是成长空间远未体现在当下利润表中。营收与利润的下滑是行业周期所致，而非公司竞争力受损。此刻市场给予的19倍估值，恰恰是对其“能源服务”这一爆发性增长极的定价不足。利润率的暂时承压，是为打开第二增长曲线必须经历的结构性阵痛。对于已持有者，应坚定持有甚至利用市场悲观情绪加仓；对于未持有者，当前是买入伟大企业于尚未被充分认识之时的良机。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">⚡</div>
     <div class="voice-name">⚡ 笨韭</div>
-    <div class="voice-round">第 1 轮</div>
+    <div class="voice-round r1">第 1 轮</div>
   </div>
-  <div><p>九丰能源？我横看竖看，从k线缝里只看出三个字：不双击。</p>
+  <div><p>现象级事件：否</p>
+<p>笨韭双击：单击（产业趋势“增储上产”有潜在拐点，但公司Q1利润仍同比下滑，企业自身拐点未确认）</p>
 
-<p>核心观点：这是一个典型的<strong>单击陷阱</strong>。下游“气电调峰”的产业故事虽然听起来有趋势，但企业自身的盈利拐点根本没出现，营收和净利润双降，这不符合我“产业+企业拐点同时出现”的铁律。</p>
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>景气度(30%)</td><td><div class="score-bar-wrap"><span class="score-value">50.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:50.0%;"></div></div></div></td><td>能源服务需求刚性但占比未超过50%；传统燃气贸易受国际气价波动影响，营收净利双降，行业量增价承压，尚处内部结构调整期。</td></tr><tr><td>业务纯度(25%)</td><td><div class="score-bar-wrap"><span class="score-value">70.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:70.0%;"></div></div></div></td><td>清洁能源综合服务纯度高，拥有稀缺的自主接收站，核心闭环交付能力>50%。</td></tr><tr><td>估值水位(30%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>现价37.45元，距52周高点55.08元已回落约32%，但距低点24.73元也上涨了51%，当前位置处于中位偏下，未到历史大底区间（PE约19倍属同行中性）。</td></tr><tr><td>催化剂(15%)</td><td><div class="score-bar-wrap"><span class="score-value">0.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:0.0%;"></div></div></div></td><td>当前无现象级事件驱动，全球气价平稳未出现地缘供应断层，纯靠内需自然增长缺乏短期爆发力。</td></tr></table>
 
-<p>用我的框架来看：</p>
-<ul>
-<li><strong>现象级事件</strong>：否。没有出圈的事件驱动，气电调峰的逻辑每年都讲，不够新、不够爆。</li>
-<li><strong>景气度</strong>：我看到的是量缩价减。国际气价倒挂、营收-18%，产业链明明在走下坡。任何在下降趋势里的催化，都只是反弹诱多，不是反转。</li>
-<li><strong>笨韭双击</strong>：<strong>单击都算不上</strong>。只有模糊的产业故事，企业财务数据却在恶化，这是最忌讳的。</li>
-</ul>
-
-<p><strong>操作建议</strong>：</p>
-<ul>
-<li><strong>未持有</strong>：坚决不碰。没有现象级事件催化，没有双击，进去就是赌反弹，风险收益比极差。</li>
-<li><strong>已持有</strong>：趁今天这个+3%的反弹赶紧减仓。不要被“低PE、低负债”迷惑，趋势坏了，这些在景气度面前一文不值。等它真正出现“气价顺挂+业绩重回增长”的双击信号再说，现在绝对不接飞刀。</li>
-</ul></div>
+<p>总分：50×0.30 + 70×0.25 + 40×0.30 + 0×0.15 = <span style="font-weight:700;font-size:1.1em;">48</span>/100分→ 观察仓（尚未持有：性价比不高，等景气回升信号；已持有：重仓可减，轻仓可守，跌破前低需审视逻辑）</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">📊</div>
     <div class="voice-name">📊 莫大</div>
-    <div class="voice-round">第 1 轮</div>
+    <div class="voice-round r1">第 1 轮</div>
   </div>
-  <div><table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>预期差(18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">78.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:78.0%;"></div></div></div></td><td>市场给它贴“燃气贸易商”标签(19倍PE)，但它真正本质是“LNG接收站物理瓶颈持有者”——华南极少民营窗口期，这类似码头/收费站逻辑，市场未充分定价其资源独占属性</td></tr><tr><td>不可替代(18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">75.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:75.0%;"></div></div></div></td><td>东莞接收站是华南少数民营LNG进口通道，国内接收站审批3-5年且利用率已高位，绕过它需要重建基础设施→供给物理瓶颈，非品牌壁垒</td></tr><tr><td>股价位置(25%)</td><td>空仓:72 / 已持有:65</td><td>52周高55.08现价38.34，回撤30%+，处于40-55区间中低位。空仓有安全边际但非大底；已持有者处于低位安全区但未到可以"只留利润"的程度</td></tr><tr><td>供给弹性(12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">82.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:82.0%;"></div></div></div></td><td>接收站属认证型基础设施壁垒：审批周期3-5年，已运营窗口期具有独占性，新进入者无法快速复制，供给弹性极低</td></tr><tr><td>需求刚性(12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">72.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:72.0%;"></div></div></div></td><td>气电是新能源调峰刚需（光伏/风电波动→电网必须靠气电平衡），LNG作为气源无法被替代，用量随新能源渗透率上升而增长</td></tr><tr><td>产业链供给周期(6.25%)</td><td><div class="score-bar-wrap"><span class="score-value">68.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:68.0%;"></div></div></div></td><td>国内接收站利用率已高位，新产能释放缓慢，供给持续偏紧，但尚未到"刚暴露缺口"阶段</td></tr><tr><td>企业盈利周期(6.25%)</td><td><div class="score-bar-wrap"><span class="score-value">48.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:48.0%;"></div></div></div></td><td>收入-18%利润-14%看似差，但经营现金流极弱(0.08/股)表明这是贸易价差收窄的周期低谷，非结构性崩塌——长协锁定量价后盈利会均值回归</td></tr></table>
-
-<p><strong>总分：<span style="font-weight:700;font-size:1.1em;">69</span>/100分→ ✅优质（接近🔥门槛）</strong></p>
-
-<p>计算：(78×18.75%)+(75×18.75%)+(72×25%)+(82×12.5%)+(72×12.5%)+(68×6.25%)+(48×6.25%)=14.6+14.1+18.0+10.3+9.0+4.3+3.0=73.3 → 修正为69（盈利周期拖累但供给周期支撑更强）</p>
-
-<p><strong>空仓建议：</strong> 38元附近可建底仓。逻辑不在短期利润（利润差是假死），在接收站资源稀缺性+气电调峰需求爆发未被定价。风险点：国际气价倒挂若长期化，长协优势丧失。</p>
-
-<p><strong>已持有建议：</strong> 持有不加仓。股价已从低位反弹一定幅度，估值19倍不算贵但盈利拐点未到。等待两个信号验证：①经营现金流转正 ②政策进一步明确气电调峰定价机制。</p></div>
+  <div><table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>不可替代(18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">35.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:35.0%;"></div></div></div></td><td>接收站有排他性但非“唯一”；国家管网开放窗口期后，其他企业也可申请接入。船队可租，海外气源可购，属品牌型运营壁垒，非莫大认可的物理瓶颈。</td></tr><tr><td>预期差(18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">45.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:45.0%;"></div></div></div></td><td>市场视其为周期贸易商（19倍PE反映此认知）。公司试图讲“能源服务”的增长故事，但收入占比尚低，市场并未完全错判，部分属性被忽略。</td></tr><tr><td>股价位置(25%)</td><td>空仓:50 / 已持有:55</td><td>距52周高点55.08元下跌约32%，处中位区间。空仓缺乏厚实安全边际；已持有者利润有回撤但非极端，持有观望尚可。</td></tr><tr><td>供给弹性(12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">30.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:30.0%;"></div></div></div></td><td>LNG接收站审批周期长（2-5年），但并非不可新增。船队、气源可通过资本快速解决。没有地质级或认证型的唯一性，有钱有政策就能追赶。</td></tr><tr><td>需求刚性(12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">65.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:65.0%;"></div></div></div></td><td>天然气作为过渡能源，需求绕不开。“增储上产”政策驱动下，上游井口服务的需求刚性较强。</td></tr><tr><td>产业链供给周期(6.25%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>全球LNG供给正处产能释放期（2025-2028），接收站窗口期虽稀缺，但整体供给格局在走向宽松，尚未出现缺口。</td></tr><tr><td>企业盈利周期(6.25%)</td><td><div class="score-bar-wrap"><span class="score-value">35.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:35.0%;"></div></div></div></td><td>收入降18%，利润降14%，现金流仅0.08元/股。盈利随气价走弱而修正，ROE仅3.8%，属景气回落中的正常均值回归。</td></tr></table>
+<p>总分：41.<span style="font-weight:700;font-size:1.1em;">6</span>/100分→ ⚠️一般</p>
+<p>空仓建议：九丰是家好运营公司，但非好资源公司。供给端无物理垄断，股价位置无绝对吸引力。这不符合“供给约束品非线性暴涨”的核心信念。41分，放过，莫大不拔这类草。</p>
+<p>已持有建议：估值19倍，安全边际一般。能源服务的故事若无法证伪，可留底仓观察，但不宜因其下跌就加仓。若发现更深跌且带垄断属性的资源品，可以换股。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">🐢</div>
     <div class="voice-name">🐢 龟龟</div>
-    <div class="voice-round">第 1 轮</div>
+    <div class="voice-round r1">第 1 轮</div>
   </div>
   <div><p>烟蒂检查(A股跳过)：否</p>
-<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>商业模式(35%)</td><td><div class="score-bar-wrap"><span class="score-value">50.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:50.0%;"></div></div></div></td><td>接收站看似稀缺，但本质是重资产强管制下的套利，一旦国际气价倒挂，资产变沉没成本，赚钱确定性不够硬。</td></tr><tr><td>穿透回报率(30%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>股价38.34元，按去年每股分红约1.5元估算，穿透回报率约3.9%，与国债收益率拉不开安全边际，吸引力不足。</td></tr><tr><td>可支配现金(20%)</td><td><div class="score-bar-wrap"><span class="score-value">45.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:45.0%;"></div></div></div></td><td>净利率9.7%尚可，但经营现金流/股仅0.08元，与0.63元EPS差距巨大，账面利润含金量低，真金白银沉淀不足。</td></tr><tr><td>分红记录(15%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>有分红传统，但关键要看海气套利受损时能否维持，稳定性存疑。</td></tr></table>
-<p>总分：<span style="font-weight:700;font-size:1.1em;">47</span>/100分</p>
-<p>结论：不买。穿透回报率3.9% vs 国债约2.5%，这点溢价无法补偿气价倒挂风险。只有净现金或高确定性现金流才是我的猎物，九丰两者都不够格。</p></div>
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>商业模式(35%)</td><td><div class="score-bar-wrap"><span class="score-value">28.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:28.0%;"></div></div></div></td><td>重资产但有壁垒(自主接收站)，赚辛苦钱，毛利率仅14.4%说明转移成本能力弱。</td></tr><tr><td>穿透回报率(30%)</td><td><div class="score-bar-wrap"><span class="score-value">0.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:0.0%;"></div></div></div></td><td>去年每股分红约0.85元(按30%派息率估算)，/现价37.45≈2.2%，远低于无风险利率。</td></tr><tr><td>可支配现金(20%)</td><td><div class="score-bar-wrap"><span class="score-value">16.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:16.0%;"></div></div></div></td><td>每股净资产16.65元，负债率25%。扣除在建工程等，每股保守净现金超10元，资产底子厚实。</td></tr><tr><td>分红记录(15%)</td><td><div class="score-bar-wrap"><span class="score-value">15.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:15.0%;"></div></div></div></td><td>上市后连续稳定分红，记录优秀。</td></tr></table>
+<p>总分：<span style="font-weight:700;font-size:1.1em;">59</span>/100分</p>
+<p>结论：不买。未持有绝不买入，已持有坚决清仓。</p>
+
+<p>核心逻辑：风险收益比极差。你为一份年息约2.2%（按历史分红模拟计算）且收入利润双降的资产支付了19倍市盈率。对于龟龟，资产的真正价值在于它能装进口袋的真金白银。当前2.2%的穿透回报率（税前）与4%以上的国债收益率相比，毫无吸引力。所谓“供应链红利”或“服务爆发”都是需要完美预期的费雪式故事，一旦落空，估值腰斩是大概率。我们只吃放在地上的烂苹果，绝不为树上的金苹果爬梯子——即便接收站独占，也改变不了资产回报率不足的事实。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">🏰</div>
     <div class="voice-name">🏰 巴菲特</div>
-    <div class="voice-round">第 2 轮</div>
+    <div class="voice-round r2">第 2 轮</div>
   </div>
-  <div><p>第2轮 | 巴菲特</p>
+  <div><p>本轮辩论中，我发现一个关键的盲点：<strong>几乎所有角色都在讨论脆弱的“竞争优势”，却无人在意这门生意的“经济商誉”本质。</strong> 我已强调，九丰的资产是“昂贵的出租车”，而非龟龟所说的“烂苹果”。让我补充反驳。</p>
 
-<p>莫大、龟龟，你们的洞见让我深思，但我必须指出一个被忽视的<strong>核心盲点</strong>：你们都在分析“资产价值”，而我评估的是“股东回报”。</p>
+<p><strong>我引用并反驳费雪的论点</strong>：你将“自主接收站和船队”视为无法复制的“物理壁垒”。但请扪心自问：这套资产，是否像可口可乐的配方、喜诗糖果在情人节的心智份额那样，能让公司年复一年地轻松提价？不能。它的毛利率仅14.4%，这暴露了残酷真相——它的护城河无法将成本压力转移给客户，也无法产生超额回报。这是一只<strong>受困于大宗商品周期的鸟</strong>，无论它有多漂亮的翅膀（硬件资产）。</p>
 
-<p>莫大，你说市场给它贴错了标签——我承认，接收站是物理瓶颈，但这层稀缺性<strong>已经体现在19倍PE里</strong>。真正的预期差不在“资产是否被低估”，而在<strong>这资产能为股东赚多少真金白银</strong>。龟龟切中要害：经营现金流仅0.08元/股，与0.63元EPS之间存在巨大的“含金量鸿沟”。这意味着当前利润只是账面数字，而非可分配的现金。</p>
+<p><strong>我补充反驳龟龟的论点</strong>：你基于2.2%股息率就判了死刑，这在逻辑上正确，但过于依赖静态公式。我的清仓理由更深刻：<strong>九丰的净资产（16.65元）是钢筋水泥和管道，而非能产生远高于平均回报的“经济信誉”</strong>。按龟龟的烟蒂公式算出的“保守净现金”也许有安全垫，但我绝不希望我的经理人保留着这些现金去豪赌天然气周期的反转。我更害怕他们因“能源服务”的增长故事，把这些辛苦赚来的现金投进回报更低的泥潭。</p>
 
-<p>我要反驳费雪的被动观点。他说管理层“平庸且沉默”——我看到的恰恰相反：<strong>正是这份沉默暴露了问题</strong>。营收降18%、利润降14%，管理层既未坦诚解释套利模式面临的挑战，也未提出替代战略。这正是在资本配置上缺乏股东导向的体现。ROE仅3.8%，在周期底部更应加大回购（如我们在苹果所做的），而非袖手旁观。</p>
+<p><strong>我的立场毫无调整，反而更加坚定。</strong> 现价37.45元买入，是在为一项普通资产支付19倍的“乐观梦”，而不是为一项特许经营权支付合理的溢价。我不会让我的264亿资本去面对全球天然气供需这个我无法掌控的变量。</p>
 
-<p>对于龟龟的穿透回报率分析，我完全赞同但觉得还不够悲观。3.9%股息率与国债的价差，<strong>根本无法补偿“套利模式断裂”的尾部风险</strong>。一旦HH/JKM持续性倒挂，东莞接收站就从“收费站”沦为“仓库”——这是护城河瓦解，不是周期波动。</p>
-
-<p><strong>我的立场未变</strong>：62.5分，不持有。莫大的“稀缺资产”叙事或许正确，但只有当管理层在周期低谷展现出卓越的资本配置能力——或股价腰斩到真正低于清算价值时——我才会重新审视。现在，它的风险收益比对我而言，依然毫无吸引力。</p></div>
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>护城河(30%)</td><td><div class="score-bar-wrap"><span class="score-value">30.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:30.0%;"></div></div></div></td><td>重申：资产是昂贵的硬件，非经济商誉。无法将成本上升转嫁给客户，毛利率脆弱。</td></tr><tr><td>伊索三问(30%)</td><td><div class="score-bar-wrap"><span class="score-value">20.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:20.0%;"></div></div></div></td><td>进一步恶化。收入下降18%，利润下降14%，这“一只鸟”正处于逆风中。我看不清它何时能带来确定的、增长的自由现金流。</td></tr><tr><td>管理层(15%)</td><td><div class="score-bar-wrap"><span class="score-value">50.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:50.0%;"></div></div></div></td><td>保持不变。在行业逆风中，他们面临的最大考验在于：是将现金明智地返还股东，还是进行毁灭价值的扩张。</td></tr><tr><td>安全边际(15%)</td><td><div class="score-bar-wrap"><span class="score-value">15.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:15.0%;"></div></div></div></td><td>无。为一项无法预测的商品企业核心资产支付19倍市盈率，没有任何“折扣”可言。</td></tr><tr><td>能力圈(10%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>业务可理解，但预测10年后的气价、政策走向，远超我能力范围。我甚至无法回答，5年后这家公司是否还会存在。</td></tr></table>
+<p>总分：<span style="font-weight:700;font-size:1.1em;">30</span>/100分</p>
+<p>结论：<strong>坚决不持有，并为所有幻想其成长的人敲响警钟。</strong> 忘记那些“供应链重构”的美妙故事，去关注真实、可穿透的资本回报率吧。这项资产的内在价值远低于市场给出的梦想。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">🔬</div>
     <div class="voice-name">🔬 费雪</div>
-    <div class="voice-round">第 2 轮</div>
+    <div class="voice-round r2">第 2 轮</div>
   </div>
-  <div><p>第2轮 | 🔬 费雪</p>
+  <div><p><strong>引用并反驳巴菲特的论点</strong>：你坚持认为九丰的资产只是“昂贵的出租车”，毛利率14.4%是铁证。但你恰恰在这里暴露了盲点——你把静态毛利率当成护城河的度量衡，忽略了<strong>利润结构正在发生质的迁移</strong>。这正是费雪最看重的“未被充分认识的伟大成长企业”的典型特征。</p>
 
-<p>我坚持<strong>不持有</strong>立场，但需点明本场辩论中被系统低估的<strong>结构性缺陷</strong>。</p>
+<p><strong>补充笨韭的盲点</strong>：笨韭说“企业自身拐点未确认”，这是用旧的财务指针衡量新的成长轨迹。营收利润双降是传统贸易业务的均值回归，而真正爆发中的“能源服务”尚未体现在利润率拐点上——这正是我们用草根调研去询问下游采气商时能发现的真实现场。</p>
 
-<p>笨韭说“趋势坏了”，巴菲特谈“含金量鸿沟”，龟龟算“穿透回报率”——你们都在数现有的“鸟”，而我的框架要求的是<strong>鸟群增长的速度和确定性</strong>。莫大，你反复强调接收站的“物理瓶颈”价值，但<strong>壁垒无法单独创造成长</strong>。我上一轮给了竞争优势85分，其余维度崩塌——这正是问题本质。</p>
+<p><strong>反驳莫大的观点</strong>：你说接收站“有钱有政策就能复制”，这低估了运营能力的壁垒。东莞立沙岛接收站不是一张许可证，是5年以上的运营磨合、客户关系与船期调度能力沉淀。如同费雪笔下的德州仪器，它的壁垒不在专利本身，而在<strong>制造过程中的know-how</strong>。</p>
 
-<p>我要通过引用龟龟的数据，直指被忽视的<strong>一致性悖论</strong>：</p>
-<p>✅ 应收账款周转仅7天（极佳）</p>
-<p>❌ 经营现金流/股仅0.08元（极差）</p>
+<p><strong>反驳龟龟</strong>：你用2.2%股息率一票否决，但费雪从不把分红当安全边际。真正的安全边际在于企业正在从“卖气的贸易商”蜕变为“采气环节不可或缺的技术服务商”——这种转变一旦完成，利润率将是跳升而非线性增长。</p>
 
-<p><strong>这并非会计造假，而是套利模式的内在脆弱。</strong> 七天内回款，但现金去哪了？答案在预付账款采购上——LNG贸易本质是倒挂时用长协锁价、现货亏损履约，导致“高营收、极少净现金沉淀”。这种模式下，管理层即使再卓越，也无法改变资产回报对国际气价差的绝对依赖。</p>
+<p><strong>我的立场没有调整，仅补充一个关键观察</strong>：本轮辩论无人提及“能源服务”的<strong>挂钩率</strong>——九丰的井口业务是否与天然气产量增长强挂钩，而非与气价挂钩？若是，则它本质上是从周期股裂变为成长股。正是这一视角让83分不被他人所理解。</p>
 
-<p>巴菲特说管理层沉默暴露问题——我更进一步：<strong>沉默恰恰证明了他们无牌可打</strong>。面对无法控制的宏观倒挂，任何坦诚沟通都会是“我们正在亏损，等待价差修复”，这只会加速估值收缩。</p>
-
-<p>结论不变：总分<span style="font-weight:700;font-size:1.1em;">54</span>/100分，不持有。<strong>接收站是费雪框架中完美的“资产壁垒”，但它无法被一个平庸周期的管理层组织转化为“伟大企业”。</strong> 除非出现管理层重塑经营模式（转向高附加值的综合能源服务）或国际气价趋势性顺挂的明确信号，否则不列入观察清单。</p></div>
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>管理层(35%)</td><td><div class="score-bar-wrap"><span class="score-value">78.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:78.0%;"></div></div></div></td><td>战略上选择从红海贸易转向蓝海服务，足见远见。有待更长周期的坦诚沟通观察。</td></tr><tr><td>成长空间(30%)</td><td><div class="score-bar-wrap"><span class="score-value">92.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:92.0%;"></div></div></div></td><td>能源服务渗透率极低，与增储上产战略强挂钩，具备数年翻数倍潜力。</td></tr><tr><td>竞争优势(20%)</td><td><div class="score-bar-wrap"><span class="score-value">90.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:90.0%;"></div></div></div></td><td>接收站+船队形成的闭环交付能力，加上5年的运营know-how，竞争对手难以短期复制。</td></tr><tr><td>利润率趋势(15%)</td><td><div class="score-bar-wrap"><span class="score-value">68.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:68.0%;"></div></div></div></td><td>当前利润率受贸易业务拖累，但高毛利服务业务占比提升中，正处于结构性质变前夜。</td></tr></table>
+<p>总分：<span style="font-weight:700;font-size:1.1em;">83</span>/100分</p>
+<p>结论：<strong>坚定持有/加仓</strong>。市场用看待旧业务的眼光给出了19倍PE，却未给即将到来的利润结构质变任何估值。这正是费雪定义的买入时点——当企业的真实成长尚未被会计利润证明时。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">⚡</div>
     <div class="voice-name">⚡ 笨韭</div>
-    <div class="voice-round">第 2 轮</div>
+    <div class="voice-round r2">第 2 轮</div>
   </div>
-  <div><p>第2轮 | ⚡ 笨韭</p>
+  <div><p>现象级事件：否</p>
+<p>笨韭双击：否（服务业务占比低，企业自身拐点远未确认）</p>
 
-<p>莫大，你反复强调“接收站物理瓶颈”，但<strong>资产稀缺≠赚钱机会</strong>。我承认你捕捉到了产业趋势——气电调峰需求爆发、供给弹性低——但在我的框架里，<strong>这仍然只是单击，不是双击</strong>。产业拐点有，但企业拐点呢？营收-18%、净利润-14%，财务数据在反向狂奔。我不管溢价有多少预期差，我只认数据。</p>
+<table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>景气度(30%)</td><td><div class="score-bar-wrap"><span class="score-value">35.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:35.0%;"></div></div></div></td><td>Q1营收-18%利润-14%，ROE仅3.8%，全行业量增价承压。费雪说的“利润结构质变”目前只是故事，财务上毫无证据。</td></tr><tr><td>业务纯度(25%)</td><td><div class="score-bar-wrap"><span class="score-value">55.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:55.0%;"></div></div></div></td><td>接收站有稀缺性，但能源服务占比不够高。龟龟没说错：14.4%毛利率证明这本质仍是赚辛苦钱的贸易商，不是技术服务商。</td></tr><tr><td>估值水位(30%)</td><td><div class="score-bar-wrap"><span class="score-value">30.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:30.0%;"></div></div></div></td><td>距52周高点32%，但距低点已涨50%，居历史中位上方。19倍PE对一家业绩双降的公司毫无安全边际。</td></tr><tr><td>催化剂(15%)</td><td><div class="score-bar-wrap"><span class="score-value">0.0</span><div class="score-bar"><div class="score-bar-fill low" style="width:0.0%;"></div></div></div></td><td>无现象级事件。增储上产是慢变量，不是引爆点。</td></tr></table>
 
-<p>我更要点出巴菲特和龟龟联手揭示的<strong>盲区</strong>：经营现金流仅0.08元/股。莫大，你说这是“周期低谷会均值回归”——但回归的触发点在哪儿？是国际气价突然顺挂？还是政策文件出炉？这些都是外生变量，<strong>不是企业自己能掌控的</strong>。费雪说管理层“无牌可打”，一针见血。没有内部可控的业绩改善路径，就不可能出现笨韭双击。</p>
+<p>总分：35×0.30+55×0.25+30×0.30+0×0.15=<span style="font-weight:700;font-size:1.1em;">37</span>/100分→ <strong>不碰</strong></p>
 
-<p><strong>我不调整立场</strong>：总分仍不过60，不持有。你们三位在争论资产定价是否合理，而我看的根本不是定价——我看的是<strong>有没有现象级事件来做发动机</strong>。眼下没有ChatGPT级别的催化，没有制裁断供的突发事件，没有海外映射。资产再稀缺，没有发动机也只是静态宝藏，而我要的是正在喷发的活火山。</p>
+<p><strong>核心反驳</strong>：巴菲特点破了最关键的盲点——净资产里是钢筋水泥，不是经济商誉。16.65元净资产若ROE仅3.8%，资产回报率连国债都不如。费雪笃信的“运营know-how”和“服务蜕变”需要至少两三个季度的高毛利兑现来证真，现在买入是在为信仰支付19倍溢价。</p>
 
-<p><strong>操作交底</strong>：已持有的，趁这个+3%的反弹继续减，别等水落石出；未持有的，远离。等等看有没有真能点燃景气的催化事件——比如气价结构性能顺挂，或者气电调峰定出重磅补贴机制——否则，碰都别碰。</p></div>
+<p><strong>盲点补充</strong>：无人提及Q1经营现金流每股仅0.08元——利润没变成真金白银。这在笨韭框架是景气度的铁证减分。已持有者应趁反弹减仓，等景气度数据真回暖再考虑。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">📊</div>
     <div class="voice-name">📊 莫大</div>
-    <div class="voice-round">第 2 轮</div>
+    <div class="voice-round r2">第 2 轮</div>
   </div>
-  <div><p>第2轮 | 📊 莫大</p>
-<p>费雪、笨韭，你们联手制造了一条<strong>伪共识</strong>——用经营现金流差来否定资产价值，这正是市场犯错的地方。</p>
+  <div><table class="score-table"><tr><th>维度(权重)</th><th>分数</th><th>理由</th></tr><tr><td>预期差(18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">70.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:70.0%;"></div></div></div></td><td>本轮辩论暴露了核心分歧：费雪认为是成长裂变，巴菲特龟龟认为是商品周期。关键盲点是九丰资产正在从“贸易商”重构成“矿权服务商”——井口气回收服务绑定的是开采权，不是气价。市场按周期股给19倍PE，本质错判。</td></tr><tr><td>不可替代(18.75%)</td><td><div class="score-bar-wrap"><span class="score-value">60.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:60.0%;"></div></div></div></td><td>反驳莫大上轮：接收站审批2-5年仅是最低时限。东莞立沙岛有5年运营磨合+客户关系沉淀，参照ASML认证逻辑——能批第二张证≠能在5年内复制同品质运营。采矿服务领域的先发者拥有品牌型进阶级的排他性。</td></tr><tr><td>股价位置(25%)</td><td>空仓:45 / 已持有:65</td><td>距前高32%跌幅不够厚实安全边际（空仓中位偏下），但距低点已涨51%。对已持有者，利润结构性的潜力未被估值，持有等待逻辑证真的赔率尚可。</td></tr><tr><td>供给弹性(12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">55.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:55.0%;"></div></div></div></td><td>接收站是矿权型+技术型叠加，非有钱就能快速复制。井口服务需绑定特定矿区，具备投入+时滞双门槛，属牌照+技术的复合供给约束。不是地质级稀缺，但复制周期远超1年。</td></tr><tr><td>需求刚性(12.5%)</td><td><div class="score-bar-wrap"><span class="score-value">70.0</span><div class="score-bar"><div class="score-bar-fill high" style="width:70.0%;"></div></div></div></td><td>增储上产是国策，井口服务不是可选消费，是“不开井就没有气”的必须项。贝塔不是气价，是产量增速。反驳笨韭——看现金流的先入为主忽略了这层脱钩。</td></tr><tr><td>产业链供给周期(6.25%)</td><td><div class="score-bar-wrap"><span class="score-value">55.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:55.0%;"></div></div></div></td><td>全球气源宽松，但这不影响九丰的服务端需求。服务的供给缺口是渗透率极低+服务商稀缺，此维度应从服务格局看。</td></tr><tr><td>企业盈利周期(6.25%)</td><td><div class="score-bar-wrap"><span class="score-value">40.0</span><div class="score-bar"><div class="score-bar-fill mid" style="width:40.0%;"></div></div></div></td><td>盈利双降是传统贸易业务的均值回归期，ROE 3.8%处于底部。若服务业务兑现，结构性拐点的前夜才值得埋伏。</td></tr></table>
+<p>总分：60.<span style="font-weight:700;font-size:1.1em;">9</span>/100分→ ✅优质，临界</p>
 
-<p>费雪，你引用龟龟数据指出“0.08元现金流vs0.63元EPS”的巨大鸿沟，然后断言这是套利模式的内在脆弱。错。<strong>这恰恰是周期底部的标准体征，不是结构崩塌。</strong> LNG贸易在气价倒挂时必须预付锁量，现金被上游占用，一旦价差修复，现金流会剧烈V型反转。你把它当成“组织无法转化为伟大企业”，我认为这是“假死”——市场正在按利润表给一家资产型公司定价，这就是预期差。</p>
+<p><strong>引用反驳龟龟</strong>：你计算的2.2%股息率只能解释今天的九丰，不能解释明天的。当利润结构中服务占比超过50%，利润率从14%跳升至25%以上时，RoE将从3.8%翻身，你的烟蒂公式将瞬间失效。这不是树上的金苹果，是正在嫁接的果树。</p>
 
-<p>笨韭，你说“资产稀缺≠赚钱机会”“没有现象级事件”。我问你：<strong>当所有人都盯着缺乏“发动机”时，发动机真的没在运转吗？</strong> 新能源并网率正在以每周数GW的速度爬升，电网调峰需求每天都在增加——接收站利用率已处高位，供给窗口却在缩小。这不是ChatGPT式的爆发叙事，但它是<strong>结构性、不可逆的需大于供</strong>。真正的双击不是等政策文件出台那天——那已经是兑现日了。</p>
+<p><strong>补充费雪</strong>：你被反驳的核心在于——九丰是否真的从“商品企业”裂变为“服务企业”？这需要两个季度高毛利数据的证真。因此，当前只适合已持有的费雪信徒继续守仓，不适合莫大重仓。</p>
 
-<p>巴菲特谈“股东回报”，我尊重。但当ROE从3.8%回归15%的那天，股价早已不是38元。我买的是现在无人敢买的时刻。</p>
+<p><strong>立场调整</strong>：不可替代性上调至60、供给弹性上调至55——接收站+井口服务的复合壁垒比上轮认知更强。总分从41.6升至60.9。</p>
 
-<table><tr><th>六维不变</th><th>总分69 → ✅优质</th></tr><tr><td>空仓</td><td>38元附近建底仓，这是资产稀缺被低估的窗口</td></tr><tr><td>已持有</td><td>持有不卖，等现金流转正信号出现，加仓时刻未到</td></tr></table></div>
+<p>空仓建议：临界质量，59→61的差距在于服务业务是否真兑现毛利率飞跃。用观察仓等待下一期毛利数据，若服务收入占比突破30%且毛利率站上25%，将触发重仓信号。</p>
+<p>已持有建议：不卖。底仓留着，让服务业务的故事跑1-2个季度。若Q2毛利仍无结构性改善，再考虑减仓换周期品。</p></div>
 </article>
 <article class="voice-card">
   <div class="voice-head">
     <div class="voice-emoji">🐢</div>
     <div class="voice-name">🐢 龟龟</div>
-    <div class="voice-round">第 2 轮</div>
+    <div class="voice-round r2">第 2 轮</div>
   </div>
-  <div><p>== 第2轮 | 🐢 龟龟 ==</p>
+  <div><p>莫大，你上轮调整立场，是将“可能性”误当作“安全边际”。</p>
 
-<p>巴菲特、费雪、笨韭，你们的现金流质疑我双手赞成，但莫大在第2轮的反驳让我发现了一个<strong>被忽略的盲点</strong>：我们全在争论“贱买贵卖”能不能回来，却没人算清这笔钱的时间成本。</p>
+<p>你称九丰是“正在嫁接的果树”，暗指高毛利服务业务即将兑现。但龟龟框架只认<strong>已然</strong>，绝不支付<strong>未然</strong>的溢价。你上调的分值，本质上是对管理层执行力与行业未来的双重下注。一旦嫁接失败，ROE维持在3.8%，你支付的19倍市盈率将面临惨烈的均值回归。</p>
 
-<p>莫大说38元建底仓——这是预期差交易，看资产稀缺性终将被定价。但我的框架里不赌预期，只算合同。我上一轮算出穿透回报率3.9%，即便按达产最优的10%ROE、全部分红来倒推（271亿市值对应27亿利润），满打满算给你的股息也就是5%出头。</p>
+<p>我要指出本轮辩论至今最大的盲点：<strong>无人深究那每股仅0.08元的经营现金流。</strong></p>
 
-<p><strong>这笔账太薄了。</strong> 5%的隐含最高回报，对应着国际气价随时可能倒挂的中断风险。费雪点破本质——这生意的命门是外部变量，管理层无牌可打。龟龟的生存法则第一条：我给你的现金，必须随时有保底票息。</p>
+<p>费雪将“井口服务”描绘为刚性需求，但为何利润（4.34亿）未能转化为真金白银？极可能是应收账款高企——下游采气方自身也在周期底部挣扎，支付能力存疑。这直接动摇了服务业务“脱钩气价”的叙事：即便挂钩产量，若客户没钱付账，利润也只是纸面富贵。</p>
 
-<p><strong>立场微调</strong>：我部分认可莫大对资产稀缺性的判断（加10分商业模式），但这改变不了结论。除非股价跌穿25元（对应穿透回报率6%+），用真金白银的股息兜住风险，否则——</p>
-
-<p>总分：47→<span style="font-weight:700;font-size:1.1em;">50</span>/100分。<strong>结论不变：不买。</strong> 这笔钱的等待成本，不该由我来付。</p></div>
+<p>因此，我的立场无任何调整。穿透回报率2.2%对比国债收益率，是数学上的绝对劣势。未持有的绝不用264亿去赌一个现金流堪忧的转型故事。已持有的，趁着市场还在为莫大所说的“可能性”买单，此刻是<strong>坚决清仓</strong>的最后窗口，别等Q2现金流继续恶化时再后悔。</p></div>
 </article>
   </div>
 </section>
@@ -648,8 +648,20 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
     <article class="dispute-card">
   <div class="dispute-num">01</div>
   <div class="dispute-body">
-    <h4>资产稀缺性是否构成当前买入理由</h4>
-    <p><strong>乐观派</strong>：LNG接收站是物理瓶颈，资产稀缺被低估，当前是周期底部，38元附近可建底仓，等待现金流反转。</p><p><strong>悲观派</strong>：资产稀缺无法转化为股东回报，盈利与现金流双降，管理层无牌可打，风险收益比差，不值得以当前价格买入。</p>
+    <h4>能源服务业务能否实现利润结构质变</h4>
+    <p><strong>费雪</strong>：能源服务与增储上产战略挂钩，渗透率低，高毛利将推动利润率跳升</p><p><strong>巴菲特/龟龟</strong>：服务业务占比低，财务无证据，现金流差，属未证实的成长故事</p>
+  </div>
+</article><article class="dispute-card">
+  <div class="dispute-num">02</div>
+  <div class="dispute-body">
+    <h4>接收站资产是否构成强护城河</h4>
+    <p><strong>费雪/莫大</strong>：自主接收站+船队+运营经验形成复合壁垒，难以短期复制</p><p><strong>巴菲特/笨韭</strong>：资产是昂贵硬件，非经济商誉，无法传导成本，毛利率低反映弱定价权</p>
+  </div>
+</article><article class="dispute-card">
+  <div class="dispute-num">03</div>
+  <div class="dispute-body">
+    <h4>当前估值是否合理</h4>
+    <p><strong>龟龟/巴菲特</strong>：19倍PE对业绩双降、股息率仅2.2%的公司无安全边际，应清仓</p><p><strong>费雪</strong>：市场按旧业务定价，未计入能源服务成长，19倍PE是买入良机</p>
   </div>
 </article>
   </div>
@@ -669,10 +681,16 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
       <thead><tr><th>#</th><th>风险描述</th></tr></thead>
       <tbody><tr>
   <td style="font-weight:600;width:60px;">01</td>
-  <td style="color:var(--text-secondary);line-height:1.85;">国际气价持续性倒挂导致套利模式崩塌</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">经营现金流极差（每股仅0.08元），利润转化为现金能力存疑</td>
 </tr><tr>
   <td style="font-weight:600;width:60px;">02</td>
-  <td style="color:var(--text-secondary);line-height:1.85;">经营现金流极弱，账面利润含金量低</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">营收与净利润双降，ROE仅3.8%，传统贸易业务承压</td>
+</tr><tr>
+  <td style="font-weight:600;width:60px;">03</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">能源服务业务占比低，毛利率结构性改善尚未兑现</td>
+</tr><tr>
+  <td style="font-weight:600;width:60px;">04</td>
+  <td style="color:var(--text-secondary);line-height:1.85;">天然气价格波动与行业周期下行风险</td>
 </tr></tbody>
     </table>
   </div>
@@ -680,7 +698,7 @@ footer p { max-width: 680px; margin: 0 auto; font-size: 0.95rem; }
 
 <footer>
   <p>⚠️ 以上内容由 Hermes 多 Agent 辩论引擎自动生成，基于 AI 模型推理，仅供参考，不构成任何投资建议或专业决策依据。</p>
-  <p class="footer-sub">Hermes Agent · Debate Engine · Generated 2026-07-01 11:30</p>
+  <p class="footer-sub">Hermes Agent · Debate Engine · Generated 2026-07-01 14:34 · Powered by <a href="https://github.com/cocodeemo/stock-roundtable" target="_blank" rel="noopener">cocodeemo/stock-roundtable</a></p>
 </footer>
 
 </body>
