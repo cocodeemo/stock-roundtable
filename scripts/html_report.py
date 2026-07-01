@@ -598,7 +598,10 @@ def _build_comparison_table(transcript: list) -> str:
         # 4b. "总分：67 →" / "总分：55分 →"（不带/100的格式，笨韭常用）
         if not m:
             m = re.search(r'总分[：:]\s*([\d.]+)\s*分?\s*→', content)
-        # 5. 表格最后一行最后一列是数字（兜底）
+        # 4c. 笨韭公式格式 "总分：90×0.30+... = 60.5 → 标配"
+        if not m:
+            m = re.search(r'总分[：:]\s*[\d.×+= −]+\s*=\s*([\d.]+)\s*分?\s*→', content)
+        # 5. 表格最后一行最后一列是数字（兜底，取最后匹配的行而非第一行）
         _table_score = None
         if not m:
             for line in content.split('\n'):
@@ -606,20 +609,16 @@ def _build_comparison_table(transcript: list) -> str:
                     cells = [c.strip() for c in line.split('|')[1:-1]]
                     if len(cells) >= 2:
                         try:
-                            # 最后一行最后单元格
                             last = cells[-1].replace('**', '').strip()
                             v = float(last)
                             if 0 < v <= 100:
                                 _table_score = v
-                                break
                         except ValueError:
-                            # 倒数第二格（有时结论在最后一格）
                             if len(cells) > 2:
                                 try:
                                     v = float(cells[-2].replace('**', '').strip())
                                     if 0 < v <= 100:
                                         _table_score = v
-                                        break
                                 except ValueError:
                                     pass
 
